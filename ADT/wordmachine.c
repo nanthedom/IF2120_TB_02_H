@@ -1,6 +1,6 @@
 /* File: wordmachine.c */
 /* Definisi Mesin Word: Model Akuisisi Versi I */
-
+#include <stdio.h>
 #include "boolean.h"
 #include "charmachine.h"
 #include "wordmachine.h"
@@ -32,15 +32,15 @@ void STARTWORD(){
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
 
-void ADVWORD(){
-    IgnoreBlanks();
-    if(currentChar == MARK){
-        EndWord = true;
-    } else{
-        CopyWord();
-    }
-    // IgnoreBlanks();
-}
+// void ADVWORD(){
+//     IgnoreBlanks();
+//     if(currentChar == MARK){
+//         EndWord = true;
+//     } else{
+//         CopyWord();
+//     }
+//     // IgnoreBlanks();
+// }
 /* I.S. : currentChar adalah karakter pertama kata yang akan diakuisisi
    F.S. : currentWord adalah kata terakhir yang sudah diakuisisi,
           currentChar adalah karakter pertama dari kata berikutnya, mungkin MARK
@@ -49,7 +49,7 @@ void ADVWORD(){
 
 void CopyWord(){
     int i = 0;
-    while (currentChar != MARK && currentChar != BLANK){
+    while (currentChar != MARK){
         if(i < NMax){
             currentWord.TabWord[i] = currentChar;
             i++;
@@ -65,3 +65,18 @@ void CopyWord(){
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
+void printWord(Word word) {
+   int i;
+   for (i = 0; i < word.Length; i++) {
+      printf("%c", word.TabWord[i]);
+   }
+   printf("\n");
+}
+
+void copy(Word w1, Word *w2){
+    int i;
+    for(i = 0; i < w1.Length; i++){
+        w2->TabWord[i] = w1.TabWord[i];
+    }
+    w2->Length = w1.Length;
+}
