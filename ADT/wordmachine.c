@@ -70,7 +70,6 @@ void printWord(Word word) {
    for (i = 0; i < word.Length; i++) {
       printf("%c", word.TabWord[i]);
    }
-   printf("\n");
 }
 
 void copy(Word w1, Word *w2){
