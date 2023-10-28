@@ -3,12 +3,14 @@
 #include "ADT/inisialisasi.h"
 #include "ADT/wordmachine.h"
 
+extern ListPengguna ListUser;
 int main(){
-    extern ListPengguna ListUser;
     CreateList(&ListUser);
-    init();
-    Daftar();
-    Masuk();
-    Masuk();
-    Keluar();
+    init(); Word cmd;
+    while(!isClosed){
+        printf(">> ");
+        ReadWord();
+        cmd = currentWord;
+        prosesCmd(cmd);
+    }
 }

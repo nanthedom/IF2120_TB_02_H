@@ -31,26 +31,11 @@ void printList(ListPengguna l){
     }
 }
 
-int indexOfNama(ListPengguna l, Word Nama){
+int indexOf(ListPengguna l, Word Nama){
     if(!isEmpty(l)){
         int i = 0; boolean found = false; int idx = IDX_UNDEF;
         while(i < length(l) && !found){
             if(isKataEqual(Nama(ELMT(l,i)), Nama)){
-                found = true;
-                idx = i;
-            }
-            i++;
-        }
-        return idx;
-    }
-    return IDX_UNDEF;
-}
-
-int indexOfPassword(ListPengguna l, Word Password){
-    if(!isEmpty(l)){
-        int i = 0; boolean found = false; int idx = IDX_UNDEF;
-        while(i < length(l) && !found){
-            if(isKataEqual(Password(ELMT(l,i)), Password)){
                 found = true;
                 idx = i;
             }
@@ -69,7 +54,7 @@ void insertLast(ListPengguna *l, Pengguna p){
 }
 
 boolean isNamaValid(Word Nama){
-    return (Nama.Length <= 20 && Nama.Length > 0)  && (indexOfNama(ListUser, Nama) == IDX_UNDEF);
+    return (Nama.Length <= 20 && Nama.Length > 0)  && (indexOf(ListUser, Nama) == IDX_UNDEF);
 }
 
 boolean isPasswordValid(Word Password){
@@ -82,7 +67,7 @@ void Daftar(){
         ReadWord();
         Nama = currentWord;
         while(!isNamaValid(Nama)){
-            if(indexOfNama(ListUser, Nama) != IDX_UNDEF){
+            if(indexOf(ListUser, Nama) != IDX_UNDEF){
                 printf("Wah, sayang sekali nama tersebut telah diambil.\n");
             } else{
                 printf("Nama tidak boleh melebihi 20 karakter atau berupa string kosong.\n");
@@ -119,7 +104,7 @@ void Masuk(){
         printf("Masukkan nama:\n");
         ReadWord();
         Nama = currentWord;
-        while(indexOfNama(ListUser, Nama) == IDX_UNDEF){
+        while(indexOf(ListUser, Nama) == IDX_UNDEF){
             printf("Wah, nama yang Anda cari tidak ada. Masukkan nama lain!\n");
             printf("Masukkan nama:\n");
             ReadWord();
@@ -128,7 +113,7 @@ void Masuk(){
         printf("Masukkan kata sandi:\n");
         ReadWord();
         Password = currentWord;
-        while(indexOfPassword(ListUser, Password) == IDX_UNDEF){
+        while(!isKataEqual(Password(ELMT(ListUser,indexOf(ListUser, Nama))), Password)){
             printf("Wah, kata sandi yang Anda masukkan belum tepat. Periksa kembali kata sandi Anda!\n");
             printf("Masukkan kata sandi:\n");
             ReadWord();

@@ -5,5 +5,6 @@ extern boolean isLogin;
 extern boolean isClosed;
 
 void init();
+void prosesCmd(Word cmd);
 
 

@@ -8,8 +8,8 @@
 Word currentWord;
 boolean EndWord;
 
-void IgnoreBlanks(){
-    while(currentChar == BLANK | currentChar == ENTER){
+void IgnoreEnter(){
+    while(currentChar == ENTER){
         ADV();
     }
 }
@@ -19,7 +19,7 @@ void IgnoreBlanks(){
 
 void ReadWord(){
     START();
-    IgnoreBlanks();
+    IgnoreEnter();
     if(currentChar == MARK){
         EndWord = true;
     } else{
@@ -93,4 +93,13 @@ boolean isKataEqual(Word w1, Word w2){
         return eq;
     }
     return false;
+}
+
+void strToWord(char* s, Word* w){
+    int i = 0;
+    while(s[i] != '\0'){
+        w->TabWord[i] = s[i];  
+       i++;
+    }
+    w->Length = i;
 }

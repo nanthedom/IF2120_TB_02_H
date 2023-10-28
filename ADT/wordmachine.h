@@ -50,4 +50,6 @@ void CopyWord();
 void printWord(Word word);
 void copy(Word w1, Word *w2);
 boolean isKataEqual(Word w1, Word w2);
+void strToWord(char *s, Word *w);
+
 #endif

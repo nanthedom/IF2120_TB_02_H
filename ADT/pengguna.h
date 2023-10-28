@@ -31,8 +31,7 @@ void CreateList(ListPengguna*l);
 boolean isEmpty(ListPengguna l);
 boolean isFull(ListPengguna l);
 void printList(ListPengguna l);
-int indexOfNama(ListPengguna l, Word Nama);
-int indexOfPassword(ListPengguna l, Word Password);
+int indexOf(ListPengguna l, Word Nama);
 void insertLast(ListPengguna* l, Pengguna p);
 
 void Daftar();
