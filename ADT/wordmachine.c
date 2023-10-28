@@ -4,6 +4,7 @@
 #include "boolean.h"
 #include "charmachine.h"
 #include "wordmachine.h"
+#include <stdlib.h>
 
 Word currentWord;
 boolean EndWord;
@@ -20,6 +21,7 @@ void IgnoreEnter(){
 void ReadWord(){
     START();
     IgnoreEnter();
+    currentWord.TabWord = (char*) malloc (NMax*sizeof(char));
     if(currentChar == MARK){
         EndWord = true;
     } else{
@@ -48,12 +50,16 @@ void ReadWord(){
    Proses : Akuisisi kata menggunakan procedure SalinWord */
 
 void CopyWord(){
-    int i = 0;
+    int i = 0, N = NMax;
     while (currentChar != MARK){
-        if(i < NMax){
+        if(i < N){
             currentWord.TabWord[i] = currentChar;
-            i++;
+        } else{
+            currentWord.TabWord = (char*) realloc(currentWord.TabWord, 2*N*sizeof(char));
+            N*=2;
+            currentWord.TabWord[i] = currentChar;
         }
+        i++;
         ADV();
     }
     currentWord.Length = i;
@@ -96,10 +102,36 @@ boolean isKataEqual(Word w1, Word w2){
 }
 
 void strToWord(char* s, Word* w){
-    int i = 0;
+    int i = 0, N = NMax;
+    (*w).TabWord = (char*) malloc (NMax*sizeof(char));
     while(s[i] != '\0'){
-        w->TabWord[i] = s[i];  
-       i++;
+        if(i < N){
+            w->TabWord[i] = s[i];  
+        } else{
+            (*w).TabWord = (char*) realloc ((*w).TabWord, 2*N*sizeof(char));
+            N*=2;
+            w->TabWord[i] = s[i];
+        }
+        i++;
     }
     w->Length = i;
+}
+
+boolean isNumerical(char c){
+   int ic = (int) c;
+   return (ic >= 48 && ic <= 57);
+}
+
+boolean isNumber(Word w){
+    if(w.Length > 0){
+        boolean isNum = true; int i = 0;
+        while(isNum && i < w.Length){
+            if(!isNumerical(w.TabWord[i])){
+                isNum = false;
+            }
+            i++;
+        }
+        return isNum;
+    }
+    return false;
 }

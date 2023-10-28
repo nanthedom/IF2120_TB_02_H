@@ -3,7 +3,7 @@
 #include "ADT/inisialisasi.h"
 #include "ADT/wordmachine.h"
 
-extern ListPengguna ListUser;
+static ListPengguna ListUser;
 int main(){
     CreateList(&ListUser);
     init(); Word cmd;

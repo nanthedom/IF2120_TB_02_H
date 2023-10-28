@@ -7,13 +7,13 @@
 #include "boolean.h"
 #include "charmachine.h"
 
-#define NMax 280
+#define NMax 64
 #define BLANK ' '
 #define ENTER '\n'
 
 typedef struct
 {
-   char TabWord[NMax]; /* container penyimpan kata, indeks yang dipakai [0..NMax-1] */
+   char *TabWord; /* container penyimpan kata, indeks yang dipakai [0..NMax-1] */
    int Length;
 } Word;
 
@@ -51,5 +51,6 @@ void printWord(Word word);
 void copy(Word w1, Word *w2);
 boolean isKataEqual(Word w1, Word w2);
 void strToWord(char *s, Word *w);
-
+boolean isNumerical(char c);
+boolean isNumber(Word w);
 #endif
