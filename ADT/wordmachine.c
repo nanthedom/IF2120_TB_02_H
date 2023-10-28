@@ -9,7 +9,7 @@ Word currentWord;
 boolean EndWord;
 
 void IgnoreBlanks(){
-    while(currentChar == BLANK){
+    while(currentChar == BLANK | currentChar == ENTER){
         ADV();
     }
 }
@@ -17,7 +17,7 @@ void IgnoreBlanks(){
    I.S. : currentChar sembarang
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
 
-void STARTWORD(){
+void ReadWord(){
     START();
     IgnoreBlanks();
     if(currentChar == MARK){
@@ -79,4 +79,19 @@ void copy(Word w1, Word *w2){
         w2->TabWord[i] = w1.TabWord[i];
     }
     w2->Length = w1.Length;
+}
+
+boolean isKataEqual(Word w1, Word w2){
+    if(w1.Length == w2.Length){
+        boolean eq = true;
+        int i = 0;
+        while(i < w1.Length && eq){
+            if(w1.TabWord[i] != w2.TabWord[i]){
+                eq = false;
+            }
+            i++;
+        }
+        return eq;
+    }
+    return false;
 }

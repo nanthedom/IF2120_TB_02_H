@@ -9,6 +9,7 @@
 
 #define NMax 280
 #define BLANK ' '
+#define ENTER '\n'
 
 typedef struct
 {
@@ -25,7 +26,7 @@ void IgnoreBlanks();
    I.S. : currentChar sembarang
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
 
-void STARTWORD();
+void ReadWord();
 /* I.S. : currentChar sembarang
    F.S. : EndWord = true, dan currentChar = MARK;
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
@@ -47,6 +48,6 @@ void CopyWord();
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 
 void printWord(Word word);
-
-void printWord(Word word);
+void copy(Word w1, Word *w2);
+boolean isKataEqual(Word w1, Word w2);
 #endif
