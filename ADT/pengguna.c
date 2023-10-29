@@ -6,7 +6,7 @@
 extern ListPengguna ListUser;
 boolean isLogin;
 boolean isClosed;
-Pengguna currentUser;
+Pengguna* currentUser;
 
 void CreatePengguna(Pengguna* p, Word Nama, Word Password){
     Nama(*p) = Nama;
@@ -121,9 +121,9 @@ void Masuk(){
             ReadWord();
             Password = currentWord;
         }
-        currentUser = ELMT(ListUser, indexOf(ListUser,Nama));
+        currentUser = &ELMT(ListUser, indexOf(ListUser,Nama));
         printf("Anda telah berhasil masuk dengan nama pengguna ");
-        printWord(Nama(currentUser));
+        printWord(Nama(*currentUser));
         isLogin = true;
         printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n");
     } else{

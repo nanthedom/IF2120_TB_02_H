@@ -7,6 +7,7 @@
 #define USERMAX 20
 #define IDX_UNDEF -1
 
+// Tipe Foto (Satuan Foto)
 typedef struct{
     char X;
     char Y;
@@ -18,6 +19,7 @@ typedef struct{
 #define ROW_CAP 5
 #define COL_CAP 5
 
+// Tipe MatriksFoto
 typedef struct
 {
    Foto mem[ROW_CAP][COL_CAP];
@@ -25,7 +27,7 @@ typedef struct
 
 #define PIXEL(M,i,j) (M).mem[(i)][(j)]
 
-
+// Tipe Profil
 typedef struct {
     Word bio;
     Word noHP;
@@ -34,13 +36,14 @@ typedef struct {
     MatrixFoto M;
 } Profil;
 
+// Tipe Pengguna
 typedef struct {
     Word Nama;
     Word Password;
     Profil profil;
 } Pengguna;
 
-extern Pengguna currentUser;
+extern Pengguna* currentUser;
 
 #define Nama(P) (P).Nama
 #define Password(P) (P).Password

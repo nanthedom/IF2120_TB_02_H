@@ -29,6 +29,17 @@ void CreateWord(Word *w){
     w->Length = 0;
 }
 
+boolean containBlanks(Word w){
+    int i = 0; boolean found = false;
+    while(i < w.Length && !found){
+        if(w.TabWord[i] == BLANK){
+            found = true;
+        }
+        i++;
+    }
+    return found;
+}
+
 void ReadWord(){
     START();
     IgnoreEnter();

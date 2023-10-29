@@ -30,6 +30,8 @@ void IgnoreBlanks();
 
 void CreateWord(Word *w);
 
+boolean containBlanks(Word w);
+
 void ReadWord();
 /* I.S. : currentChar sembarang
    F.S. : EndWord = true, dan currentChar = MARK;

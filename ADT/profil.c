@@ -221,7 +221,6 @@ void ReadWeton(Profil *P){
     printf("Masukkan weton:\n");
     ReadWord();
     weton = currentWord;
-    printWord(weton);
     while(!isWetonValid(weton)){
         printf("Weton anda tidak valid.\n");
         printf("Masukkan weton:\n");
@@ -298,11 +297,10 @@ void displayProfil(Pengguna p){
 }
 
 void GantiProfil(){
-    displayProfil(currentUser); int idx = indexOf(ListUser, Nama(currentUser));
-    ReadBio(&Profil(ELMT(ListUser,idx)));
-    ReadNoHP(&Profil(ELMT(ListUser,idx)));
-    ReadWeton(&Profil(ELMT(ListUser,idx)));
-    currentUser = ELMT(ListUser,idx);
+    displayProfil(*currentUser);
+    ReadBio(&(Profil(*currentUser)));
+    ReadNoHP(&(Profil(*currentUser)));
+    ReadWeton(&(Profil(*currentUser)));
     printf("Profil Anda sudah berhasil diperbarui!\n");
 }
 
@@ -311,6 +309,7 @@ void LihatProfil(Word Nama){
     if(id != IDX_UNDEF){    
         if(isPublic(Profil(ELMT(ListUser,id)))){
             displayProfil(ELMT(ListUser, id));
+            printf("Foto profil: \n");
             PrintFoto(Profil(ELMT(ListUser,id)));
         } else{
             printf("Wah akun ");
@@ -327,15 +326,14 @@ void LihatProfil(Word Nama){
 }
 
 void AturJenisAkun(){
-    int id = indexOf(ListUser,Nama(currentUser));
     Word confirm,temp;
-    if(isPublic(Profil(currentUser))){
+    if(isPublic(Profil(*currentUser))){
         printf("Saat ini, akun Anda adalah akun Publik. Ingin mengubah ke akun Privat? (YA/TIDAK) ");
         ReadWord();
         confirm = currentWord;
         strToWord("YA", &temp);
         if(isKataEqual(confirm, temp)){
-            isPublic(Profil(ELMT(ListUser,id))) = false;
+            isPublic(Profil(*currentUser)) = false;
             printf("Akun anda sudah diubah menjadi akun Privat.\n");
         }
 
@@ -345,19 +343,16 @@ void AturJenisAkun(){
         confirm = currentWord;
         strToWord("YA", &temp);
         if(isKataEqual(confirm, temp)){
-            isPublic(Profil(ELMT(ListUser,id))) = true;
+            isPublic(Profil(*currentUser)) = true;
             printf("Akun anda sudah diubah menjadi akun Publik.\n");
         }
     }
-    currentUser = ELMT(ListUser,id);
 }
 
 void UbahFotoProfil(){
-    int id = indexOf(ListUser,Nama(currentUser));
     printf("Foto profil Anda saat ini adalah: \n");
-    PrintFoto(Profil(currentUser));
-    ReadFoto(&(Profil(ELMT(ListUser,id))));
+    PrintFoto(Profil(*currentUser));
+    ReadFoto(&(Profil(*currentUser)));
     printf("Foto profil Anda sudah berhasil diganti! \n");
-    currentUser = ELMT(ListUser,id);
 }
 
