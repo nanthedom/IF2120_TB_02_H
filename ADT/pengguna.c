@@ -1,8 +1,9 @@
 #include "pengguna.h"
+#include "profil.h"
 #include "inisialisasi.h"
 #include <stdio.h>
 
-ListPengguna ListUser;
+extern ListPengguna ListUser;
 boolean isLogin;
 boolean isClosed;
 Pengguna currentUser;
@@ -10,6 +11,7 @@ Pengguna currentUser;
 void CreatePengguna(Pengguna* p, Word Nama, Word Password){
     Nama(*p) = Nama;
     Password(*p) = Password;
+    CreateProfil(&Profil(*p));
 }
 
 void CreateList(ListPengguna* l){
@@ -119,7 +121,7 @@ void Masuk(){
             ReadWord();
             Password = currentWord;
         }
-        CreatePengguna(&currentUser, Nama, Password);
+        currentUser = ELMT(ListUser, indexOf(ListUser,Nama));
         printf("Anda telah berhasil masuk dengan nama pengguna ");
         printWord(Nama(currentUser));
         isLogin = true;

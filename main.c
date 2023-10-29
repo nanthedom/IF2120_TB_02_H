@@ -2,8 +2,9 @@
 #include "ADT/pengguna.h"
 #include "ADT/inisialisasi.h"
 #include "ADT/wordmachine.h"
+#include "ADT/profil.h"
 
-static ListPengguna ListUser;
+ListPengguna ListUser;
 int main(){
     CreateList(&ListUser);
     init(); Word cmd;

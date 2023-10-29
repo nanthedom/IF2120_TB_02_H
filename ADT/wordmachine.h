@@ -21,10 +21,14 @@ typedef struct
 extern boolean EndWord;
 extern Word currentWord;
 
+void IgnoreEnter();
+
 void IgnoreBlanks();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
+
+void CreateWord(Word *w);
 
 void ReadWord();
 /* I.S. : currentChar sembarang

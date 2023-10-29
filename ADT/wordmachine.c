@@ -14,9 +14,20 @@ void IgnoreEnter(){
         ADV();
     }
 }
+
+void IgnoreBlanks(){
+    while(currentChar == BLANK){
+        ADV();
+    }
+}
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang
    F.S. : currentChar ≠ BLANK atau currentChar = MARK */
+
+void CreateWord(Word *w){
+    w->TabWord = (char*) malloc (NMax*sizeof(char));
+    w->Length = 0;
+}
 
 void ReadWord(){
     START();
@@ -26,8 +37,8 @@ void ReadWord(){
         EndWord = true;
     } else{
         EndWord = false;
-        CopyWord();
     }
+    CopyWord();
 }
 /* I.S. : currentChar sembarang
    F.S. : EndWord = true, dan currentChar = MARK;
