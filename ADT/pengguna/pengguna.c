@@ -1,6 +1,6 @@
 #include "pengguna.h"
-#include "profil.h"
-#include "inisialisasi.h"
+#include "../profil/profil.h"
+#include "../inisialisasi/inisialisasi.h"
 #include <stdio.h>
 
 extern ListPengguna ListUser;

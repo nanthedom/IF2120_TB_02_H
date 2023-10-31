@@ -1,6 +1,6 @@
 #include "inisialisasi.h"
-#include "pengguna.h"
-#include "profil.h"
+#include "../pengguna/pengguna.h"
+#include "../profil/profil.h"
 #include <stdlib.h>
 #include <stdio.h>
 
