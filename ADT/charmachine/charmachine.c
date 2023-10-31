@@ -3,6 +3,7 @@
 
 #include "charmachine.h"
 #include <stdio.h>
+#include "../boolean/boolean.h"
 
 char currentChar;
 boolean EOP;

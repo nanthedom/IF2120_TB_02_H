@@ -1,6 +1,6 @@
-#include "pengguna.h"
-#include "wordmachine.h"
-#include "pcolor.h"
+#include "../pengguna/pengguna.h"
+#include "../wordmachine/wordmachine.h"
+#include "../pcolor/pcolor.h"
 
 #ifndef PROFIL_H
 #define PROFIL_H

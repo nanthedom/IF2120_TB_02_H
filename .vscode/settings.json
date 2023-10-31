@@ -1,6 +1,10 @@
 {
     "files.associations": {
         "wordmachine.h": "c",
-        "pengguna.h": "c"
+        "pengguna.h": "c",
+        "boolean.h": "c",
+        "time.h": "c",
+        "charmachine.h": "c",
+        "inisialisasi.h": "c"
     }
 }

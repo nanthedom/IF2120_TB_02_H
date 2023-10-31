@@ -1,5 +1,5 @@
-#include "boolean.h"
-#include "pengguna.h"
+#include "../boolean/boolean.h"
+#include "../pengguna/pengguna.h"
 
 extern boolean isLogin;
 extern boolean isClosed;

@@ -1,5 +1,5 @@
-#include "wordmachine.h"
-#include "boolean.h"
+#include "../wordmachine/wordmachine.h"
+#include "../boolean/boolean.h"
 
 #ifndef PENGGUNA_H
 #define PENGGUNA_H
