@@ -1,4 +1,3 @@
-#include "../pengguna/pengguna.h"
 #include "../wordmachine/wordmachine.h"
 #include "../pcolor/pcolor.h"
 
