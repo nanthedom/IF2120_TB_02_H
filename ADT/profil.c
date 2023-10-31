@@ -229,11 +229,7 @@ void ReadWeton(Profil *P){
     }
     Weton(*P) = weton;
 }
-// int main(){
-//     Profil P;
-//     CreateProfil(&P);
-//     ReadWeton(&P);
-// }
+
 void ReadFoto(Profil *P){
     Word format; MatrixFoto M; Foto F;
     printf("Masukkan foto profil yang baru:\n");
