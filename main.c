@@ -12,7 +12,7 @@ Pengguna* currentUser;
 ListPengguna ListUser;
 
 /* Kicauan */
-int currentId;
+int currentIdTweet;
 ListKicauan ListTweet;
 
 int main()
