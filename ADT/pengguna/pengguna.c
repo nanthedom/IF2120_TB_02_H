@@ -4,9 +4,9 @@
 #include <stdio.h>
 
 extern ListPengguna ListUser;
-boolean isLogin;
-boolean isClosed;
-Pengguna* currentUser;
+extern boolean isLogin;
+extern boolean isClosed;
+extern Pengguna* currentUser;
 
 void CreatePengguna(Pengguna* p, Word Nama, Word Password){
     Nama(*p) = Nama;
