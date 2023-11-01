@@ -1,6 +1,7 @@
 #include "inisialisasi.h"
 #include "../pengguna/pengguna.h"
 #include "../profil/profil.h"
+#include "../kicau/kicau.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -37,7 +38,7 @@ void parseMultiCmd(Word w, Word *cmd, Word** param){
 }
 
 void prosesCmd(Word w){
-    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil;
+    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
@@ -46,6 +47,10 @@ void prosesCmd(Word w){
     strToWord("LIHAT_PROFIL", &lihat_profil);
     strToWord("ATUR_JENIS_AKUN", &atur_jenis_akun);
     strToWord("UBAH_FOTO_PROFIL", &ubah_foto_profil);
+    strToWord("KICAU", &kicau);
+    strToWord("KICAUAN", &kicauan);
+    strToWord("SUKA_KICAUAN", &suka_kicauan);
+    strToWord("UBAH_KICAUAN", &ubah_kicauan);
     if(isKataEqual(w,daftar)){
         Daftar();
     } else if(isKataEqual(w,masuk)){
@@ -58,19 +63,31 @@ void prosesCmd(Word w){
         if(isLogin){
             GantiProfil();
         } else{
-            printf("Anda belum login! Masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
         }
     } else if(isKataEqual(w, atur_jenis_akun)){
         if(isLogin){
             AturJenisAkun();
         } else{
-            printf("Anda belum login! Masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
         }
     } else if (isKataEqual(w, ubah_foto_profil)){
         if(isLogin){
             UbahFotoProfil();
         } else{
-            printf("Anda belum login! Masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+        }
+    } else if(isKataEqual(w, kicau)){
+        if (isLogin){
+            Kicau();
+        } else{
+            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+        }
+    } else if(isKataEqual(w, kicauan)){
+        if (isLogin){
+            printKicauan();
+        } else{
+            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
         }
     } else if(containBlanks(w)){
         Word newCmd; Word* param;
@@ -79,7 +96,21 @@ void prosesCmd(Word w){
             if(isLogin){
                 LihatProfil((param)[0]);
             } else{
-                printf("Anda belum login! Masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        } else if(isKataEqual(newCmd, suka_kicauan)){
+            if (isLogin){
+                int id = wordToInteger(param[0]);
+                sukaKicau(id);
+            } else{
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        } else if(isKataEqual(newCmd, ubah_kicauan)){
+            if (isLogin){
+                int id = wordToInteger(param[0]);
+                ubahKicauan(id);
+            } else{
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
             }
         }
     }

@@ -17,6 +17,7 @@ ListKicauan ListTweet;
 
 int main()
 {
+    CreateListKicauan(&ListTweet);
     CreateList(&ListUser);
     init();
     Word cmd;

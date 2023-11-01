@@ -73,9 +73,11 @@ void CreateKicau(Kicauan *kicau);
 
 void insertLastKicauan(ListKicauan *l, Kicauan kicau);
 
-void kicau();
+void Kicau();
 
-void kicauan();
+void printKicauan();
+
+boolean idValid(int id);
 
 void sukaKicau(int id);
 
