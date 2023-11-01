@@ -3,8 +3,18 @@
 #include "ADT/inisialisasi/inisialisasi.h"
 #include "ADT/wordmachine/wordmachine.h"
 #include "ADT/profil/profil.h"
+#include "ADT/kicau/kicau.h"
 
+/* USER*/
+boolean isLogin;
+boolean isClosed;
+Pengguna* currentUser;
 ListPengguna ListUser;
+
+/* Kicauan */
+int currentIdTweet;
+ListKicauan ListTweet;
+
 int main()
 {
     CreateList(&ListUser);
