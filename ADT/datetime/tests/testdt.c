@@ -58,14 +58,63 @@ int main()
             printf("0");
         }
         break;
+    
+    case 5:
+        // Test DNEQ
+        CreateDATETIME(&D1,2,2,2000,2,2,2);
+        CreateDATETIME(&D2,2,2,2000,2,2,2);
+        if(DNEQ(D1,D2)){
+            printf("1");
+        }else{
+            printf("0");
+        }
+        break;
+
+    case 6:
+        // Test DLT
+        CreateDATETIME(&D1,2,2,2000,2,2,2);
+        CreateDATETIME(&D2,2,2,2001,2,2,2);
+        if(DLT(D1,D2)){
+            printf("1");
+        }else{
+            printf("0");
+        }
+        break;
+    case 7:
+        // Test DGT
+        CreateDATETIME(&D1,2,2,2000,2,2,2);
+        CreateDATETIME(&D2,2,2,2001,2,2,2);
+        if(DGT(D1,D2)){
+            printf("1");
+        }else{
+            printf("0");
+        }
+        break;
+
+    case 8:
+        // Test DATETIMENextNDetik
+        CreateDATETIME(&D1,2,2,2000,2,2,2);
+        D2 = DATETIMENextNDetik(D1,1);
+        TulisDATETIME(D2);
+        break;
 
     case 9:
-        // Test BacaDatetime
-        BacaDATETIME(&date);
-        TulisDATETIME(date);
+        // Test DATETIMEPrevNDetik
+        CreateDATETIME(&D1,2,2,2000,2,2,2);
+        D2 = DATETIMEPrevNDetik(D1,1);
+        TulisDATETIME(D2);
         break;
-    
-    }
 
+
+    case 10:
+        // Test durasi
+        CreateDATETIME(&D1,2,2,2000,2,2,2);
+        CreateDATETIME(&D2,2,2,2000,2,2,5);
+        long durasi = DATETIMEDurasi(D1,D2);
+        printf("%ld",durasi);
+        break;
+
+    }
+    
     return 0;
 }

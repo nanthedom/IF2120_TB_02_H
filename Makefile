@@ -19,7 +19,7 @@ main_program: $(OBJ_MAIN) $(OBJ_WORD)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f main_program mword $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_TEST) $(TEST_RESULTS) $(STDOUT)
+	rm -f main_program mword test_dt test_stack $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_TEST) $(TEST_RESULTS) $(STDOUT)
 
 # UNIT TESTS
 
@@ -74,6 +74,34 @@ $(TEST_RESULTS_WORD): $(TESTS_DIR_WORD)/%.result: $(TESTS_DIR_WORD)/%.in $(TESTS
 	else \
 		echo "$< $(word 2,$^): WRONG"; \
 	fi > $@
+
+# STACK
+SRC_STACK = ADT/stack/stack.c
+SRC_TEST_ST = ADT/stack/tests/testStack.c
+OBJ_STACK = $(SRC_STACK:.c=.o)
+OBJ_TEST_ST = $(SRC_TEST_ST:.c=.o)
+
+TESTS_DIR_ST = ADT/stack/tests
+TEST_CASES_ST = $(wildcard $(TESTS_DIR_ST)/*.in)
+TEST_OUTPUTS_ST = $(TEST_CASES_ST:.in=.out)
+TEST_RESULTS_ST = $(TEST_CASES_ST:.in=.result)
+
+testStack: $(OBJ_STACK) $(OBJ_TEST_ST) 
+	$(CC) $(CFLAGS) -o $@ $^
+
+
+test_stack: testStack $(TEST_RESULTS_ST)
+	@cat $(TEST_RESULTS_ST)
+
+$(TEST_RESULTS_ST): $(TESTS_DIR_ST)/%.result: $(TESTS_DIR_ST)/%.in $(TESTS_DIR_ST)/%.out testStack
+	@if ./testStack < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
+
+
+
 
 
 
