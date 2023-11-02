@@ -16,8 +16,6 @@ typedef struct {
     Profil profil;
 } Pengguna;
 
-extern Pengguna* currentUser;
-
 #define Nama(P) (P).Nama
 #define Password(P) (P).Password
 #define Profil(P) ((P).profil)

@@ -1,11 +1,13 @@
 #include "kicau.h"
 #include "../pengguna/pengguna.h"
+#include "../teman/teman.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 extern int currentIdTweet;
 extern ListKicauan ListTweet;
-// extern Pengguna currentUser;
+extern ListPengguna ListUser;
+extern Pengguna *currentUser;
 
 /* VALIDATOR */
 boolean kicauanValid()
@@ -141,15 +143,19 @@ void printKicauan()
     int i;
     for (i = NEFF(ListTweet) - 1; i >= 0; i--)
     {
-        printf("| ID = %d", id(ELMT(ListTweet, i)));
-        printf("\n| ");
-        printWord(author(ELMT(ListTweet, i)));
-        printf("\n| ");
-        TulisDATETIME(datetime(ELMT(ListTweet, i)));
-        printf("\n| ");
-        printWord(text(ELMT(ListTweet, i)));
-        printf("\n| Disukai: %d\n", like(ELMT(ListTweet, i)));
-        printf("\n");
+        int idx = indexOf(ListUser, author(ELMT(ListTweet, i)));
+        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(author(ELMT(ListTweet, i))))
+        {
+            printf("| ID = %d", id(ELMT(ListTweet, i)));
+            printf("\n| ");
+            printWord(author(ELMT(ListTweet, i)));
+            printf("\n| ");
+            TulisDATETIME(datetime(ELMT(ListTweet, i)));
+            printf("\n| ");
+            printWord(text(ELMT(ListTweet, i)));
+            printf("\n| Disukai: %d\n", like(ELMT(ListTweet, i)));
+            printf("\n");
+        }
     }
 }
 
@@ -162,7 +168,8 @@ void sukaKicau(int id)
 {
     if (idValid(id))
     {
-        if (isPublic(Profil(*currentUser)))
+        int idx = indexOf(ListUser, author(ELMT(ListTweet, id - 1)));
+        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(author(ELMT(ListTweet, id - 1))))
         {
             like(ELMT(ListTweet, id - 1))++;
             printf("Selamat! kicauan telah disukai!\n");
