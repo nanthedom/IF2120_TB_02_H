@@ -85,4 +85,3 @@ create_stdout: $(STDOUT)
 
 $(STDOUT): stdout_%.txt: $(TESTS_DIR)/%.in $(file)
 	@./mword < $< | tr '\r' '\n' > $@
-
