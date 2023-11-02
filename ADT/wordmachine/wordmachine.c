@@ -157,3 +157,11 @@ boolean isNumber(Word w){
     }
     return false;
 }
+
+int word2Int(Word w){
+    int c = 0; int i;
+    for(i = 0; i < w.Length; i++){
+        c = c*10 + (int) w.TabWord[i];
+    }
+    return c;
+}

@@ -59,4 +59,5 @@ boolean isKataEqual(Word w1, Word w2);
 void strToWord(char *s, Word *w);
 boolean isNumerical(char c);
 boolean isNumber(Word w);
+int word2Int(Word w);
 #endif
