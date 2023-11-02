@@ -139,7 +139,7 @@ void printKicauan()
 {
     printf("\n");
     int i;
-    for (i = 0; i < NEFF(ListTweet); i++)
+    for (i = NEFF(ListTweet) - 1; i >= 0; i--)
     {
         printf("| ID = %d", id(ELMT(ListTweet, i)));
         printf("\n| ");
