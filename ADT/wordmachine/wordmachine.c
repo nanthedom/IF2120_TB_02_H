@@ -14,6 +14,16 @@ void IgnoreEnter(){
         ADV();
     }
 }
+void IgnoreCarriage(){
+    while(currentChar == CARRIAGE){
+        ADV();
+    }
+}
+void IgnoreCarriageEnter(){
+    while((currentChar == ENTER) | (currentChar == CARRIAGE)){
+        ADV();
+    }
+}
 
 void IgnoreBlanks(){
     while(currentChar == BLANK){
@@ -42,7 +52,7 @@ boolean containBlanks(Word w){
 
 void ReadWord(){
     START();
-    IgnoreEnter();
+    IgnoreCarriageEnter();
     currentWord.TabWord = (char*) malloc (NMax*sizeof(char));
     if(currentChar == MARK){
         EndWord = true;
