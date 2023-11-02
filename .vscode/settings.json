@@ -5,6 +5,7 @@
         "boolean.h": "c",
         "time.h": "c",
         "charmachine.h": "c",
-        "inisialisasi.h": "c"
+        "inisialisasi.h": "c",
+        "stdio.h": "c"
     }
 }
