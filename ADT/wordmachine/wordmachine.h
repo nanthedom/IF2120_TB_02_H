@@ -10,6 +10,7 @@
 #define NMax 64
 #define BLANK ' '
 #define ENTER '\n'
+#define CARRIAGE '\r'
 
 typedef struct
 {
@@ -22,7 +23,8 @@ extern boolean EndWord;
 extern Word currentWord;
 
 void IgnoreEnter();
-
+void IgnoreCarriage();
+void IgnoreCarriageEnter();
 void IgnoreBlanks();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : currentChar sembarang

@@ -22,7 +22,13 @@ int main(){
             ReadWord();
             word = currentWord;
             ReadWord();
-           printf("%d", isKataEqual(word,currentWord));
+            printf("%d", isKataEqual(word,currentWord));
+            break;
+        case 4:
+            ReadWord();
+            copy(currentWord, &word);
+            printf("%d", word.Length);
+            break;
     }
     return 0;
 }
