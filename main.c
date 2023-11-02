@@ -4,16 +4,21 @@
 #include "ADT/wordmachine/wordmachine.h"
 #include "ADT/profil/profil.h"
 #include "ADT/kicau/kicau.h"
+#include "ADT/draf/draf.h"
 
 /* USER*/
 boolean isLogin;
 boolean isClosed;
-Pengguna* currentUser;
+Pengguna *currentUser;
 ListPengguna ListUser;
 
 /* Kicauan */
 int currentIdTweet;
 ListKicauan ListTweet;
+
+/* Draf */
+StackDraf SDraf;
+Draf D;
 
 int main()
 {
