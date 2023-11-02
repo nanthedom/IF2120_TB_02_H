@@ -1,8 +1,8 @@
 #ifndef TEMAN_H
 #define TEMAN_H
 
-#include "../boolean/boolean.h"
-#include "../wordmachine/wordmachine.h"
+#include "../../ADT/boolean/boolean.h"
+#include "../../ADT/wordmachine/wordmachine.h"
 
 #define SIZE_CAP 20
 #define IDX_UNDEF -1
@@ -18,7 +18,7 @@ typedef struct
 
 extern AdjMatrix matrixPertemanan;
 
-void CreateAdjMatrix(int nEff , AdjMatrix *m);
+void CreateAdjMatrix(int nEff, AdjMatrix *m);
 
 void printDaftarTeman();
 

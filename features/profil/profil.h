@@ -1,10 +1,11 @@
-#include "../wordmachine/wordmachine.h"
-#include "../pcolor/pcolor.h"
+#include "../../ADT/wordmachine/wordmachine.h"
+#include "../../ADT/pcolor/pcolor.h"
 
 #ifndef PROFIL_H
 #define PROFIL_H
 // Tipe Foto (Satuan Foto)
-typedef struct{
+typedef struct
+{
     char X;
     char Y;
 } Foto;
@@ -18,13 +19,14 @@ typedef struct{
 // Tipe MatriksFoto
 typedef struct
 {
-   Foto mem[ROW_CAP][COL_CAP];
+    Foto mem[ROW_CAP][COL_CAP];
 } MatrixFoto;
 
-#define PIXEL(M,i,j) (M).mem[(i)][(j)]
+#define PIXEL(M, i, j) (M).mem[(i)][(j)]
 
 // Tipe Profil
-typedef struct {
+typedef struct
+{
     Word bio;
     Word noHP;
     Word weton;

@@ -4,9 +4,9 @@
 #define MAX_CHAR 280
 #define IDX_MIN 0
 
-#include "../boolean/boolean.h"
-#include "../wordmachine/wordmachine.h"
-#include "../datetime/datetime.h"
+#include "../../ADT/boolean/boolean.h"
+#include "../../ADT/wordmachine/wordmachine.h"
+#include "../../ADT/datetime/datetime.h"
 
 // Tipe Kicauan
 typedef struct

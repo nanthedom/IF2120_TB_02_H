@@ -1,9 +1,9 @@
 #ifndef DRAF_H
 #define DRAF_H
 
-#include "../boolean/boolean.h"
-#include "../wordmachine/wordmachine.h"
-#include "../datetime/datetime.h"
+#include "../../ADT/boolean/boolean.h"
+#include "../../ADT/wordmachine/wordmachine.h"
+#include "../../ADT/datetime/datetime.h"
 #include "../kicau/kicau.h"
 
 #define Nil -1
