@@ -46,12 +46,24 @@ int main()
         TulisDATETIME(date);
         break;
 
+
     case 4:
+        // Test DEQ
+        DATETIME D1,D2;
+        CreateDATETIME(&D1,2,2,2000,2,2,2);
+        CreateDATETIME(&D2,2,2,2000,2,2,2);
+        if(DEQ(D1,D2)){
+            printf("1");
+        }else{
+            printf("0");
+        }
+        break;
+
+    case 9:
         // Test BacaDatetime
         BacaDATETIME(&date);
         TulisDATETIME(date);
         break;
-
     
     }
 
