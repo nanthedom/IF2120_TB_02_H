@@ -18,19 +18,20 @@ ListKicauan ListTweet;
 
 /* Draf */
 StackDraf SDraf;
-Draf D;
+Draf draf;
 
 int main()
 {
-    CreateListKicauan(&ListTweet);
-    CreateList(&ListUser);
-    init();
-    Word cmd;
-    while (!isClosed)
-    {
-        printf(">> ");
-        ReadWord();
-        cmd = currentWord;
-        prosesCmd(cmd);
-    }
+  CreateListKicauan(&ListTweet);
+  CreateList(&ListUser);
+  CreateEmptyDraft(&SDraf);
+  init();
+  Word cmd;
+  while (!isClosed)
+  {
+    printf(">> ");
+    ReadWord();
+    cmd = currentWord;
+    prosesCmd(cmd);
+  }
 }

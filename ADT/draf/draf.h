@@ -4,21 +4,22 @@
 #include "../boolean/boolean.h"
 #include "../wordmachine/wordmachine.h"
 #include "../datetime/datetime.h"
+#include "../kicau/kicau.h"
 
 #define Nil -1
-#define MaxEl 100
+#define MaxEl 1000
 /* Nil adalah stack dengan elemen kosong . */
 
 // Tipe Draf
 typedef struct
 {
-  DATETIME datetime;
-  Word text;
+  DATETIME datetimeDraf;
+  Word textDraf;
 } Draf;
 
 /* Definisi akses dengan Selektor : Set dan Get */
-#define datetime(d) (d).datetime
-#define text(d) (d).text
+#define datetimeDraf(d) (d).datetimeDraf
+#define textDraf(d) (d).textDraf
 
 /* Stack Draf */
 typedef Draf infotype;
@@ -77,6 +78,16 @@ void DisplayDraf(StackDraf *S);
 /* F.S. Menampilkan InfoTop dari Stack Draf / draf terakhir */
 
 /* ************ Skema Pemrosesan Draf ********************** */
+void HapusDraf();
+
+void SimpanDraf();
+
+void TerbitDraf();
+
+void DrafToKicau(Draf D, Kicauan *Kicau);
+
 void BuatDraf();
+
+void LihatDraf();
 
 #endif
