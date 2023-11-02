@@ -1,4 +1,5 @@
-#include "../boolean/boolean.h"
+#include "../../ADT/boolean/boolean.h"
+#include "../../ADT/wordmachine/wordmachine.h"
 #include "../pengguna/pengguna.h"
 
 extern boolean isLogin;

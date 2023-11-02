@@ -1,10 +1,10 @@
 #include <stdio.h>
-#include "ADT/pengguna/pengguna.h"
-#include "ADT/inisialisasi/inisialisasi.h"
+#include "features/pengguna/pengguna.h"
+#include "features/inisialisasi/inisialisasi.h"
 #include "ADT/wordmachine/wordmachine.h"
-#include "ADT/profil/profil.h"
-#include "ADT/kicau/kicau.h"
-#include "ADT/teman/teman.h"
+#include "features/profil/profil.h"
+#include "features/kicau/kicau.h"
+#include "features/teman/teman.h"
 
 /* USER*/
 boolean isLogin;

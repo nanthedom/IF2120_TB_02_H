@@ -16,6 +16,16 @@ void IgnoreEnter()
         ADV();
     }
 }
+void IgnoreCarriage(){
+    while(currentChar == CARRIAGE){
+        ADV();
+    }
+}
+void IgnoreCarriageEnter(){
+    while((currentChar == ENTER) | (currentChar == CARRIAGE)){
+        ADV();
+    }
+}
 
 void IgnoreBlanks()
 {
@@ -52,10 +62,9 @@ boolean containBlanks(Word w)
 void ReadWord()
 {
     START();
-    IgnoreEnter();
-    currentWord.TabWord = (char *)malloc(NMax * sizeof(char));
-    if (currentChar == MARK)
-    {
+    IgnoreCarriageEnter();
+    currentWord.TabWord = (char*) malloc (NMax*sizeof(char));
+    if(currentChar == MARK){
         EndWord = true;
     }
     else
@@ -195,6 +204,7 @@ boolean isNumber(Word w)
     return false;
 }
 
+<<<<<<< HEAD
 int wordToInteger(Word w)
 {
     int n = 0;
@@ -208,3 +218,12 @@ int wordToInteger(Word w)
     }
     return n;
 }
+=======
+int word2Int(Word w){
+    int c = 0; int i;
+    for(i = 0; i < w.Length; i++){
+        c = c*10 + (int) w.TabWord[i];
+    }
+    return c;
+}
+>>>>>>> develop
