@@ -4,6 +4,7 @@
 #include "../wordmachine/wordmachine.h"
 
 extern ListPengguna ListUser;
+extern Pengguna* currentUser;
 
 void CreateMatrixFoto(MatrixFoto *M){
     Foto F;

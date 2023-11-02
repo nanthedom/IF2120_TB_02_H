@@ -2,6 +2,7 @@
 #include "../pengguna/pengguna.h"
 #include "../profil/profil.h"
 #include "../kicau/kicau.h"
+#include "../teman/teman.h"
 #include "../draf/draf.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -51,7 +52,7 @@ void parseMultiCmd(Word w, Word *cmd, Word **param)
 
 void prosesCmd(Word w)
 {
-    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, buat_draf, lihat_draf;
+    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
@@ -64,9 +65,10 @@ void prosesCmd(Word w)
     strToWord("KICAUAN", &kicauan);
     strToWord("SUKA_KICAUAN", &suka_kicauan);
     strToWord("UBAH_KICAUAN", &ubah_kicauan);
+    strToWord("DAFTAR_TEMAN", &daftar_teman);
+    strToWord("HAPUS_TEMAN", &hapus_teman);
     strToWord("BUAT_DRAF", &buat_draf);
     strToWord("LIHAT_DRAF", &lihat_draf);
-
     if (isKataEqual(w, daftar))
     {
         Daftar();
@@ -132,6 +134,28 @@ void prosesCmd(Word w)
         if (isLogin)
         {
             printKicauan();
+        }
+        else
+        {
+            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+        }
+    }
+    else if (isKataEqual(w, daftar_teman))
+    {
+        if (isLogin)
+        {
+            daftarTeman();
+        }
+        else
+        {
+            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+        }
+    }
+    else if (isKataEqual(w, hapus_teman))
+    {
+        if (isLogin)
+        {
+            hapusTeman();
         }
         else
         {

@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+{
+    "files.associations": {
+        "wordmachine.h": "c",
+        "pengguna.h": "c",
+        "boolean.h": "c",
+        "time.h": "c",
+        "charmachine.h": "c",
+        "inisialisasi.h": "c",
+        "stdio.h": "c"
+    }
+=======
 {
     "files.associations": {
         "wordmachine.h": "c",
@@ -9,4 +21,5 @@
         "stack.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
+>>>>>>> develop
 }

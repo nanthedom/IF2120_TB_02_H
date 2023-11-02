@@ -17,16 +17,15 @@ boolean IsEmpty(Stack S){
 }
 /* Mengirim true jika Stack kosong: lihat definisi di atas */
 boolean IsFull(Stack S){
-    return Top(S) == MaxEl-1;
+    return Top(S) >= MaxEl-1;
 }
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
 void Push(Stack * S, infotype X){
-    if(Top(*S) < MaxEl-1){
-        Top(*S)++;
-        InfoTop(*S) = X;
-    }
+    Top(*S)++;
+    InfoTop(*S) = X;
+    
 }
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
