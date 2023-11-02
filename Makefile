@@ -1,5 +1,5 @@
 main: main.c
-	gcc main.c ADT/inisialisasi/inisialisasi.c ADT/pengguna/pengguna.c ADT/wordmachine/wordmachine.c ADT/charmachine/charmachine.c ADT/profil/profil.c ADT/pcolor/pcolor.c -o main
+	gcc main.c ADT/inisialisasi/inisialisasi.c ADT/pengguna/pengguna.c ADT/wordmachine/wordmachine.c ADT/charmachine/charmachine.c ADT/profil/profil.c ADT/pcolor/pcolor.c ADT/kicau/kicau.c ADT/time/time.c ADT/datetime/datetime.c -o main
 
 clean:
 	rm main

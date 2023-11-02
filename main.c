@@ -22,6 +22,7 @@ Draf D;
 
 int main()
 {
+    CreateListKicauan(&ListTweet);
     CreateList(&ListUser);
     init();
     Word cmd;
