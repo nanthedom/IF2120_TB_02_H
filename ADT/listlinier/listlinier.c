@@ -55,6 +55,8 @@ ElType getElmt(List l, int idx){
             i++;
         }
         return INFO(curAdr);
+    }else{
+        return IDX_UNDEF;
     }
 }
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */

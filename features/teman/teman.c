@@ -18,7 +18,7 @@ void CreateAdjMatrix(int nEff, AdjMatrix *m) {
 }
 
 void printDaftarTeman() {
-    int userIdx, i, j;
+    int userIdx, i;
 
     printf("Daftar teman ");
     printWord(Nama(*currentUser));
@@ -35,7 +35,7 @@ void printDaftarTeman() {
 }
 
 void daftarTeman() {
-    int userIdx, i, j, count;
+    int userIdx, i, count;
 
     count = 0;
     userIdx = indexOf(ListUser, Nama(*currentUser));
@@ -57,7 +57,7 @@ void daftarTeman() {
 }
 
 boolean isFriendsWith(Word nama) {
-    int i, friendIdx, userIdx;
+    int friendIdx, userIdx;
 
     userIdx = indexOf(ListUser, Nama(*currentUser));
     friendIdx = indexOf(ListUser, nama);
@@ -80,7 +80,7 @@ void removeTeman(AdjMatrix *m, Word nama) {
 }
 
 void hapusTeman() {
-    Word nama, pil, yes; int idx;
+    Word nama, pil, yes;
 
     printf("\nMasukkan nama pengguna: \n");
     ReadWord();

@@ -81,7 +81,7 @@ void Daftar(){
         printf("Masukkan kata sandi:\n");
         ReadWord();
         Password = currentWord;
-        while(!isPasswordValid){
+        while(!isPasswordValid(Password)){
             printf("Password tidak boleh melebihi 20 karakter atau berupa string kosong.\n");
             printf("Masukkan kata sandi:\n");
             ReadWord();

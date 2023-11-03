@@ -1,7 +1,7 @@
 #include "profil.h"
 #include "../inisialisasi/inisialisasi.h"
 #include <stdio.h>
-#include "../wordmachine/wordmachine.h"
+#include "../../ADT/wordmachine/wordmachine.h"
 
 extern ListPengguna ListUser;
 extern Pengguna* currentUser;

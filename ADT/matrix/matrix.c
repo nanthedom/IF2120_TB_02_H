@@ -299,7 +299,7 @@ Matrix minor(Matrix m, int i, int j){
 }
 
 float determinant(Matrix m){
-    int i,j,sign; float det;
+    int i,sign; float det;
     det = 0; sign = 1;
     if(ROW_EFF(m) == 1 && COL_EFF(m) == 1){
         det = (float) ELMT(m,0,0);
@@ -339,7 +339,7 @@ void pTranspose(Matrix *m){
 /* F.S. m "di-transpose", yaitu setiap elemen m(i,j) ditukar nilainya dengan elemen m(j,i) */
 
 void RotateMat(Matrix *m){
-    int i,j,a,b,firstCol,firstRow,lastCol,lastRow;
+    int i,j,a,b,lastRow;
     i = 0; j = getLastIdxCol(*m);
     while(i < ROW_EFF(*m)/2 && j < COL_EFF(*m)/2){
         lastRow = ELMT(*m,i,COL_EFF(*m)-1);

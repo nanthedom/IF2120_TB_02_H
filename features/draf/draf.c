@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "draf.h"
+#include "../../ADT/datetime/datetime.h"
 
 extern StackDraf SDraf;
 extern Draf draf;
@@ -138,7 +139,7 @@ void LihatDraf()
   }
   else
   {
-    Word newText, hapus, simpan, terbit, kembali, ubah;
+    Word hapus, simpan, terbit, kembali, ubah; //(rifki:hapus newText, klo kepake bilang aja)
     strToWord("HAPUS", &hapus);
     strToWord("SIMPAN", &simpan);
     strToWord("TERBIT", &terbit);

@@ -1,8 +1,52 @@
 CC = gcc
 CFLAGS = -Wall -Werror -std=c11
 
+# SRC dan OBJ file
 SRC_MAIN = main.c
 OBJ_MAIN = $(SRC_MAIN:.c=.o)
+
+SRC_TIME = ADT/time/time.c
+SRC_DATETIME = ADT/datetime/datetime.c
+SRC_CHAR = ADT/charmachine/charmachine.c
+SRC_WORD = ADT/wordmachine/wordmachine.c
+SRC_STACK = ADT/stack/stack.c
+SRC_QUEUE = ADT/queue/queue.c
+SRC_PRIO = ADT/prioqueue/prioqueuechar.c
+SRC_PCOLOR = ADT/pcolor/pcolor.c
+SRC_MATRIX = ADT/matrix/matrix.c
+SRC_LISTSTAT = ADT/liststatik/liststatik.c
+SRC_LISTLIN = ADT/listlinier/listlinier.c
+SRC_LISTDIN = ADT/listdin/listdin.c
+
+
+SRC_KICAU = features/kicau/kicau.c
+SRC_PENGGUNA = features/pengguna/pengguna.c
+SRC_DRAF = features/draf/draf.c
+SRC_TEMAN = features/teman/teman.c
+SRC_INIT = features/inisialisasi/inisialisasi.c
+SRC_PROFIL = features/profil/profil.c
+
+OBJ_TIME = $(SRC_TIME:.c=.o)
+OBJ_DATETIME = $(SRC_DATETIME:.c=.o)
+OBJ_CHAR = $(SRC_CHAR:.c=.o)
+OBJ_WORD = $(SRC_WORD:.c=.o)
+OBJ_STACK = $(SRC_STACK:.c=.o)
+OBJ_QUEUE = $(SRC_QUEUE:.c=.o)
+OBJ_PRIO = $(SRC_PRIO:.c=.o)
+OBJ_PCOLOR = $(SRC_PCOLOR:.c=.o)
+OBJ_MATRIX = $(SRC_MATRIX:.c=.o)
+OBJ_LISTST = $(SRC_LISTSTAT:.c=.o)
+OBJ_LISTLIN = $(SRC_LISTLIN:.c=.o)
+OBJ_LISTDIN = $(SRC_LISTDIN:.c=.o)
+
+
+OBJ_KICAU = $(SRC_KICAU:.c=.o)
+OBJ_PENGGUNA = $(SRC_PENGGUNA:.c=.o)
+OBJ_DRAF = $(SRC_DRAF:.c=.o)
+OBJ_TEMAN = $(SRC_TEMAN:.c=.o)
+OBJ_INIT = $(SRC_INIT:.c=.o)
+OBJ_PROFIL = $(SRC_PROFIL:.c=.o)
+
 
 all: main_program
 
@@ -12,8 +56,7 @@ build :
 run :
 	./main_program
 
-main_program: $(OBJ_MAIN) $(OBJ_WORD) 
-	$(CC) $(CFLAGS) -o $@ $^
+
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
@@ -24,11 +67,7 @@ clean:
 # UNIT TESTS
 
 # DATETIME
-SRC_TIME = ADT/time/time.c
-SRC_DATETIME = ADT/datetime/datetime.c
 SRC_TEST_DT = ADT/datetime/tests/testdt.c
-OBJ_TIME = $(SRC_TIME:.c=.o)
-OBJ_DATETIME = $(SRC_DATETIME:.c=.o)
 OBJ_TEST_DT = $(SRC_TEST_DT:.c=.o)
 
 TESTS_DIR_DT = ADT/datetime/tests
@@ -51,11 +90,7 @@ $(TEST_RESULTS_DT): $(TESTS_DIR_DT)/%.result: $(TESTS_DIR_DT)/%.in $(TESTS_DIR_D
 	fi > $@
 
 # WORD
-SRC_CHAR = ADT/charmachine/charmachine.c
-SRC_WORD = ADT/wordmachine/wordmachine.c
 SRC_TEST_WORD = ADT/wordmachine/tests/mword.c
-OBJ_CHAR = $(SRC_CHAR:.c=.o)
-OBJ_WORD = $(SRC_WORD:.c=.o)
 OBJ_TEST_WORD = $(SRC_TEST_WORD:.c=.o)
 
 TESTS_DIR_WORD = ADT/wordmachine/tests
@@ -76,9 +111,7 @@ $(TEST_RESULTS_WORD): $(TESTS_DIR_WORD)/%.result: $(TESTS_DIR_WORD)/%.in $(TESTS
 	fi > $@
 
 # STACK
-SRC_STACK = ADT/stack/stack.c
 SRC_TEST_ST = ADT/stack/tests/testStack.c
-OBJ_STACK = $(SRC_STACK:.c=.o)
 OBJ_TEST_ST = $(SRC_TEST_ST:.c=.o)
 
 TESTS_DIR_ST = ADT/stack/tests
@@ -113,3 +146,6 @@ create_stdout: $(STDOUT)
 
 $(STDOUT): stdout_%.txt: $(TESTS_DIR)/%.in $(file)
 	@./mword < $< | tr '\r' '\n' > $@
+
+main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_QUEUE) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTST) $(OBJ_LISTLIN) $(OBJ_LISTDIN) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN)
+	$(CC) $(CFLAGS) -o $@ $^
