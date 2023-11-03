@@ -61,7 +61,6 @@ void HapusDraf()
 {
   Draf topDraf;
   PopDraft(&SDraf, &topDraf);
-  printf("\nDraf telah berhasil dihapus!\n");
 }
 
 void SimpanDraf(Word teks)
@@ -69,7 +68,6 @@ void SimpanDraf(Word teks)
   CreateDraf(&draf);
   textDraf(draf) = teks;
   PushDraft(&SDraf, draf);
-  printf("\nDraf telah berhasil disimpan!\n");
 }
 
 void TerbitDraf()
@@ -120,6 +118,7 @@ void BuatDraf()
   else if (isKataEqual(currentWord, simpan))
   {
     SimpanDraf(currentText);
+    printf("\nDraf telah berhasil disimpan!\n");
   }
   else if (isKataEqual(currentWord, terbit))
   {
@@ -138,7 +137,7 @@ void LihatDraf()
   }
   else
   {
-    Word newText, hapus, simpan, terbit, kembali, ubah;
+    Word hapus, simpan, terbit, kembali, ubah;
     strToWord("HAPUS", &hapus);
     strToWord("SIMPAN", &simpan);
     strToWord("TERBIT", &terbit);
@@ -160,6 +159,7 @@ void LihatDraf()
       if (isKataEqual(currentWord, hapus))
       {
         HapusDraf();
+        printf("\nDraf telah berhasil dihapus!\n");
       }
       else if (isKataEqual(currentWord, ubah))
       {
@@ -173,6 +173,7 @@ void LihatDraf()
         if (isKataEqual(currentWord, hapus))
         {
           HapusDraf();
+          printf("\nDraf telah berhasil dihapus!\n");
         }
         else if (isKataEqual(currentWord, simpan))
         {
