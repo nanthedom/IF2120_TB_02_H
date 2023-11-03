@@ -49,6 +49,14 @@ boolean kicauanBlanks();
 #define ELMT(l, i) (l).buffer[i]
 #define CAPACITY(l) (l).capacity
 
+/* ********** TEST KOSONG/PENUH ********** */
+/* *** Test list kosong *** */
+boolean isEmpty(ListKicauan l);
+/* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
+/* *** Test list penuh *** */
+boolean isFull(ListKicauan l);
+/* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
+
 void CreateListKicauan();
 /* I.S. l sembarang, capacity > 0 */
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
@@ -72,6 +80,8 @@ IdxType getLastIdx(ListKicauan l);
 void CreateKicau(Kicauan *kicau);
 
 void insertLastKicauan(ListKicauan *l, Kicauan kicau);
+
+void insertByTime(Kicauan kicau);
 
 void Kicau();
 
