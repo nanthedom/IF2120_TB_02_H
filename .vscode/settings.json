@@ -7,5 +7,6 @@
         "charmachine.h": "c",
         "inisialisasi.h": "c",
         "stdio.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

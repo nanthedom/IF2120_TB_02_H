@@ -4,6 +4,7 @@
 #include "ADT/wordmachine/wordmachine.h"
 #include "ADT/profil/profil.h"
 #include "ADT/kicau/kicau.h"
+#include "ADT/balasan/balasan.h"
 #include "ADT/teman/teman.h"
 
 /* USER*/
@@ -15,6 +16,10 @@ ListPengguna ListUser;
 /* Kicauan */
 int currentIdTweet;
 ListKicauan ListTweet;
+
+/* Balasan */
+int currentIdReply;
+ListBalasan ListReply;
 
 /* Teman */
 AdjMatrix matrixPertemanan;
