@@ -35,6 +35,20 @@ boolean kicauanBlanks()
     return found;
 }
 
+/* ********** TEST KOSONG/PENUH ********** */
+/* *** Test list kosong *** */
+boolean isEmpty(ListKicauan l)
+/* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
+/* *** Test list penuh *** */
+{
+    return (NEFF(l) == 0);
+}
+boolean isFull(ListKicauan l)
+/* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
+{
+    return (NEFF(l) == CAPACITY(l));
+}
+
 void CreateListKicauan()
 /* I.S. l sembarang, capacity > 0 */
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
@@ -89,17 +103,48 @@ void CreateKicau(Kicauan *kicau)
 
 void insertLastKicauan(ListKicauan *l, Kicauan kicau)
 {
-    if (NEFF(*l) < CAPACITY(*l))
+    if (isFull)
     {
+        expandList(&*l, 2 * CAPACITY(*l));
+        ELMT(*l, getLastIdx(*l) + 1) = kicau;
         ELMT(*l, getLastIdx(*l) + 1) = kicau;
     }
     else
     {
-        expandList(&*l, 2 * CAPACITY(*l));
         ELMT(*l, getLastIdx(*l) + 1) = kicau;
     }
-    NEFF(*l)
-    ++;
+    NEFF(*l)++;
+}
+
+void insertByTime(Kicauan kicau)
+{
+    if (isFull)
+    {
+        expandList(&ListTweet, 2 * CAPACITY(ListTweet));
+    }
+    if (isEmpty(ListTweet))
+    {
+        ELMT(ListTweet, 0) = kicau;
+        NEFF(ListTweet)++;
+    }
+    else
+    {
+        int idx = getLastIdx(ListTweet);
+        while (idx > 0 && DLT(datetime(kicau), datetime(ELMT(ListTweet, idx))))
+        {
+            ELMT(ListTweet, idx + 1) = ELMT(ListTweet, idx);
+            idx--;
+        }
+        if (DGT(datetime(kicau), datetime(ELMT(ListTweet, idx))))
+        {
+            ELMT(ListTweet, idx + 1) = kicau;
+        }
+        else
+        {
+            ELMT(ListTweet, idx + 1) = ELMT(ListTweet, idx);
+            ELMT(ListTweet, idx) = kicau;
+        }
+    }
 }
 
 void Kicau()

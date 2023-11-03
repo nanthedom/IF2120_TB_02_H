@@ -6,6 +6,7 @@
 #include "features/kicau/kicau.h"
 #include "features/teman/teman.h"
 #include "features/draf/draf.h"
+#include "features/balasan/balasan.h"
 
 /* USER*/
 boolean isLogin;
@@ -16,6 +17,10 @@ ListPengguna ListUser;
 /* Kicauan */
 int currentIdTweet;
 ListKicauan ListTweet;
+
+/* Balasan */
+int currentIdReply;
+ListBalasan ListReply;
 
 /* Teman */
 AdjMatrix matrixPertemanan;
