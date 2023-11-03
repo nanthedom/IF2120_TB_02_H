@@ -62,7 +62,6 @@ void HapusDraf()
 {
   Draf topDraf;
   PopDraft(&SDraf, &topDraf);
-  printf("\nDraf telah berhasil dihapus!\n");
 }
 
 void SimpanDraf(Word teks)
@@ -70,7 +69,6 @@ void SimpanDraf(Word teks)
   CreateDraf(&draf);
   textDraf(draf) = teks;
   PushDraft(&SDraf, draf);
-  printf("\nDraf telah berhasil disimpan!\n");
 }
 
 void TerbitDraf()
@@ -78,16 +76,16 @@ void TerbitDraf()
   Kicauan Kicau;
   currentIdTweet++;
   DrafToKicau(InfoTop(SDraf), &Kicau);
-  insertLastKicauan(&ListTweet, Kicau);
+  insertByTime(Kicau);
   printf("Selamat! Draf kicauan telah berhasil diterbitkan!\n");
-  printf("| ID = %d", id(ELMT(ListTweet, getLastIdx(ListTweet))));
+  printf("| ID = %d", idKicau(Kicau));
   printf("\n| ");
-  printWord(author(ELMT(ListTweet, getLastIdx(ListTweet))));
+  printWord(authorKicau(Kicau));
   printf("\n| ");
-  TulisDATETIME(datetime(ELMT(ListTweet, getLastIdx(ListTweet))));
+  TulisDATETIME(datetimeKicau(Kicau));
   printf("\n| ");
-  printWord(text(ELMT(ListTweet, getLastIdx(ListTweet))));
-  printf("\n| Disukai: %d\n", like(ELMT(ListTweet, getLastIdx(ListTweet))));
+  printWord(textKicau(Kicau));
+  printf("\n| Disukai: %d\n", likeKicau(Kicau));
   printf("\n");
 }
 
@@ -95,9 +93,9 @@ void DrafToKicau(Draf D, Kicauan *Kicau)
 {
   // Kicauan Kicau;
   CreateKicau(Kicau);
-  id(*Kicau) = currentIdTweet;
-  text(*Kicau) = textDraf(D);
-  datetime(*Kicau) = datetimeDraf(D);
+  idKicau(*Kicau) = currentIdTweet;
+  textKicau(*Kicau) = textDraf(D);
+  datetimeKicau(*Kicau) = datetimeDraf(D);
 
   // return Kicau;
 }
@@ -121,6 +119,7 @@ void BuatDraf()
   else if (isKataEqual(currentWord, simpan))
   {
     SimpanDraf(currentText);
+    printf("\nDraf telah berhasil disimpan!\n");
   }
   else if (isKataEqual(currentWord, terbit))
   {
@@ -139,7 +138,11 @@ void LihatDraf()
   }
   else
   {
+<<<<<<< HEAD
     Word hapus, simpan, terbit, kembali, ubah; //(rifki:hapus newText, klo kepake bilang aja)
+=======
+    Word hapus, simpan, terbit, kembali, ubah;
+>>>>>>> 40d66557149fd5e7af07b03b8b50e0895e7d5e8c
     strToWord("HAPUS", &hapus);
     strToWord("SIMPAN", &simpan);
     strToWord("TERBIT", &terbit);
@@ -161,6 +164,7 @@ void LihatDraf()
       if (isKataEqual(currentWord, hapus))
       {
         HapusDraf();
+        printf("\nDraf telah berhasil dihapus!\n");
       }
       else if (isKataEqual(currentWord, ubah))
       {
@@ -174,6 +178,7 @@ void LihatDraf()
         if (isKataEqual(currentWord, hapus))
         {
           HapusDraf();
+          printf("\nDraf telah berhasil dihapus!\n");
         }
         else if (isKataEqual(currentWord, simpan))
         {

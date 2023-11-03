@@ -36,12 +36,26 @@ boolean kicauanBlanks()
     return found;
 }
 
+/* ********** TEST KOSONG/PENUH ********** */
+/* *** Test list kosong *** */
+boolean isEmptyKicauan(ListKicauan l)
+/* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
+/* *** Test list penuh *** */
+{
+    return (NEFF(l) == 0);
+}
+boolean isFullKicauan(ListKicauan l)
+/* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
+{
+    return (NEFF(l) == CAPACITY(l));
+}
+
 void CreateListKicauan()
 /* I.S. l sembarang, capacity > 0 */
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
 {
     int capacity = 64;
-    BUFFER(ListTweet) = (ElType *)malloc(capacity * sizeof(ElType));
+    BUFFER(ListTweet) = (Kicauan *)malloc(capacity * sizeof(Kicauan));
     NEFF(ListTweet) = 0;
     CAPACITY(ListTweet) = capacity;
 }
@@ -50,9 +64,9 @@ void dealocateList()
 /* I.S. l terdefinisi; */
 /* F.S. (l) dikembalikan ke system, CAPACITY(l)=0; NEFF(l)=0 */
 {
-    free(ListTweet.buffer);
-    ListTweet.capacity = 0;
-    ListTweet.nEff = 0;
+    free(BUFFER(ListTweet));
+    CAPACITY(ListTweet) = 0;
+    NEFF(ListTweet) = 0;
 }
 
 int countKicauan()
@@ -79,28 +93,59 @@ IdxType getLastIdx(ListKicauan l)
 
 void CreateKicau(Kicauan *kicau)
 {
-    id(*kicau) = currentIdTweet;
-    text(*kicau) = currentWord;
-    like(*kicau) = 0;
-    author(*kicau) = Nama(*currentUser);
+    idKicau(*kicau) = currentIdTweet;
+    textKicau(*kicau) = currentWord;
+    likeKicau(*kicau) = 0;
+    authorKicau(*kicau) = Nama(*currentUser);
     DATETIME dt;
     BacaDATETIME(&dt);
-    datetime(*kicau) = dt;
+    datetimeKicau(*kicau) = dt;
 }
 
 void insertLastKicauan(ListKicauan *l, Kicauan kicau)
 {
-    if (NEFF(*l) < CAPACITY(*l))
-    {
-        ELMT(*l, getLastIdx(*l) + 1) = kicau;
-    }
-    else
+    if (isFullKicauan(ListTweet))
     {
         expandList(&*l, 2 * CAPACITY(*l));
         ELMT(*l, getLastIdx(*l) + 1) = kicau;
     }
-    NEFF(*l)
-    ++;
+    else
+    {
+        ELMT(*l, getLastIdx(*l) + 1) = kicau;
+    }
+    NEFF(*l)++;
+}
+
+void insertByTime(Kicauan kicau)
+{
+    if (isFullKicauan(ListTweet))
+    {
+        expandList(&ListTweet, 2 * CAPACITY(ListTweet));
+    }
+    if (isEmptyKicauan(ListTweet))
+    {
+        ELMT(ListTweet, 0) = kicau;
+        NEFF(ListTweet)++;
+    }
+    else
+    {
+        int idx = getLastIdx(ListTweet);
+        while (idx > 0 && DLT(datetimeKicau(kicau), datetimeKicau(ELMT(ListTweet, idx))))
+        {
+            ELMT(ListTweet, idx + 1) = ELMT(ListTweet, idx);
+            idx--;
+        }
+        if (DGT(datetimeKicau(kicau), datetimeKicau(ELMT(ListTweet, idx))))
+        {
+            ELMT(ListTweet, idx + 1) = kicau;
+        }
+        else
+        {
+            ELMT(ListTweet, idx + 1) = ELMT(ListTweet, idx);
+            ELMT(ListTweet, idx) = kicau;
+        }
+        NEFF(ListTweet)++;
+    }
 }
 
 void Kicau()
@@ -127,14 +172,14 @@ void Kicau()
         insertLastKicauan(&ListTweet, tweet);
         printf("Selamat! kicauan telah diterbitkan!\n");
         printf("Detil kicauan:\n");
-        printf("| ID = %d", currentIdTweet);
+        printf("| ID = %d", idKicau(tweet));
         printf("\n| ");
-        printWord(author(tweet));
+        printWord(authorKicau(tweet));
         printf("\n| ");
-        TulisDATETIME(datetime(tweet));
+        TulisDATETIME(datetimeKicau(tweet));
         printf("\n| ");
-        printWord(text(tweet));
-        printf("\n| Disukai: %d\n", like(tweet));
+        printWord(textKicau(tweet));
+        printf("\n| Disukai: %d\n", likeKicau(tweet));
     }
 }
 
@@ -144,17 +189,17 @@ void printKicauan()
     int i;
     for (i = NEFF(ListTweet) - 1; i >= 0; i--)
     {
-        int idx = indexOf(ListUser, author(ELMT(ListTweet, i)));
-        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(author(ELMT(ListTweet, i))))
+        int idx = indexOf(ListUser, authorKicau(ELMT(ListTweet, i)));
+        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(authorKicau(ELMT(ListTweet, i))))
         {
-            printf("| ID = %d", id(ELMT(ListTweet, i)));
+            printf("| ID = %d", idKicau(ELMT(ListTweet, i)));
             printf("\n| ");
-            printWord(author(ELMT(ListTweet, i)));
+            printWord(authorKicau(ELMT(ListTweet, i)));
             printf("\n| ");
-            TulisDATETIME(datetime(ELMT(ListTweet, i)));
+            TulisDATETIME(datetimeKicau(ELMT(ListTweet, i)));
             printf("\n| ");
-            printWord(text(ELMT(ListTweet, i)));
-            printf("\n| Disukai: %d\n", like(ELMT(ListTweet, i)));
+            printWord(textKicau(ELMT(ListTweet, i)));
+            printf("\n| Disukai: %d\n", likeKicau(ELMT(ListTweet, i)));
             printf("\n");
         }
     }
@@ -169,20 +214,20 @@ void sukaKicau(int id)
 {
     if (idValid(id))
     {
-        int idx = indexOf(ListUser, author(ELMT(ListTweet, id - 1)));
-        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(author(ELMT(ListTweet, id - 1))))
+        int idx = indexOf(ListUser, authorKicau(ELMT(ListTweet, id - 1)));
+        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(authorKicau(ELMT(ListTweet, id - 1))))
         {
-            like(ELMT(ListTweet, id - 1))++;
+            likeKicau(ELMT(ListTweet, id - 1))++;
             printf("Selamat! kicauan telah disukai!\n");
             printf("Detil kicauan:\n");
-            printf("| ID = %d", id(ELMT(ListTweet, id - 1)));
+            printf("| ID = %d", idKicau(ELMT(ListTweet, id - 1)));
             printf("\n| ");
-            printWord(author(ELMT(ListTweet, id - 1)));
+            printWord(authorKicau(ELMT(ListTweet, id - 1)));
             printf("\n| ");
-            TulisDATETIME(datetime(ELMT(ListTweet, id - 1)));
+            TulisDATETIME(datetimeKicau(ELMT(ListTweet, id - 1)));
             printf("\n| ");
-            printWord(text(ELMT(ListTweet, id - 1)));
-            printf("\n| Disukai: %d\n", like(ELMT(ListTweet, id - 1)));
+            printWord(textKicau(ELMT(ListTweet, id - 1)));
+            printf("\n| Disukai: %d\n", likeKicau(ELMT(ListTweet, id - 1)));
         }
         else
         {
@@ -199,7 +244,7 @@ void ubahKicauan(int id)
 {
     if (idValid(id))
     {
-        if (isKataEqual(Nama(*currentUser), author(ELMT(ListTweet, id - 1))))
+        if (isKataEqual(Nama(*currentUser), authorKicau(ELMT(ListTweet, id - 1))))
         {
             printf("Masukkan kicauan baru:\n");
             ReadWord();
@@ -211,21 +256,21 @@ void ubahKicauan(int id)
             {
                 if (kicauanValid())
                 {
-                    text(ELMT(ListTweet, id - 1)) = currentWord;
+                    textKicau(ELMT(ListTweet, id - 1)) = currentWord;
                 }
                 else
                 {
                     currentWord.Length = 280;
-                    text(ELMT(ListTweet, id - 1)) = currentWord;
+                    textKicau(ELMT(ListTweet, id - 1)) = currentWord;
                 }
-                printf("| ID = %d", id(ELMT(ListTweet, id - 1)));
+                printf("| ID = %d", idKicau(ELMT(ListTweet, id - 1)));
                 printf("\n| ");
-                printWord(author(ELMT(ListTweet, id - 1)));
+                printWord(authorKicau(ELMT(ListTweet, id - 1)));
                 printf("\n| ");
-                TulisDATETIME(datetime(ELMT(ListTweet, id - 1)));
+                TulisDATETIME(datetimeKicau(ELMT(ListTweet, id - 1)));
                 printf("\n| ");
-                printWord(text(ELMT(ListTweet, id - 1)));
-                printf("\n| Disukai: %d\n", like(ELMT(ListTweet, id - 1)));
+                printWord(textKicau(ELMT(ListTweet, id - 1)));
+                printf("\n| Disukai: %d\n", likeKicau(ELMT(ListTweet, id - 1)));
             }
         }
         else
@@ -243,7 +288,7 @@ void expandList(ListKicauan *l, int num)
 /* I.S. List sudah terdefinisi */
 /* F.S. Ukuran list bertambah sebanyak num */
 {
-    BUFFER(*l) = (ElType *)realloc(BUFFER(*l), (CAPACITY(*l) + num) * sizeof(ElType));
+    BUFFER(*l) = (Kicauan *)realloc(BUFFER(*l), (CAPACITY(*l) + num) * sizeof(Kicauan));
     CAPACITY(*l) += num;
 }
 
@@ -251,7 +296,7 @@ void shrinkList(ListKicauan *l, int num)
 /* I.S. List sudah terdefinisi, ukuran capacity > num, dan nEff < capacity - num. */
 /* F.S. Ukuran list berkurang sebanyak num. */
 {
-    BUFFER(*l) = (ElType *)realloc(BUFFER(*l), (CAPACITY(*l) - num) * sizeof(ElType));
+    BUFFER(*l) = (Kicauan *)realloc(BUFFER(*l), (CAPACITY(*l) - num) * sizeof(Kicauan));
     CAPACITY(*l) -= num;
 }
 
@@ -259,6 +304,6 @@ void compressList(ListKicauan *l)
 /* I.S. List tidak kosong */
 /* F.S. Ukuran capacity = nEff */
 {
-    BUFFER(*l) = (ElType *)realloc(BUFFER(*l), NEFF(*l) * sizeof(ElType));
+    BUFFER(*l) = (Kicauan *)realloc(BUFFER(*l), NEFF(*l) * sizeof(Kicauan));
     CAPACITY(*l) = NEFF(*l);
 }

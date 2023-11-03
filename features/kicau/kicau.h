@@ -11,30 +11,35 @@
 // Tipe Kicauan
 typedef struct
 {
-    int id;
-    Word text;
-    int like;
-    Word author;
-    DATETIME datetime;
+    int idKicau;
+    Word textKicau;
+    int likeKicau;
+    Word authorKicau;
+    DATETIME datetimeKicau;
 } Kicauan;
 
 // SELEKTOR
-#define id(p) (p).id
-#define text(p) (p).text
-#define like(p) (p).like
-#define author(p) (p).author
-#define datetime(p) (p).datetime
+#define idKicau(p) (p).idKicau
+#define textKicau(p) (p).textKicau
+#define likeKicau(p) (p).likeKicau
+#define authorKicau(p) (p).authorKicau
+#define datetimeKicau(p) (p).datetimeKicau
 
 /* List dinamis dengan implementasi rata kiri*/
 /* Definisi elemen dan koleksi objek */
-typedef Kicauan ElType; /* type elemen list */
 typedef int IdxType;
 typedef struct
 {
-    ElType *buffer; /* memori tempat penyimpan elemen (container) */
+    Kicauan *buffer; /* memori tempat penyimpan elemen (container) */
     int nEff;       /* >=0, banyaknya elemen efektif */
     int capacity;   /* ukuran elemen */
 } ListKicauan;
+
+/* SELEKTOR */
+#define NEFF(l) (l).nEff
+#define BUFFER(l) (l).buffer
+#define ELMT(l, i) (l).buffer[i]
+#define CAPACITY(l) (l).capacity
 
 /* VALIDATOR */
 boolean kicauanValid();
@@ -43,11 +48,13 @@ boolean kicauanValid();
 boolean kicauanBlanks();
 /* Mengirim True jika karakter kicauan kosong */
 
-/* SELEKTOR */
-#define NEFF(l) (l).nEff
-#define BUFFER(l) (l).buffer
-#define ELMT(l, i) (l).buffer[i]
-#define CAPACITY(l) (l).capacity
+/* ********** TEST KOSONG/PENUH ********** */
+/* *** Test list kosong *** */
+boolean isEmptyKicauan(ListKicauan l);
+/* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
+/* *** Test list penuh *** */
+boolean isFullKicauan(ListKicauan l);
+/* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
 
 void CreateListKicauan();
 /* I.S. l sembarang, capacity > 0 */
@@ -72,6 +79,8 @@ IdxType getLastIdx(ListKicauan l);
 void CreateKicau(Kicauan *kicau);
 
 void insertLastKicauan(ListKicauan *l, Kicauan kicau);
+
+void insertByTime(Kicauan kicau);
 
 void Kicau();
 
