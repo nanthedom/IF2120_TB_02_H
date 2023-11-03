@@ -75,16 +75,16 @@ void TerbitDraf()
   Kicauan Kicau;
   currentIdTweet++;
   DrafToKicau(InfoTop(SDraf), &Kicau);
-  insertLastKicauan(&ListTweet, Kicau);
+  insertByTime(Kicau);
   printf("Selamat! Draf kicauan telah berhasil diterbitkan!\n");
-  printf("| ID = %d", id(ELMT(ListTweet, getLastIdx(ListTweet))));
+  printf("| ID = %d", idKicau(Kicau));
   printf("\n| ");
-  printWord(author(ELMT(ListTweet, getLastIdx(ListTweet))));
+  printWord(authorKicau(Kicau));
   printf("\n| ");
-  TulisDATETIME(datetime(ELMT(ListTweet, getLastIdx(ListTweet))));
+  TulisDATETIME(datetimeKicau(Kicau));
   printf("\n| ");
-  printWord(text(ELMT(ListTweet, getLastIdx(ListTweet))));
-  printf("\n| Disukai: %d\n", like(ELMT(ListTweet, getLastIdx(ListTweet))));
+  printWord(textKicau(Kicau));
+  printf("\n| Disukai: %d\n", likeKicau(Kicau));
   printf("\n");
 }
 
@@ -92,9 +92,9 @@ void DrafToKicau(Draf D, Kicauan *Kicau)
 {
   // Kicauan Kicau;
   CreateKicau(Kicau);
-  id(*Kicau) = currentIdTweet;
-  text(*Kicau) = textDraf(D);
-  datetime(*Kicau) = datetimeDraf(D);
+  idKicau(*Kicau) = currentIdTweet;
+  textKicau(*Kicau) = textDraf(D);
+  datetimeKicau(*Kicau) = datetimeDraf(D);
 
   // return Kicau;
 }

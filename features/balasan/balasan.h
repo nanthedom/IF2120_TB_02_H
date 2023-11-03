@@ -1,7 +1,7 @@
 #ifndef POHONBINER_H
 #define POHONBINER_H
 
-#include "../boolean/boolean.h"
+#include "../../ADT/boolean/boolean.h"
 #include "../../ADT/wordmachine/wordmachine.h"
 #include "../../ADT/datetime/datetime.h"
 
@@ -34,11 +34,10 @@ typedef struct treeNode {
 typedef Address Tree;
 
 /* List dinamis dengan implementasi rata kiri */
-typedef Tree ElType;
 typedef int IdxType;
 typedef struct 
 {
-    ElType *buffer;
+    Tree *buffer;
     int nEff;
     int capacity;
 } ListBalasan;
