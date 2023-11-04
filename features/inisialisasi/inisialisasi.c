@@ -3,9 +3,7 @@
 #include "../profil/profil.h"
 #include "../kicau/kicau.h"
 #include "../teman/teman.h"
-#include "../permintaan/permintaan.h"
 #include "../draf/draf.h"
-#include "../balasan/balasan.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -15,7 +13,7 @@ void init()
     isClosed = false;
 }
 
-void parseMultiCmd(Word w, Word *cmd, Word **param)
+void parseMultiCmd(Word w, Word *cmd, Word *param0, Word  *param1)
 {
     int i = 0;
     CreateWord(cmd);
@@ -27,16 +25,15 @@ void parseMultiCmd(Word w, Word *cmd, Word **param)
     (*cmd).Length = i;
     i++;
     int j = 0, k = 0;
-    (*param) = (Word *)malloc(2 * sizeof(Word));
-    CreateWord(param[0]);
-    CreateWord(param[1]);
+    CreateWord(param0);
+    CreateWord(param1);
     while (i < w.Length && w.TabWord[i] != BLANK)
     {
-        (*param)[j].TabWord[k] = w.TabWord[i];
+        (*param0).TabWord[k] = w.TabWord[i];
         i++;
         k++;
     }
-    (*param)[j].Length = k;
+    (*param0).Length = k;
     if (i < w.Length)
     {
         i++;
@@ -44,17 +41,17 @@ void parseMultiCmd(Word w, Word *cmd, Word **param)
         k = 0;
         while (i < w.Length && w.TabWord[i] != BLANK)
         {
-            (*param)[j].TabWord[k] = w.TabWord[i];
+            (*param1).TabWord[k] = w.TabWord[i];
             i++;
             k++;
         }
-        (*param)[j].Length = k;
+        (*param1).Length = k;
     }
 }
 
 void prosesCmd(Word w)
 {
-    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, daftar_permintaan_pertemanan, setujui_pertemanan, balas;
+    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
@@ -71,10 +68,6 @@ void prosesCmd(Word w)
     strToWord("HAPUS_TEMAN", &hapus_teman);
     strToWord("BUAT_DRAF", &buat_draf);
     strToWord("LIHAT_DRAF", &lihat_draf);
-    strToWord("TAMBAH_TEMAN", &tambah_teman);
-    strToWord("DAFTAR_PERMINTAAN_PERTEMANAN", &daftar_permintaan_pertemanan);
-    strToWord("SETUJUI_PERTEMANAN", &setujui_pertemanan);
-    strToWord("BALAS", &balas);
     if (isKataEqual(w, daftar))
     {
         Daftar();
@@ -192,14 +185,13 @@ void prosesCmd(Word w)
     }
     else if (containBlanks(w))
     {
-        Word newCmd;
-        Word *param;
-        parseMultiCmd(w, &newCmd, &param);
+        Word newCmd, param0, param1;
+        parseMultiCmd(w, &newCmd, &param0, &param1);
         if (isKataEqual(newCmd, lihat_profil))
         {
             if (isLogin)
             {
-                LihatProfil((param)[0]);
+                LihatProfil(param0);
             }
             else
             {
@@ -210,7 +202,7 @@ void prosesCmd(Word w)
         {
             if (isLogin)
             {
-                int id = wordToInteger(param[0]);
+                int id = wordToInteger(param0);
                 sukaKicau(id);
             }
             else
@@ -222,54 +214,8 @@ void prosesCmd(Word w)
         {
             if (isLogin)
             {
-                int id = wordToInteger(param[0]);
+                int id = wordToInteger(param0);
                 ubahKicauan(id);
-            }
-            else
-            {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
-            }
-        }
-        else if (isKataEqual(newCmd, balas))
-        {
-            if (isLogin)
-            {
-                int idKicau = wordToInteger(param[0]);
-                int idBalas = wordToInteger(param[1]);
-                buatBalasan(idKicau, idBalas);
-            }
-            else
-            {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
-            }       
-        }
-        else if (isKataEqual(newCmd, tambah_teman))
-        {
-            if (isLogin)
-            {
-                TambahTeman();
-            }
-            else
-            {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
-            }
-        }
-        else if (isKataEqual(newCmd, daftar_permintaan_pertemanan))
-        {
-            if (isLogin)
-            {
-                DaftarPermintaanPertemanan();
-            }
-            else
-            {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
-            }
-        }
-        else if (isKataEqual(newCmd, setujui_pertemanan))
-        {
-            if (isLogin)
-            {
-                SetujuiPertemanan();
             }
             else
             {
