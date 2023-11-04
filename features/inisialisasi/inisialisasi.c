@@ -190,6 +190,39 @@ void prosesCmd(Word w)
             printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
         }
     }
+        else if (isKataEqual(w, tambah_teman))
+        {
+            if (isLogin)
+            {
+                TambahTeman();
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
+        else if (isKataEqual(w, daftar_permintaan_pertemanan))
+        {
+            if (isLogin)
+            {
+                DaftarPermintaanPertemanan();
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
+        else if (isKataEqual(w, setujui_pertemanan))
+        {
+            if (isLogin)
+            {
+                SetujuiPertemanan();
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
     else if (containBlanks(w))
     {
         Word newCmd;
@@ -242,39 +275,6 @@ void prosesCmd(Word w)
             {
                 printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
             }       
-        }
-        else if (isKataEqual(newCmd, tambah_teman))
-        {
-            if (isLogin)
-            {
-                TambahTeman();
-            }
-            else
-            {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
-            }
-        }
-        else if (isKataEqual(newCmd, daftar_permintaan_pertemanan))
-        {
-            if (isLogin)
-            {
-                DaftarPermintaanPertemanan();
-            }
-            else
-            {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
-            }
-        }
-        else if (isKataEqual(newCmd, setujui_pertemanan))
-        {
-            if (isLogin)
-            {
-                SetujuiPertemanan();
-            }
-            else
-            {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
-            }
         }
     }
 }

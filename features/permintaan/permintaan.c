@@ -1,13 +1,3 @@
-/*
-Masuk
-Load config
-Login
-Load prioqueue permintaan
-Tambah teman
-Daftar request
-Setujui permintaan
-*/
-
 #include <stdio.h>
 #include "permintaan.h"
 
@@ -24,7 +14,7 @@ void LoadDaftarPermintaan() {
     for (i = 0; i < ROW_EFF(matrixPermintaan); i++) {
         if (ELMTMAT(matrixPermintaan, i, 1) == userIdx) {
             Info(e) = ELMTMAT(matrixPermintaan, i, 0);
-            Prio(e) = jumlahTeman(Info(e));
+            Prio(e) = ELMTMAT(matrixPermintaan, i, 2);
             Enqueue(&daftarPermintaan, e);
         }
     }
@@ -111,35 +101,39 @@ void DaftarPermintaanPertemanan() {
 void SetujuiPertemanan() {
     Word nama, answer, ya; ElmPermintaan e, val; int userIdx, targetIdx;
 
-    strToWord("YA", &ya);
+    if (!IsEmpty(daftarPermintaan)) {
+        strToWord("YA", &ya);
 
-    e = ElmtPQ(daftarPermintaan, 0);
-    nama = Nama(ELMT(ListUser, Info(e)));
-    userIdx = indexOf(ListUser, Nama(*currentUser));
-    targetIdx = indexOf(ListUser, nama);
-    printf("Permintaan pertemanan teratas dari ");
-    printWord(nama);
-    printf("\n\n");
-    printElmtPQ(0);
-
-    printf("\nApakah Anda ingin menyetujui permintaan pertemanan ini? (YA/TIDAK) ");
-    ReadWord();
-    answer = currentWord;
-
-    if (isKataEqual(answer, ya)) {
-        ELMTADJMAT(matrixPertemanan, targetIdx, userIdx) = 1;
-        ELMTADJMAT(matrixPertemanan, userIdx, targetIdx) = 1;
-        printf("\nPermintaan pertemanan dari ");
+        e = ElmtPQ(daftarPermintaan, 0);
+        nama = Nama(ELMT(ListUser, Info(e)));
+        userIdx = indexOf(ListUser, Nama(*currentUser));
+        targetIdx = indexOf(ListUser, nama);
+        printf("Permintaan pertemanan teratas dari ");
         printWord(nama);
-        printf(" telah disetujui. Selamat! Anda telah berteman dengan ");
-        printWord(nama);
-        printf(".\n\n");
+        printf("\n\n");
+        printElmtPQ(0);
+
+        printf("\nApakah Anda ingin menyetujui permintaan pertemanan ini? (YA/TIDAK) ");
+        ReadWord();
+        answer = currentWord;
+
+        if (isKataEqual(answer, ya)) {
+            ELMTADJMAT(matrixPertemanan, targetIdx, userIdx) = 1;
+            ELMTADJMAT(matrixPertemanan, userIdx, targetIdx) = 1;
+            printf("\nPermintaan pertemanan dari ");
+            printWord(nama);
+            printf(" telah disetujui. Selamat! Anda telah berteman dengan ");
+            printWord(nama);
+            printf(".\n\n");
+        } else {
+            printf("\nPermintaan pertemanan dari ");
+            printWord(nama);
+            printf(" telah ditolak.\n\n");
+        }
+        Dequeue(&daftarPermintaan, &val);
     } else {
-        printf("\nPermintaan pertemanan dari ");
-        printWord(nama);
-        printf(" telah ditolak.\n\n");
+        printf("\nTidak ada permintaan pertemanan untuk Anda.\n\n");
     }
-    Dequeue(&daftarPermintaan, &val);
 }
  
 void ClearDaftarPermintaan() {

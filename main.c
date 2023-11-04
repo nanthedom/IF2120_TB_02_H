@@ -42,7 +42,7 @@ int main()
   CreateList(&ListUser);
   CreateEmptyDraft(&SDraf);
   CreateAdjMatrix(20, &matrixPertemanan);
-  createMatrix(3, 3, &matrixPermintaan);
+  createMatrix(0, 3, &matrixPermintaan);
   // ELMTMAT(matrixPertemanan, 0, 0) = 1;
   // ELMTMAT(matrixPertemanan, 0, 1) = 1;
   // ELMTMAT(matrixPertemanan, 1, 0) = 1;
