@@ -2,8 +2,12 @@
     "files.associations": {
         "datetime.h": "c",
         "wordmachine.h": "c",
+<<<<<<< Updated upstream
         "stdio.h": "c",
         "boolean.h": "c"
+=======
+        "stdlib.h": "c"
+>>>>>>> Stashed changes
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

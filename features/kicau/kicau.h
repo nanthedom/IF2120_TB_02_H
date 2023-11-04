@@ -56,7 +56,7 @@ boolean isEmptyKicauan(ListKicauan l);
 boolean isFullKicauan(ListKicauan l);
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
 
-void CreateListKicauan();
+void CreateListKicauan(ListKicauan *l);
 /* I.S. l sembarang, capacity > 0 */
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
 
@@ -92,17 +92,17 @@ void sukaKicau(int id);
 
 void ubahKicauan(int id);
 
-void expandList(ListKicauan *l, int num);
+void expandListKicau(ListKicauan *l, int num);
 /* Proses : Menambahkan capacity l sebanyak num */
 /* I.S. List sudah terdefinisi */
 /* F.S. Ukuran list bertambah sebanyak num */
 
-void shrinkList(ListKicauan *l, int num);
+void shrinkListKicau(ListKicauan *l, int num);
 /* Proses : Mengurangi capacity sebanyak num */
 /* I.S. List sudah terdefinisi, ukuran capacity > num, dan nEff < capacity - num. */
 /* F.S. Ukuran list berkurang sebanyak num. */
 
-void compressList(ListKicauan *l);
+void compressListKicau(ListKicauan *l);
 /* Proses : Mengubah capacity sehingga capacity = nEff */
 /* I.S. List tidak kosong */
 /* F.S. Ukuran capacity = nEff */
