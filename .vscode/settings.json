@@ -1,7 +1,9 @@
 {
     "files.associations": {
         "datetime.h": "c",
-        "wordmachine.h": "c"
+        "wordmachine.h": "c",
+        "stdio.h": "c",
+        "boolean.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

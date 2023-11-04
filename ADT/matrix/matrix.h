@@ -6,25 +6,25 @@
 #include "../boolean/boolean.h"
 
 /* Ukuran maksimum baris dan kolom */
-#define ROW_CAP 100
-#define COL_CAP 100
+#define ROWM_CAP 100
+#define COLM_CAP 100
 
 typedef int IdxType; /* Index baris, kolom */
 typedef int ElType;
 typedef struct
 {
-   ElType mem[ROW_CAP][COL_CAP];
+   ElType mem[ROWM_CAP][COLM_CAP];
    int rowEff; /* banyaknya/ukuran baris yg terdefinisi */
    int colEff; /* banyaknya/ukuran kolom yg terdefinisi */
 } Matrix;
 /* rowEff >= 1 dan colEff >= 1 */
-/* Indeks matriks yang digunakan: [0..ROW_CAP-1][0..COL_CAP-1] */
+/* Indeks matriks yang digunakan: [0..ROWM_CAP-1][0..COLM_CAP-1] */
 /* Memori matriks yang dipakai selalu di "ujung kiri atas" */
 
 /* *** Selektor *** */
 #define ROW_EFF(M) (M).rowEff
 #define COL_EFF(M) (M).colEff
-#define ELMT(M, i, j) (M).mem[(i)][(j)]
+#define ELMTMAT(M, i, j) (M).mem[(i)][(j)]
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 /* *** Konstruktor membentuk Matrix *** */

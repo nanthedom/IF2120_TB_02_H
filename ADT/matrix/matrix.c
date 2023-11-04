@@ -15,7 +15,7 @@ void createMatrix(int nRows, int nCols, Matrix *m){
 
 /* *** Selektor "Dunia Matrix" *** */
 boolean isMatrixIdxValid(int i, int j){
-    return (i >= 0) && (i < ROW_CAP) && (j >= 0) && (j < COL_CAP);
+    return (i >= 0) && (i < ROWM_CAP) && (j >= 0) && (j < COLM_CAP);
 }
 /* Mengirimkan true jika i, j adalah index yang valid untuk matriks apa pun */
 
