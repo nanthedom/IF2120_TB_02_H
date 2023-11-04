@@ -9,6 +9,8 @@
 Word currentWord;
 boolean EndWord;
 
+
+
 void IgnoreEnter()
 {
     while (currentChar == ENTER)
@@ -59,19 +61,31 @@ boolean containBlanks(Word w)
     return found;
 }
 
+void ReadFromFile(char *str){
+    startFile(str);
+    IgnoreBlanks();
+    if (currentChar == MARK){
+        EndWord = true;
+    }
+    else{
+        EndWord = false;
+        CopyWord();
+    }
+}
+
 void ReadWord()
 {
     START();
     IgnoreCarriageEnter();
-    currentWord.TabWord = (char*) malloc (NMax*sizeof(char));
+    // currentWord.TabWord = (char*) malloc (NMax*sizeof(char));
     if(currentChar == MARK){
         EndWord = true;
     }
     else
     {
         EndWord = false;
+        CopyWord();
     }
-    CopyWord();
 }
 /* I.S. : currentChar sembarang
    F.S. : EndWord = true, dan currentChar = MARK;

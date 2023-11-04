@@ -9,6 +9,14 @@
 
 void init()
 {
+    printf(".______    __    __  .______      .______    __  .______      \n"
+            "|   _  \\  |  |  |  | |   _  \\     |   _  \\  |  | |   _  \\     \n"
+            "|  |_)  | |  |  |  | |  |_)  |    |  |_)  | |  | |  |_)  |    \n"
+            "|   _  <  |  |  |  | |      /     |   _  <  |  | |      /     \n"
+            "|  |_)  | |  `--'  | |  |\\  \\----.|  |_)  | |  | |  |\\  \\----.\n"
+            "|______/   \\______/  | _| `._____||______/  |__| | _| `._____|\n\n"                                                            
+            "Selamat datang di BurBir. \n"
+            "Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n");
     isLogin = false;
     isClosed = false;
 }
@@ -52,10 +60,11 @@ void parseMultiCmd(Word w, Word *cmd, Word **param)
 
 void prosesCmd(Word w)
 {
-    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf;
+    Word daftar, muat, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
+    strToWord("MUAT", &muat);
     strToWord("TUTUP_PROGRAM", &tutup_program);
     strToWord("GANTI_PROFIL", &ganti_profil);
     strToWord("LIHAT_PROFIL", &lihat_profil);
@@ -84,6 +93,17 @@ void prosesCmd(Word w)
     else if (isKataEqual(w, tutup_program))
     {
         TutupProgram();
+    }
+    else if (isKataEqual(w, muat))
+    {
+        if (isLogin)
+        {
+            printf("Anda harus keluar terlebih dahulu untuk melakukan pemuatan.\n");
+        }
+        else
+        {
+            Muat();
+        }
     }
     else if (isKataEqual(w, ganti_profil))
     {

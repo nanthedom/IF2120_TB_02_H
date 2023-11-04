@@ -3,6 +3,7 @@
 
 #include "charmachine.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include "../boolean/boolean.h"
 
 char currentChar;
@@ -10,6 +11,15 @@ boolean EOP;
 
 static FILE *pita;
 static int retval;
+
+void startFile(char *str){
+       pita = fopen(str, "r");
+       if(pita == NULL){
+              printf("File tidak ditemukan. Exiting....\n");
+              exit(0);
+       }
+       ADV();
+}
 
 void START()
 {
