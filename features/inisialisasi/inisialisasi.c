@@ -3,6 +3,8 @@
 #include "../profil/profil.h"
 #include "../kicau/kicau.h"
 #include "../teman/teman.h"
+#include "../permintaan/permintaan.h"
+#include "../balasan/balasan.h"
 #include "../draf/draf.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -51,7 +53,7 @@ void parseMultiCmd(Word w, Word *cmd, Word *param0, Word  *param1)
 
 void prosesCmd(Word w)
 {
-    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf;
+    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
@@ -64,10 +66,14 @@ void prosesCmd(Word w)
     strToWord("KICAUAN", &kicauan);
     strToWord("SUKA_KICAUAN", &suka_kicauan);
     strToWord("UBAH_KICAUAN", &ubah_kicauan);
+    strToWord("BALAS", &balas);
     strToWord("DAFTAR_TEMAN", &daftar_teman);
     strToWord("HAPUS_TEMAN", &hapus_teman);
     strToWord("BUAT_DRAF", &buat_draf);
     strToWord("LIHAT_DRAF", &lihat_draf);
+    strToWord("TAMBAH_TEMAN", &tambah_teman);
+    strToWord("SETUJUI_PERTEMANAN", &setujui_pertemanan);
+    strToWord("DAFTAR_PERMINTAAN_PERTEMANAN", &daftar_permintaan_pertemanan);
     if (isKataEqual(w, daftar))
     {
         Daftar();
@@ -259,47 +265,14 @@ void prosesCmd(Word w)
         {
             if (isLogin)
             {
-                int idKicau = wordToInteger(param[0]);
-                int idBalas = wordToInteger(param[1]);
+                int idKicau = wordToInteger(param0);
+                int idBalas = wordToInteger(param1);
                 buatBalasan(idKicau, idBalas);
             }
             else
             {
                 printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
             }       
-        }
-        else if (isKataEqual(newCmd, tambah_teman))
-        {
-            if (isLogin)
-            {
-                TambahTeman();
-            }
-            else
-            {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
-            }
-        }
-        else if (isKataEqual(newCmd, daftar_permintaan_pertemanan))
-        {
-            if (isLogin)
-            {
-                DaftarPermintaanPertemanan();
-            }
-            else
-            {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
-            }
-        }
-        else if (isKataEqual(newCmd, setujui_pertemanan))
-        {
-            if (isLogin)
-            {
-                SetujuiPertemanan();
-            }
-            else
-            {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
-            }
         }
     }
 }
