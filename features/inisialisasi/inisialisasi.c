@@ -129,6 +129,7 @@ void prosesCmd(Word w)
         if (isLogin)
         {
             Kicau();
+            inisialisasiBalasan();
         }
         else
         {

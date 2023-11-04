@@ -14,7 +14,7 @@ extern Pengguna *currentUser;
 boolean kicauanValid()
 /* Mengirim True jika jumlah karakter kicauan tidak lebih dari MAX_CHAR */
 {
-    return currentWord.Length > 0 && currentWord.Length <= 280;
+    return currentWord.Length > 0 && currentWord.Length <= MAX_CHAR;
 }
 
 boolean kicauanBlanks()
@@ -148,18 +148,6 @@ void insertByTime(Kicauan kicau)
     }
 }
 
-void createEmptyBalasan(Balasan *reply)
-{
-    Word tweet;
-    strToWord("root-kicau", &tweet);
-    idBalas(*reply) = 0;
-    textBalas(*reply) = tweet;
-    authorBalas(*reply) = Nama(*currentUser);
-    DATETIME dt;
-    BacaDATETIME(&dt);
-    datetimeBalas(*reply) = dt;
-}
-
 void Kicau()
 {
     printf("\n");
@@ -197,14 +185,6 @@ void Kicau()
         printWord(textKicau(tweet));
         printf("\n| Disukai: %d\n", likeKicau(tweet));
         printf("\n");
-        
-        // update inisialisasi ListReply
-        Balasan Reply;
-        createEmptyBalasan(&Reply);
-        TreeNode *root = createNode(Reply);
-        ElTypeReply elmt;
-        createBuffer(&elmt, *root);
-        insertLastBalasan(elmt);
     }
 }
 
@@ -215,7 +195,7 @@ void printKicauan()
     for (i = NEFFKicau(ListTweet) - 1; i >= 0; i--)
     {
         int idx = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, i)));
-        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, i))))
+        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, i))) || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, i))))
         {
             printf("| ID = %d", idKicau(ELMTKicau(ListTweet, i)));
             printf("\n| ");
@@ -235,25 +215,44 @@ boolean idValid(int id)
     return id - 1 >= 0 && id - 1 < NEFFKicau(ListTweet);
 }
 
+IdxType searchByIdKicau(int id)
+{
+    int i = 0;
+    boolean found = false;
+    while (i < NEFFKicau(ListTweet) && !found)
+    {
+        if (idKicau(ELMTKicau(ListTweet, i)) == id)
+        {
+            found = true;
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return i;
+}
+
 void sukaKicau(int id)
 {
     if (idValid(id))
     {
-        int idx = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, id - 1)));
-        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, id - 1))))
+        int idxtweet = searchByIdKicau(id);
+        int idxuser = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, idxtweet)));
+        if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, idxtweet))) || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
         {
-            likeKicau(ELMTKicau(ListTweet, id - 1))++;
+            likeKicau(ELMTKicau(ListTweet, idxtweet))++;
             printf("\n");
             printf("Selamat! kicauan telah disukai!\n");
             printf("Detil kicauan:\n");
-            printf("| ID = %d", idKicau(ELMTKicau(ListTweet, id - 1)));
+            printf("| ID = %d", idKicau(ELMTKicau(ListTweet, idxtweet)));
             printf("\n| ");
-            printWord(authorKicau(ELMTKicau(ListTweet, id - 1)));
+            printWord(authorKicau(ELMTKicau(ListTweet, idxtweet)));
             printf("\n| ");
-            TulisDATETIME(datetimeKicau(ELMTKicau(ListTweet, id - 1)));
+            TulisDATETIME(datetimeKicau(ELMTKicau(ListTweet, idxtweet)));
             printf("\n| ");
-            printWord(textKicau(ELMTKicau(ListTweet, id - 1)));
-            printf("\n| Disukai: %d\n", likeKicau(ELMTKicau(ListTweet, id - 1)));
+            printWord(textKicau(ELMTKicau(ListTweet, idxtweet)));
+            printf("\n| Disukai: %d\n", likeKicau(ELMTKicau(ListTweet, idxtweet)));
             printf("\n");
         }
         else
@@ -275,7 +274,8 @@ void ubahKicauan(int id)
 {
     if (idValid(id))
     {
-        if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, id - 1))))
+        int idxtweet = searchByIdKicau(id);
+        if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
         {
             printf("\n");
             printf("Masukkan kicauan baru:\n");
@@ -290,22 +290,22 @@ void ubahKicauan(int id)
             {
                 if (kicauanValid())
                 {
-                    textKicau(ELMTKicau(ListTweet, id - 1)) = currentWord;
+                    textKicau(ELMTKicau(ListTweet, idxtweet)) = currentWord;
                 }
                 else
                 {
                     currentWord.Length = 280;
-                    textKicau(ELMTKicau(ListTweet, id - 1)) = currentWord;
+                    textKicau(ELMTKicau(ListTweet, idxtweet)) = currentWord;
                 }
                 printf("Selamat! kicauan telah diterbitkan!\nDetil kicauan:\n");
-                printf("| ID = %d", idKicau(ELMTKicau(ListTweet, id - 1)));
+                printf("| ID = %d", idKicau(ELMTKicau(ListTweet, idxtweet)));
                 printf("\n| ");
-                printWord(authorKicau(ELMTKicau(ListTweet, id - 1)));
+                printWord(authorKicau(ELMTKicau(ListTweet, idxtweet)));
                 printf("\n| ");
-                TulisDATETIME(datetimeKicau(ELMTKicau(ListTweet, id - 1)));
+                TulisDATETIME(datetimeKicau(ELMTKicau(ListTweet, idxtweet)));
                 printf("\n| ");
-                printWord(textKicau(ELMTKicau(ListTweet, id - 1)));
-                printf("\n| Disukai: %d\n", likeKicau(ELMTKicau(ListTweet, id - 1)));
+                printWord(textKicau(ELMTKicau(ListTweet, idxtweet)));
+                printf("\n| Disukai: %d\n", likeKicau(ELMTKicau(ListTweet, idxtweet)));
                 printf("\n");
             }
         }

@@ -1,5 +1,6 @@
 #include "../pengguna/pengguna.h"
 #include "../teman/teman.h"
+#include "../kicau/kicau.h"
 #include "balasan.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,14 +8,26 @@
 extern int currentIdReply;
 extern int currentIdTweet;
 extern ListBalasan ListReply;
+extern ListKicauan ListTweet;
 extern ListPengguna ListUser;
 extern Pengguna *currentUser;
 
 void CreateBalasan(Balasan *reply)
 {
-    currentIdReply++;
     idBalas(*reply) = currentIdReply;
     textBalas(*reply) = currentWord;
+    authorBalas(*reply) = Nama(*currentUser);
+    DATETIME dt;
+    BacaDATETIME(&dt);
+    datetimeBalas(*reply) = dt;
+}
+
+void createEmptyBalasan(Balasan *reply)
+{
+    Word tweet;
+    strToWord("root-kicau", &tweet);
+    idBalas(*reply) = 0;
+    textBalas(*reply) = tweet;
     authorBalas(*reply) = Nama(*currentUser);
     DATETIME dt;
     BacaDATETIME(&dt);
@@ -77,7 +90,7 @@ void printTree(TreeNode *node, int depth)
     {
         Balasan reply = ROOT(*node);
         int idx = indexOf(ListUser, authorBalas(reply));
-        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(authorBalas(reply)))
+        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(authorBalas(reply)) || isKataEqual(Nama(*currentUser), authorBalas(reply)))
         {
             printDepth(depth);
             printf("| ID = %d", idBalas(reply));
@@ -233,48 +246,87 @@ boolean balasanBlanks()
     return found;
 }
 
+void inisialisasiBalasan()
+{
+    Balasan Reply;
+    createEmptyBalasan(&Reply);
+    TreeNode *root = createNode(Reply);
+    ElTypeReply elmt;
+    createBuffer(&elmt, *root);
+    insertLastBalasan(elmt);
+}
+
 void buatBalasan(int idKicau, int idBalas)
 {
     if (idKicauValid(idKicau))
     {
-        // if
-        if (idbalasValid(idBalas) || idBalas == 0)
+        int idxtweet = searchByIdKicau(idKicau);
+        int idxuser = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, idxtweet)));
+        if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, idxtweet))) || idBalas != 0 || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
         {
-            printf("\nMasukkan balasan:\n");
-            ReadWord();
-            Balasan reply;
-            if (balasanValid())
+            if (idbalasValid(idBalas) || idBalas == 0)
             {
-                CreateBalasan(&reply);
+                TreeNode *foundNode = searchTree(&content(ELMTBalas(ListReply, idKicau - 1)), idBalas);
+                idxuser = indexOf(ListUser, authorBalas(ROOT(*foundNode)));
+                if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorBalas(ROOT(*foundNode))) || isKataEqual(Nama(*currentUser), authorBalas(ROOT(*foundNode))))
+                {
+                    printf("\nMasukkan balasan:\n");
+                    ReadWord();
+                    printf("\n");
+                    if (balasanBlanks())
+                    {
+                        printf("Balasan tidak boleh hanya berisi spasi!\n");
+                        printf("\n");
+                    }
+                    else
+                    {
+                        Balasan reply;
+                        currentIdReply++;
+                        if (balasanValid())
+                        {
+                            CreateBalasan(&reply);
+                        }
+                        else
+                        {
+                            currentWord.Length = 280;
+                            CreateBalasan(&reply);
+                        }
+                        // update TreeNode balasan
+                        count(ELMTBalas(ListReply, idKicau - 1))++;
+                        TreeNode *child = createNode(reply);
+                        addChild(foundNode, child);
+
+                        // output
+                        printf("Selamat! balasan telah diterbitkan!\n");
+                        printf("Detil balasan:\n");
+                        printf("| ID = %d", idBalas(ROOT(*child)));
+                        printf("\n| ");
+                        printWord(authorBalas(ROOT(*child)));
+                        printf("\n| ");
+                        TulisDATETIME(datetimeBalas(ROOT(*child)));
+                        printf("\n| ");
+                        printWord(textBalas(ROOT(*child)));
+                        printf("\n\n");
+                    }
+                }
+                else
+                {
+                    printf("\n");
+                    printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman dengan akun tersebut!\n");
+                    printf("\n");
+                }
             }
             else
             {
-                currentWord.Length = 280;
-                CreateBalasan(&reply);
+                printf("\n");
+                printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
+                printf("\n");
             }
-            // update TreeNode balasan
-            count(ELMTBalas(ListReply, idKicau - 1))++;
-            TreeNode *child = createNode(reply);
-            TreeNode *foundNode = searchTree(&content(ELMTBalas(ListReply, idKicau - 1)), idBalas);
-            addChild(foundNode, child);
-
-            // output
-            printf("\n");
-            printf("Selamat! balasan telah diterbitkan!\n");
-            printf("Detil balasan:\n");
-            printf("| ID = %d", idBalas(ROOT(*child)));
-            printf("\n| ");
-            printWord(authorBalas(ROOT(*child)));
-            printf("\n| ");
-            TulisDATETIME(datetimeBalas(ROOT(*child)));
-            printf("\n| ");
-            printWord(textBalas(ROOT(*child)));
-            printf("\n\n");
         }
         else
         {
             printf("\n");
-            printf("Wah, tidak terdapat balasan yang ingin Anda balas!\n");
+            printf("Wah, akun tersebut merupakan akun privat dan anda belum berteman dengan akun tersebut!\n");
             printf("\n");
         }
     }
@@ -288,16 +340,35 @@ void buatBalasan(int idKicau, int idBalas)
 
 void printBalasan(int idKicau)
 {
-
-    if (count(ELMTBalas(ListReply, idKicau - 1)) == 0)
+    if (idKicauValid(idKicau))
     {
-        printf("\n");
-        printf("Belum terdapat balasan apapun pada kicauan tersebut. Yuk balas kicauan tersebut!\n");
-        printf("\n");
+        int idxtweet = searchByIdKicau(idKicau);
+        int idxuser = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, idxtweet)));
+        if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, idxtweet))) || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
+        {
+            if (count(ELMTBalas(ListReply, idKicau - 1)) == 0)
+            {
+                printf("\n");
+                printf("Belum terdapat balasan apapun pada kicauan tersebut. Yuk balas kicauan tersebut!\n");
+                printf("\n");
+            }
+            else
+            {
+                TreeNode node = content(ELMTBalas(ListReply, idKicau - 1));
+                printTree(&node, 0);
+            }
+        }
+        else
+        {
+            printf("\n");
+            printf("Wah, kicauan tersebut dibuat oleh pengguna dengan akun privat!\n");
+            printf("\n");
+        }
     }
     else
     {
-        TreeNode node = content(ELMTBalas(ListReply, idKicau - 1));
-        printTree(&node, 0);
+        printf("\n");
+        printf("Tidak terdapat kicauan dengan id tersebut!\n");
+        printf("\n");
     }
 }

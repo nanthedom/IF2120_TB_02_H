@@ -61,6 +61,8 @@ typedef struct
 void createBalasan(Balasan *reply);
 /* Terbentuk balasan dengan id, text, author, dan waktu yang valid */
 
+void createEmptyBalasan(Balasan *reply);
+
 TreeNode *createNode(Balasan reply);
 /* Fungsi untuk membuat node baru dengan data tertentu */
 
@@ -115,6 +117,8 @@ boolean balasanValid();
 
 boolean balasanBlanks();
 /* Mengirim True jika karakter balasan kosong */
+
+void inisialisasiBalasan();
 
 void buatBalasan(int idKicau, int idBalas);
 
