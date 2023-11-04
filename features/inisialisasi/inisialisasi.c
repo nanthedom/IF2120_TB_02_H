@@ -3,6 +3,7 @@
 #include "../profil/profil.h"
 #include "../kicau/kicau.h"
 #include "../teman/teman.h"
+#include "../permintaan/permintaan.h"
 #include "../draf/draf.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -52,7 +53,7 @@ void parseMultiCmd(Word w, Word *cmd, Word **param)
 
 void prosesCmd(Word w)
 {
-    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf;
+    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, daftar_permintaan_pertemanan, setujui_pertemanan;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
@@ -69,6 +70,9 @@ void prosesCmd(Word w)
     strToWord("HAPUS_TEMAN", &hapus_teman);
     strToWord("BUAT_DRAF", &buat_draf);
     strToWord("LIHAT_DRAF", &lihat_draf);
+    strToWord("TAMBAH_TEMAN", &tambah_teman);
+    strToWord("DAFTAR_PERMINTAAN_PERTEMANAN", &daftar_permintaan_pertemanan);
+    strToWord("SETUJUI_PERTEMANAN", &setujui_pertemanan);
     if (isKataEqual(w, daftar))
     {
         Daftar();
@@ -218,6 +222,39 @@ void prosesCmd(Word w)
             {
                 int id = wordToInteger(param[0]);
                 ubahKicauan(id);
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
+        else if (isKataEqual(newCmd, tambah_teman))
+        {
+            if (isLogin)
+            {
+                TambahTeman();
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
+        else if (isKataEqual(newCmd, daftar_permintaan_pertemanan))
+        {
+            if (isLogin)
+            {
+                DaftarPermintaanPertemanan();
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
+        else if (isKataEqual(newCmd, setujui_pertemanan))
+        {
+            if (isLogin)
+            {
+                SetujuiPertemanan();
             }
             else
             {
