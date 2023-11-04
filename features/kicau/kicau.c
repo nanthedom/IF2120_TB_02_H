@@ -1,7 +1,6 @@
 #include "kicau.h"
 #include "../pengguna/pengguna.h"
 #include "../teman/teman.h"
-#include "../balasan/balasan.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include "../../ADT/datetime/datetime.h"
@@ -149,6 +148,18 @@ void insertByTime(Kicauan kicau)
     }
 }
 
+void createEmptyBalasan(Balasan *reply)
+{
+    Word tweet;
+    strToWord("root-kicau", &tweet);
+    idBalas(*reply) = 0;
+    textBalas(*reply) = tweet;
+    authorBalas(*reply) = Nama(*currentUser);
+    DATETIME dt;
+    BacaDATETIME(&dt);
+    datetimeBalas(*reply) = dt;
+}
+
 void Kicau()
 {
     printf("\n");
@@ -186,11 +197,14 @@ void Kicau()
         printWord(textKicau(tweet));
         printf("\n| Disukai: %d\n", likeKicau(tweet));
         printf("\n");
+        
         // update inisialisasi ListReply
         Balasan Reply;
         createEmptyBalasan(&Reply);
         TreeNode *root = createNode(Reply);
-        insertLastBalasan(*root);
+        ElTypeReply elmt;
+        createBuffer(&elmt, *root);
+        insertLastBalasan(elmt);
     }
 }
 

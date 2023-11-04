@@ -29,15 +29,25 @@ typedef struct TreeNode
 } TreeNode;
 
 /* Selektor */
-#define ROOT(p) (p)->info
+#define ROOT(p) (p).info
 #define firstChild(p) (p)->firstChild
 #define nextSibling(p) (p)->nextSibling
+
+typedef struct ElTypeReply
+{
+    TreeNode content;
+    int count;
+} ElTypeReply;
+
+/* Selektor */
+#define content(l) (l).content
+#define count(l) (l).count
 
 /* List dinamis dengan implementasi rata kiri */
 typedef int IdxType;
 typedef struct
 {
-    TreeNode *buffer;
+    ElTypeReply *buffer;
     int nEff;
     int capacity;
 } ListBalasan;
@@ -53,6 +63,8 @@ void createBalasan(Balasan *reply);
 
 TreeNode *createNode(Balasan reply);
 /* Fungsi untuk membuat node baru dengan data tertentu */
+
+void createBuffer(ElTypeReply *elmt, TreeNode reply);
 
 void addChild(TreeNode *parent, TreeNode *child);
 /* Fungsi untuk menambahkan anak ke sebuah node */
@@ -88,7 +100,7 @@ void expandListBalasan(ListBalasan *l, int num);
 /* I.S. List sudah terdefinisi */
 /* F.S. Ukuran list bertambah sebanyak num */
 
-void insertLastBalasan(TreeNode Reply);
+void insertLastBalasan(ElTypeReply Reply);
 
 void createEmptyBalasan(Balasan *reply);
 

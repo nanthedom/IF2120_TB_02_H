@@ -7,6 +7,7 @@
 #include "../../ADT/boolean/boolean.h"
 #include "../../ADT/wordmachine/wordmachine.h"
 #include "../../ADT/datetime/datetime.h"
+#include "../balasan/balasan.h"
 
 // Tipe Kicauan
 typedef struct
@@ -81,6 +82,8 @@ void CreateKicau(Kicauan *kicau);
 void insertLastKicauan(Kicauan kicau);
 
 void insertByTime(Kicauan kicau);
+
+void createEmptyBalasan(Balasan *reply);
 
 void Kicau();
 

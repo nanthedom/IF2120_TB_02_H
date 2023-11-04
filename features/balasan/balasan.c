@@ -12,6 +12,7 @@ extern Pengguna *currentUser;
 
 void CreateBalasan(Balasan *reply)
 {
+    currentIdReply++;
     idBalas(*reply) = currentIdReply;
     textBalas(*reply) = currentWord;
     authorBalas(*reply) = Nama(*currentUser);
@@ -26,11 +27,17 @@ TreeNode *createNode(Balasan reply)
     TreeNode *p = (TreeNode *)malloc(sizeof(TreeNode));
     if (p != NULL)
     {
-        ROOT(p) = reply;
+        ROOT(*p) = reply;
         firstChild(p) = NULL;
         nextSibling(p) = NULL;
     }
     return p;
+}
+
+void createBuffer(ElTypeReply *elmt, TreeNode reply)
+{
+    content(*elmt) = reply;
+    count(*elmt) = 0;
 }
 
 void addChild(TreeNode *parent, TreeNode *child)
@@ -51,6 +58,14 @@ void addChild(TreeNode *parent, TreeNode *child)
     }
 }
 
+void printDepth(int depth)
+{
+    for (int i = 1; i < depth; i++)
+    {
+        printf("   ");
+    }
+}
+
 void printTree(TreeNode *node, int depth)
 /* Fungsi untuk mencetak pohon dengan banyak cabang secara rekursif */
 {
@@ -58,30 +73,39 @@ void printTree(TreeNode *node, int depth)
     {
         return;
     }
-
-    for (int i = 0; i < depth; i++)
+    if (depth != 0)
     {
-        printf("   ");
-    }
-    Balasan reply = ROOT(node);
-    int idx = indexOf(ListUser, authorBalas(reply));
-    if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(authorBalas(reply)))
-    {
-        printf("| ID = %d", idBalas(reply));
-        printf("\n| ");
-        printWord(authorBalas(reply));
-        printf("\n| ");
-        TulisDATETIME(datetimeBalas(reply));
-        printf("\n| ");
-        printWord(textBalas(reply));
-        printf("\n");
-    }
-    else
-    {
-        printf("| ID = %d\n", idBalas(reply));
-        printf("| PRIVAT");
-        printf("| PRIVAT");
-        printf("| PRIVAT");
+        Balasan reply = ROOT(*node);
+        int idx = indexOf(ListUser, authorBalas(reply));
+        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(authorBalas(reply)))
+        {
+            printDepth(depth);
+            printf("| ID = %d", idBalas(reply));
+            printf("\n");
+            printDepth(depth);
+            printf("| ");
+            printWord(authorBalas(reply));
+            printf("\n");
+            printDepth(depth);
+            printf("| ");
+            TulisDATETIME(datetimeBalas(reply));
+            printf("\n");
+            printDepth(depth);
+            printf("| ");
+            printWord(textBalas(reply));
+            printf("\n");
+        }
+        else
+        {
+            printDepth(depth);
+            printf("| ID = %d\n", idBalas(reply));
+            printDepth(depth);
+            printf("| PRIVAT\n");
+            printDepth(depth);
+            printf("| PRIVAT\n");
+            printDepth(depth);
+            printf("| PRIVAT\n");
+        }
     }
     printf("\n");
     printTree(firstChild(node), depth + 1); // Cetak anak pertama
@@ -96,7 +120,7 @@ TreeNode *searchTree(TreeNode *node, int id)
         return NULL; // Basis: node tidak ditemukan
     }
 
-    if (idBalas(ROOT(node)) == id)
+    if (idBalas(ROOT(*node)) == id)
     {
         return node; // Basis: node ditemukan
     }
@@ -145,7 +169,7 @@ void createListBalasan(ListBalasan *l)
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
 {
     int capacity = 64;
-    BUFFERBalas(*l) = (TreeNode *)malloc(capacity * sizeof(TreeNode));
+    BUFFERBalas(*l) = (ElTypeReply *)malloc(capacity * sizeof(ElTypeReply));
     NEFFBalas(*l) = 0;
     CAPACITYBalas(*l) = capacity;
 }
@@ -154,11 +178,11 @@ void expandListBalasan(ListBalasan *l, int num)
 /* I.S. List sudah terdefinisi */
 /* F.S. Ukuran list bertambah sebanyak num */
 {
-    BUFFERBalas(*l) = (TreeNode *)realloc(BUFFERBalas(*l), (CAPACITYBalas(*l) + num) * sizeof(TreeNode));
+    BUFFERBalas(*l) = (ElTypeReply *)realloc(BUFFERBalas(*l), (CAPACITYBalas(*l) + num) * sizeof(ElTypeReply));
     CAPACITYBalas(*l) += num;
 }
 
-void insertLastBalasan(TreeNode Reply)
+void insertLastBalasan(ElTypeReply Reply)
 {
     if (isFullBalasan(ListReply))
     {
@@ -170,18 +194,6 @@ void insertLastBalasan(TreeNode Reply)
         ELMTBalas(ListReply, getLastIdxBalasan(ListReply) + 1) = Reply;
     }
     NEFFBalas(ListReply)++;
-}
-
-void createEmptyBalasan(Balasan *reply)
-{
-    Word tweet;
-    strToWord("root-kicau", &tweet);
-    idBalas(*reply) = -1;
-    textBalas(*reply) = tweet;
-    authorBalas(*reply) = tweet;
-    DATETIME dt;
-    BacaDATETIME(&dt);
-    datetimeBalas(*reply) = dt;
 }
 
 boolean idKicauValid(int idKicau)
@@ -225,15 +237,39 @@ void buatBalasan(int idKicau, int idBalas)
 {
     if (idKicauValid(idKicau))
     {
-        if (idbalasValid(idBalas) || idBalas == -1)
+        // if
+        if (idbalasValid(idBalas) || idBalas == 0)
         {
             printf("\nMasukkan balasan:\n");
             ReadWord();
             Balasan reply;
-            CreateBalasan(&reply);
+            if (balasanValid())
+            {
+                CreateBalasan(&reply);
+            }
+            else
+            {
+                currentWord.Length = 280;
+                CreateBalasan(&reply);
+            }
+            // update TreeNode balasan
+            count(ELMTBalas(ListReply, idKicau - 1))++;
             TreeNode *child = createNode(reply);
-            TreeNode *foundNode = searchTree(&ELMTBalas(ListReply, idKicau - 1), idBalas);
+            TreeNode *foundNode = searchTree(&content(ELMTBalas(ListReply, idKicau - 1)), idBalas);
             addChild(foundNode, child);
+
+            // output
+            printf("\n");
+            printf("Selamat! balasan telah diterbitkan!\n");
+            printf("Detil balasan:\n");
+            printf("| ID = %d", idBalas(ROOT(*child)));
+            printf("\n| ");
+            printWord(authorBalas(ROOT(*child)));
+            printf("\n| ");
+            TulisDATETIME(datetimeBalas(ROOT(*child)));
+            printf("\n| ");
+            printWord(textBalas(ROOT(*child)));
+            printf("\n\n");
         }
         else
         {
@@ -252,6 +288,16 @@ void buatBalasan(int idKicau, int idBalas)
 
 void printBalasan(int idKicau)
 {
-    TreeNode node = ELMTBalas(ListReply, idKicau - 1);
-    printTree(&node, 1);
+
+    if (count(ELMTBalas(ListReply, idKicau - 1)) == 0)
+    {
+        printf("\n");
+        printf("Belum terdapat balasan apapun pada kicauan tersebut. Yuk balas kicauan tersebut!\n");
+        printf("\n");
+    }
+    else
+    {
+        TreeNode node = content(ELMTBalas(ListReply, idKicau - 1));
+        printTree(&node, 0);
+    }
 }
