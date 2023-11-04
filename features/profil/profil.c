@@ -2,7 +2,9 @@
 #include "../inisialisasi/inisialisasi.h"
 #include <stdio.h>
 #include "../../ADT/wordmachine/wordmachine.h"
+#include "../teman/teman.h"
 
+extern AdjMatrix matrixPertemanan;
 extern ListPengguna ListUser;
 extern Pengguna *currentUser;
 
@@ -431,11 +433,26 @@ void LihatProfil(Word Nama)
         }
         else
         {
-            printf("Wah akun ");
-            printWord(Nama);
-            printf(" diprivat nih. Ikuti dulu yuk untuk bisa melihat profil ");
-            printWord(Nama);
-            printf("!\n");
+            if(isKataEqual(Nama,Nama(*currentUser)))
+            {
+                displayProfil(ELMT(ListUser, id));
+                printf("Foto profil: \n");
+                PrintFoto(Profil(ELMT(ListUser, id)));
+            } 
+            else if (isFriendsWith(Nama))
+            {
+                displayProfil(ELMT(ListUser, id));
+                printf("Foto profil: \n");
+                PrintFoto(Profil(ELMT(ListUser, id)));
+            } 
+            else
+            {
+                printf("Wah akun ");
+                printWord(Nama);
+                printf(" diprivat nih. Ikuti dulu yuk untuk bisa melihat profil ");
+                printWord(Nama);
+                printf("!\n");
+            }
         }
     }
     else

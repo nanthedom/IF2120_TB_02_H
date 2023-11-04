@@ -51,7 +51,7 @@ OBJ_PROFIL = $(SRC_PROFIL:.c=.o)
 all: main_program
 
 build :
-	main_program
+	$(MAKE) main_program
 
 run :
 	./main_program
@@ -147,5 +147,5 @@ create_stdout: $(STDOUT)
 $(STDOUT): stdout_%.txt: $(TESTS_DIR)/%.in $(file)
 	@./mword < $< | tr '\r' '\n' > $@
 
-main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_QUEUE) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTST) $(OBJ_LISTLIN) $(OBJ_LISTDIN) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN)
+main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR)  $(OBJ_LISTLIN) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN)
 	$(CC) $(CFLAGS) -o $@ $^

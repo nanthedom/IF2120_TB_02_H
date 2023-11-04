@@ -33,12 +33,12 @@ typedef Address List;
 
 /* PROTOTYPE */
 /****************** PEMBUATAN LIST KOSONG ******************/
-void CreateList(List *l);
+void CreateListLinier(List *l);
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 
 /****************** TEST LIST KOSONG ******************/
-boolean isEmpty(List l);
+boolean isEmptyLinier(List l);
 /* Mengirim true jika list kosong */
 
 /****************** GETTER SETTER ******************/
@@ -50,7 +50,7 @@ void setElmt(List *l, int idx, ElType val);
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
 
-int indexOf(List l, ElType val);
+int indexOfLinier(List l, ElType val);
 /* I.S. l, val terdefinisi */
 /* F.S. Mencari apakah ada elemen list l yang bernilai val */
 /* Jika ada, mengembalikan indeks elemen pertama l yang bernilai val */
@@ -64,7 +64,7 @@ void insertFirst(List *l, ElType val);
 /* menambahkan elemen pertama dengan nilai val jika alokasi berhasil. */
 /* Jika alokasi gagal: I.S.= F.S. */
 
-void insertLast(List *l, ElType val);
+void insertLastLinierLinier(List *l, ElType val);
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
