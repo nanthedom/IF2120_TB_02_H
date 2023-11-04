@@ -138,11 +138,7 @@ void LihatDraf()
   }
   else
   {
-<<<<<<< HEAD
-    Word hapus, simpan, terbit, kembali, ubah; //(rifki:hapus newText, klo kepake bilang aja)
-=======
     Word hapus, simpan, terbit, kembali, ubah;
->>>>>>> 40d66557149fd5e7af07b03b8b50e0895e7d5e8c
     strToWord("HAPUS", &hapus);
     strToWord("SIMPAN", &simpan);
     strToWord("TERBIT", &terbit);

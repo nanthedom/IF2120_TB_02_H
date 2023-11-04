@@ -38,6 +38,7 @@ Draf draf;
 int main()
 {
   CreateListKicauan(&ListTweet);
+  createListBalasan(&ListReply);
   CreateList(&ListUser);
   CreateEmptyDraft(&SDraf);
   CreateAdjMatrix(20, &matrixPertemanan);

@@ -36,10 +36,10 @@ typedef struct
 } ListKicauan;
 
 /* SELEKTOR */
-#define NEFF(l) (l).nEff
-#define BUFFER(l) (l).buffer
-#define ELMT(l, i) (l).buffer[i]
-#define CAPACITY(l) (l).capacity
+#define NEFFKicau(l) (l).nEff
+#define BUFFERKicau(l) (l).buffer
+#define ELMTKicau(l, i) (l).buffer[i]
+#define CAPACITYKicau(l) (l).capacity
 
 /* VALIDATOR */
 boolean kicauanValid();
@@ -69,16 +69,16 @@ int countKicauan();
 /* Mengirimkan nol jika list l kosong */
 
 /* *** Selektor INDEKS *** */
-IdxType getFirstIdx(ListKicauan l);
+IdxType getFirstIdxKicauan(ListKicauan l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l pertama */
-IdxType getLastIdx(ListKicauan l);
+IdxType getLastIdxKicauan(ListKicauan l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
 
 void CreateKicau(Kicauan *kicau);
 
-void insertLastKicauan(ListKicauan *l, Kicauan kicau);
+void insertLastKicauan(Kicauan kicau);
 
 void insertByTime(Kicauan kicau);
 
