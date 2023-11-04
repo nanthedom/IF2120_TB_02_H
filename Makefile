@@ -26,6 +26,7 @@ SRC_TEMAN = features/teman/teman.c
 SRC_PERMINTAAN = features/permintaan/permintaan.c
 SRC_INIT = features/inisialisasi/inisialisasi.c
 SRC_PROFIL = features/profil/profil.c
+SRC_BALASAN = features/balasan/balasan.c
 
 OBJ_TIME = $(SRC_TIME:.c=.o)
 OBJ_DATETIME = $(SRC_DATETIME:.c=.o)
@@ -48,6 +49,7 @@ OBJ_TEMAN = $(SRC_TEMAN:.c=.o)
 OBJ_PERMINTAAN = $(SRC_PERMINTAAN:.c=.o)
 OBJ_INIT = $(SRC_INIT:.c=.o)
 OBJ_PROFIL = $(SRC_PROFIL:.c=.o)
+OBJ_BALASAN = $(SRC_BALASAN:.c=.o)
 
 
 all: main_program
@@ -149,5 +151,5 @@ create_stdout: $(STDOUT)
 $(STDOUT): stdout_%.txt: $(TESTS_DIR)/%.in $(file)
 	@./mword < $< | tr '\r' '\n' > $@
 
-main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTLIN) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN) $(OBJ_PERMINTAAN)
+main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTLIN) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN) $(OBJ_PERMINTAAN) $(OBJ_BALASAN)
 	$(CC) $(CFLAGS) -o $@ $^
