@@ -26,7 +26,7 @@ void createEmptyBalasan(Balasan *reply)
 {
     Word tweet;
     strToWord("root-kicau", &tweet);
-    idBalas(*reply) = 0;
+    idBalas(*reply) = -1;
     textBalas(*reply) = tweet;
     authorBalas(*reply) = Nama(*currentUser);
     DATETIME dt;
@@ -262,9 +262,9 @@ void buatBalasan(int idKicau, int idBalas)
     {
         int idxtweet = searchByIdKicau(idKicau);
         int idxuser = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, idxtweet)));
-        if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, idxtweet))) || idBalas != 0 || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
+        if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, idxtweet))) || idBalas != -1 || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
         {
-            if (idbalasValid(idBalas) || idBalas == 0)
+            if (idbalasValid(idBalas) || idBalas == -1)
             {
                 TreeNode *foundNode = searchTree(&content(ELMTBalas(ListReply, idKicau - 1)), idBalas);
                 idxuser = indexOf(ListUser, authorBalas(ROOT(*foundNode)));
