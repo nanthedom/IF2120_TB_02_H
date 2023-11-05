@@ -77,7 +77,7 @@ void ReadWord()
 {
     START();
     IgnoreCarriageEnter();
-    // currentWord.TabWord = (char*) malloc (NMax*sizeof(char));
+    currentWord.TabWord = (char*) malloc (NMax*sizeof(char));
     if(currentChar == MARK){
         EndWord = true;
     }
