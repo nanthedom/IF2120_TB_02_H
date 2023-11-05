@@ -14,13 +14,15 @@ typedef struct
 } AdjMatrix;
 
 #define NEFFM(M) (M).nEff
-#define ELMTMAT(M, i, j) (M).mem[(i)][(j)]
+#define ELMTADJMAT(M, i, j) (M).mem[(i)][(j)]
 
 extern AdjMatrix matrixPertemanan;
 
 void CreateAdjMatrix(int nEff, AdjMatrix *m);
 
 void printDaftarTeman();
+
+int jumlahTeman();
 
 void daftarTeman();
 

@@ -34,21 +34,21 @@ Address newNode(ElType val){
 
 /* PROTOTYPE */
 /****************** PEMBUATAN LIST KOSONG ******************/
-void CreateList(List *l){
+void CreateListLinier(List *l){
     FIRST(*l) = NULL;
 }
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 
 /****************** TEST LIST KOSONG ******************/
-boolean isEmpty(List l){
+boolean isEmptyLinier(List l){
     return FIRST(l) == NULL;
 }
 /* Mengirim true jika list kosong */
 
 /****************** GETTER SETTER ******************/
 ElType getElmt(List l, int idx){
-    if(!isEmpty(l)){
+    if(!isEmptyLinier(l)){
         int i = 0; Address curAdr; curAdr = FIRST(l);
         while(i < idx){
             curAdr = NEXT(curAdr);
@@ -63,7 +63,7 @@ ElType getElmt(List l, int idx){
 /* F.S. Mengembalikan nilai elemen l pada indeks idx */
 
 void setElmt(List *l, int idx, ElType val){
-    if(!isEmpty(*l)){
+    if(!isEmptyLinier(*l)){
         int i = 0; Address curAdr; curAdr = FIRST(*l);
         while(i < idx){
             curAdr = NEXT(curAdr);
@@ -75,8 +75,8 @@ void setElmt(List *l, int idx, ElType val){
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengubah elemen l pada indeks ke-idx menjadi val */
 
-int indexOf(List l, ElType val){
-    if(!isEmpty(l)){
+int indexOfLinier(List l, ElType val){
+    if(!isEmptyLinier(l)){
         int i = 0; int idx = IDX_UNDEF; Address curAdr = FIRST(l); boolean found = false;
         while(curAdr != NULL && !found){
             if(INFO(curAdr) == val){
@@ -109,11 +109,11 @@ void insertFirst(List *l, ElType val){
 /* menambahkan elemen pertama dengan nilai val jika alokasi berhasil. */
 /* Jika alokasi gagal: I.S.= F.S. */
 
-void insertLast(List *l, ElType val){
+void insertLastLinier(List *l, ElType val){
     Address p,curAdr; curAdr = *l;
     p = newNode(val);
     if(p != NULL){
-        if(isEmpty(*l)){
+        if(isEmptyLinier(*l)){
             insertFirst(l,val);
         }else{
             while (NEXT(curAdr) != NULL){
@@ -197,7 +197,7 @@ void deleteAt(List *l, int idx, ElType *val){
 /****************** PROSES SEMUA ELEMEN LIST ******************/
 void displayList(List l){
     printf("[");
-    if(!isEmpty(l)){
+    if(!isEmptyLinier(l)){
         Address p = FIRST(l);
         while(p != NULL){
             printf("%d", INFO(p));
@@ -229,15 +229,15 @@ int length(List l){
 /****************** PROSES TERHADAP LIST ******************/
 List concat(List l1, List l2) {
     List l;  
-    CreateList(&l);
+    CreateListLinier(&l);
     Address curAdr = l1;
     while((curAdr) != NULL){
-        insertLast(&l, INFO(curAdr));
+        insertLastLinier(&l, INFO(curAdr));
         curAdr = NEXT(curAdr);
     }
     curAdr = l2;
     while((curAdr) != NULL){
-        insertLast(&l, INFO(curAdr));
+        insertLastLinier(&l, INFO(curAdr));
         curAdr = NEXT(curAdr);
     }
     return l;

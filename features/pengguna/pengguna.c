@@ -1,6 +1,7 @@
 #include "pengguna.h"
 #include "../profil/profil.h"
 #include "../inisialisasi/inisialisasi.h"
+#include "../permintaan/permintaan.h"
 #include <stdio.h>
 
 extern ListPengguna ListUser;
@@ -125,6 +126,7 @@ void Masuk(){
         printf("Anda telah berhasil masuk dengan nama pengguna ");
         printWord(Nama(*currentUser));
         isLogin = true;
+        LoadDaftarPermintaan();
         printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n");
     } else{
         printf("Wah Anda sudah masuk. Keluar dulu yuk!\n");
@@ -134,6 +136,7 @@ void Masuk(){
 void Keluar(){
     if(isLogin){
         isLogin = false;
+        ClearDaftarPermintaan();
         printf("Anda berhasil logout. Sampai jumpa di pertemuan berikutnya!\n");
     } else{
         printf("Anda belum login! Masuk terlebih dahulu untuk menikmati layanan BurBir.\n");

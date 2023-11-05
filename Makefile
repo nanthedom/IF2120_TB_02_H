@@ -11,7 +11,7 @@ SRC_CHAR = ADT/charmachine/charmachine.c
 SRC_WORD = ADT/wordmachine/wordmachine.c
 SRC_STACK = ADT/stack/stack.c
 SRC_QUEUE = ADT/queue/queue.c
-SRC_PRIO = ADT/prioqueue/prioqueuechar.c
+SRC_PRIO = ADT/prioqueue/prioqueue.c
 SRC_PCOLOR = ADT/pcolor/pcolor.c
 SRC_MATRIX = ADT/matrix/matrix.c
 SRC_LISTSTAT = ADT/liststatik/liststatik.c
@@ -23,8 +23,10 @@ SRC_KICAU = features/kicau/kicau.c
 SRC_PENGGUNA = features/pengguna/pengguna.c
 SRC_DRAF = features/draf/draf.c
 SRC_TEMAN = features/teman/teman.c
+SRC_PERMINTAAN = features/permintaan/permintaan.c
 SRC_INIT = features/inisialisasi/inisialisasi.c
 SRC_PROFIL = features/profil/profil.c
+SRC_BALASAN = features/balasan/balasan.c
 
 OBJ_TIME = $(SRC_TIME:.c=.o)
 OBJ_DATETIME = $(SRC_DATETIME:.c=.o)
@@ -44,14 +46,16 @@ OBJ_KICAU = $(SRC_KICAU:.c=.o)
 OBJ_PENGGUNA = $(SRC_PENGGUNA:.c=.o)
 OBJ_DRAF = $(SRC_DRAF:.c=.o)
 OBJ_TEMAN = $(SRC_TEMAN:.c=.o)
+OBJ_PERMINTAAN = $(SRC_PERMINTAAN:.c=.o)
 OBJ_INIT = $(SRC_INIT:.c=.o)
 OBJ_PROFIL = $(SRC_PROFIL:.c=.o)
+OBJ_BALASAN = $(SRC_BALASAN:.c=.o)
 
 
 all: main_program
 
 build :
-	main_program
+	$(MAKE) main_program
 
 run :
 	./main_program
@@ -147,5 +151,5 @@ create_stdout: $(STDOUT)
 $(STDOUT): stdout_%.txt: $(TESTS_DIR)/%.in $(file)
 	@./mword < $< | tr '\r' '\n' > $@
 
-main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_QUEUE) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTST) $(OBJ_LISTLIN) $(OBJ_LISTDIN) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN)
+main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTLIN) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN) $(OBJ_PERMINTAAN) $(OBJ_BALASAN)
 	$(CC) $(CFLAGS) -o $@ $^

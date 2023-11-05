@@ -18,13 +18,17 @@ void IgnoreEnter()
         ADV();
     }
 }
-void IgnoreCarriage(){
-    while(currentChar == CARRIAGE){
+void IgnoreCarriage()
+{
+    while (currentChar == CARRIAGE)
+    {
         ADV();
     }
 }
-void IgnoreCarriageEnter(){
-    while((currentChar == ENTER) | (currentChar == CARRIAGE)){
+void IgnoreCarriageEnter()
+{
+    while ((currentChar == ENTER) | (currentChar == CARRIAGE))
+    {
         ADV();
     }
 }
@@ -77,8 +81,9 @@ void ReadWord()
 {
     START();
     IgnoreCarriageEnter();
-    currentWord.TabWord = (char*) malloc (NMax*sizeof(char));
-    if(currentChar == MARK){
+    currentWord.TabWord = (char *)malloc(NMax * sizeof(char));
+    if (currentChar == MARK)
+    {
         EndWord = true;
     }
     else
@@ -220,14 +225,25 @@ boolean isNumber(Word w)
 
 int wordToInteger(Word w)
 {
+    int i;
     int n = 0;
     if (isNumber(w))
     {
-        int i;
         for (i = 0; i < w.Length; i++)
         {
             n = n * 10 + (w.TabWord[i] - '0');
         }
     }
+    int j = 0;
+    if (w.TabWord[j] == '-')
+    {
+        j++;
+        for (i = j; i < w.Length; i++)
+        {
+            n = n * 10 + (w.TabWord[i] - '0');
+        }
+        n = n * (-1);
+    }
+
     return n;
 }

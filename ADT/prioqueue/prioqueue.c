@@ -1,92 +1,92 @@
-#include "prioqueuechar.h"
+#include "prioqueue.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 /* ********* Prototype ********* */
-boolean IsEmpty (PrioQueueChar Q){
+boolean IsEmpty (PrioQueue Q){
     return (Head(Q) == Nil) && (Tail(Q) == Nil);
 }
 /* Mengirim true jika Q kosong: lihat definisi di atas */
-boolean IsFull (PrioQueueChar Q){
-    return ((Tail(Q) + 1) % MaxEl(Q) == Head(Q));
+boolean IsFull (PrioQueue Q){
+    return ((Tail(Q) + 1) % MaxElPQ(Q) == Head(Q));
 }
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
-/* yaitu mengandung elemen sebanyak MaxEl */
-int NBElmt (PrioQueueChar Q){
+/* yaitu mengandung elemen sebanyak MaxElPQ */
+int NBElmtPQ (PrioQueue Q){
     if(IsEmpty(Q)){
         return 0;
     } else{
         int count;
         count = Tail(Q) - Head(Q) + 1;
-        return ((count <= 0)? count + MaxEl(Q): count);
+        return ((count <= 0)? count + MaxElPQ(Q): count);
     }
 }
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 
 /* *** Kreator *** */
-void MakeEmpty (PrioQueueChar * Q, int Max){
+void MakeEmpty (PrioQueue * Q, int Max){
     Head(*Q) = Nil;
     Tail(*Q) = Nil;
-    Q -> T = (infotype*) malloc((Max)*sizeof(infotype));
+    Q -> T = (ElmPermintaan*) malloc((Max)*sizeof(ElmPermintaan));
     if(Q->T != NULL){
-        MaxEl(*Q) = Max;
+        MaxElPQ(*Q) = Max;
     } else{
-        MaxEl(*Q) = 0;
+        MaxElPQ(*Q) = 0;
     }
 }
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
-/* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
+/* atau : jika alokasi gagal, Q kosong dg MaxElPQ=0 */
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
 
 /* *** Destruktor *** */
-void DeAlokasi(PrioQueueChar * Q){
-    MaxEl(*Q) = 0;
+void DeAlokasi(PrioQueue * Q){
+    MaxElPQ(*Q) = 0;
     free(Q->T);
 }
 /* Proses: Mengembalikan memori Q */
 /* I.S. Q pernah dialokasi */
-/* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
+/* F.S. Q menjadi tidak terdefinisi lagi, MaxElPQ(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueueChar * Q, infotype X){
+void Enqueue (PrioQueue * Q, ElmPermintaan X){
     if(IsEmpty(*Q)){
         Head(*Q) = 0;
         Tail(*Q) = 0;
-        Elmt(*Q,Tail(*Q)) = X;
+        ElmtPQ(*Q,Tail(*Q)) = X;
     } else{
         int i = Head(*Q), idx = i; boolean found = false;
         while ((!found) && (i != Tail(*Q))){
-            if(Prio(Elmt(*Q,i)) > Prio(X)){
+            if(Prio(ElmtPQ(*Q,i)) > Prio(X)){
                 found = true;
                 idx = i;
             }
-            i =  (i + 1)%MaxEl(*Q); 
+            i =  (i + 1)%MaxElPQ(*Q); 
         }
         if(found){
             int i = Tail(*Q);
             while(i != idx){
-                Elmt(*Q,(i+1)%MaxEl(*Q)) = Elmt(*Q,i);
+                ElmtPQ(*Q,(i+1)%MaxElPQ(*Q)) = ElmtPQ(*Q,i);
                 i--;
-                i = (i >= 0)? i: i + MaxEl(*Q);
+                i = (i >= 0)? i: i + MaxElPQ(*Q);
             }
-            Elmt(*Q,i+1) = Elmt(*Q,i);
-            Elmt(*Q,idx) = X;
-            Tail(*Q) = (Tail(*Q) + 1) % MaxEl(*Q);
+            ElmtPQ(*Q,i+1) = ElmtPQ(*Q,i);
+            ElmtPQ(*Q,idx) = X;
+            Tail(*Q) = (Tail(*Q) + 1) % MaxElPQ(*Q);
         } else{
             if(i == Tail(*Q) && !found){
-                if(Prio(Elmt(*Q,i)) > Prio(X)){
+                if(Prio(ElmtPQ(*Q,i)) > Prio(X)){
                     found = true;
                     idx = i;
                 }
                 if(found){
-                    Elmt(*Q,(idx+1) % MaxEl(*Q)) = Elmt(*Q,idx);
-                    Elmt(*Q,idx) = X;
-                    Tail(*Q) = (Tail(*Q) + 1) % MaxEl(*Q);
+                    ElmtPQ(*Q,(idx+1) % MaxElPQ(*Q)) = ElmtPQ(*Q,idx);
+                    ElmtPQ(*Q,idx) = X;
+                    Tail(*Q) = (Tail(*Q) + 1) % MaxElPQ(*Q);
                 } else{
-                    Elmt(*Q, (Tail(*Q)+1) % MaxEl(*Q)) = X;
-                    Tail(*Q) = (Tail(*Q) + 1) % MaxEl(*Q);
+                    ElmtPQ(*Q, (Tail(*Q)+1) % MaxElPQ(*Q)) = X;
+                    Tail(*Q) = (Tail(*Q) + 1) % MaxElPQ(*Q);
                 }
             }
         }
@@ -96,13 +96,13 @@ void Enqueue (PrioQueueChar * Q, infotype X){
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X disisipkan pada posisi yang tepat sesuai dengan prioritas,
         TAIL "maju" dengan mekanisme circular buffer; */
-void Dequeue (PrioQueueChar * Q, infotype * X){
+void Dequeue (PrioQueue * Q, ElmPermintaan * X){
     *X = InfoHead(*Q);
-    if(NBElmt(*Q) == 1){
+    if(NBElmtPQ(*Q) == 1){
         Head(*Q) = Nil;
         Tail(*Q) = Nil;
     } else{
-        Head(*Q) = (Head(*Q) + 1) % MaxEl(*Q);
+        Head(*Q) = (Head(*Q) + 1) % MaxElPQ(*Q);
     }
 }
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
@@ -111,14 +111,14 @@ void Dequeue (PrioQueueChar * Q, infotype * X){
         Q mungkin kosong */
 
 /* Operasi Tambahan */
-void PrintPrioQueueChar (PrioQueueChar Q){
+void PrintPrioQueue (PrioQueue Q){
     if(!IsEmpty(Q)){
         int i = Head(Q);
         while(i != Tail(Q)){
-            printf("%d %c\n", Prio(Elmt(Q,i)), Info(Elmt(Q,i)));
-            i = (i + 1) % MaxEl(Q);
+            printf("%d %c\n", Prio(ElmtPQ(Q,i)), Info(ElmtPQ(Q,i)));
+            i = (i + 1) % MaxElPQ(Q);
         }
-        printf("%d %c\n", Prio(Elmt(Q,i)), Info(Elmt(Q,i)));
+        printf("%d %c\n", Prio(ElmtPQ(Q,i)), Info(ElmtPQ(Q,i)));
     }
     printf("#\n");
 }

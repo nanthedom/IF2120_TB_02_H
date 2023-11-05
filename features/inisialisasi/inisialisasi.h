@@ -7,5 +7,5 @@ extern boolean isClosed;
 
 void init();
 void prosesCmd(Word cmd);
-void parseMultiCmd(Word w, Word *cmd, Word** param);
+void parseMultiCmd(Word w, Word *cmd, Word* param0, Word* param1);
 

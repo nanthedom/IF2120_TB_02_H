@@ -36,10 +36,10 @@ typedef struct
 } ListKicauan;
 
 /* SELEKTOR */
-#define NEFF(l) (l).nEff
-#define BUFFER(l) (l).buffer
-#define ELMT(l, i) (l).buffer[i]
-#define CAPACITY(l) (l).capacity
+#define NEFFKicau(l) (l).nEff
+#define BUFFERKicau(l) (l).buffer
+#define ELMTKicau(l, i) (l).buffer[i]
+#define CAPACITYKicau(l) (l).capacity
 
 /* VALIDATOR */
 boolean kicauanValid();
@@ -56,7 +56,7 @@ boolean isEmptyKicauan(ListKicauan l);
 boolean isFullKicauan(ListKicauan l);
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
 
-void CreateListKicauan();
+void CreateListKicauan(ListKicauan *l);
 /* I.S. l sembarang, capacity > 0 */
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
 
@@ -69,16 +69,16 @@ int countKicauan();
 /* Mengirimkan nol jika list l kosong */
 
 /* *** Selektor INDEKS *** */
-IdxType getFirstIdx(ListKicauan l);
+IdxType getFirstIdxKicauan(ListKicauan l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l pertama */
-IdxType getLastIdx(ListKicauan l);
+IdxType getLastIdxKicauan(ListKicauan l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
 
 void CreateKicau(Kicauan *kicau);
 
-void insertLastKicauan(ListKicauan *l, Kicauan kicau);
+void insertLastKicauan(Kicauan kicau);
 
 void insertByTime(Kicauan kicau);
 
@@ -88,21 +88,23 @@ void printKicauan();
 
 boolean idValid(int id);
 
+IdxType searchByIdKicau(int idKicau);
+
 void sukaKicau(int id);
 
 void ubahKicauan(int id);
 
-void expandList(ListKicauan *l, int num);
+void expandListKicau(ListKicauan *l, int num);
 /* Proses : Menambahkan capacity l sebanyak num */
 /* I.S. List sudah terdefinisi */
 /* F.S. Ukuran list bertambah sebanyak num */
 
-void shrinkList(ListKicauan *l, int num);
+void shrinkListKicau(ListKicauan *l, int num);
 /* Proses : Mengurangi capacity sebanyak num */
 /* I.S. List sudah terdefinisi, ukuran capacity > num, dan nEff < capacity - num. */
 /* F.S. Ukuran list berkurang sebanyak num. */
 
-void compressList(ListKicauan *l);
+void compressListKicau(ListKicauan *l);
 /* Proses : Mengubah capacity sehingga capacity = nEff */
 /* I.S. List tidak kosong */
 /* F.S. Ukuran capacity = nEff */

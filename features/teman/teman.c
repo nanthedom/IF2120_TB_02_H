@@ -12,7 +12,7 @@ void CreateAdjMatrix(int nEff, AdjMatrix *m) {
     NEFFM(*m) = nEff;
     for (i = 0; i < SIZE_CAP; i++) {
         for (j = 0; j < SIZE_CAP; j++) {
-            ELMTMAT(matrixPertemanan, i, j) = 0;
+            ELMTADJMAT(matrixPertemanan, i, j) = 0;
         }
     }
 }
@@ -26,7 +26,7 @@ void printDaftarTeman() {
 
     userIdx = indexOf(ListUser, Nama(*currentUser));
     for (i = 0; i < NEFFM(matrixPertemanan); i++) {
-        if (ELMTMAT(matrixPertemanan, i, userIdx) == 1 && i != userIdx) {
+        if (ELMTADJMAT(matrixPertemanan, i, userIdx) == 1 && i != userIdx) {
             printf("| ");
             printWord(Nama(ELMT(ListUser, i)));
             printf("\n");
@@ -34,16 +34,24 @@ void printDaftarTeman() {
     }
 }
 
-void daftarTeman() {
-    int userIdx, i, count;
+int jumlahTeman(int userIdx) {
+    int i, count;
 
     count = 0;
-    userIdx = indexOf(ListUser, Nama(*currentUser));
     for (i = 0; i < NEFFM(matrixPertemanan); i++) {
-        if (ELMTMAT(matrixPertemanan, i, userIdx) == 1 && i != userIdx) {
+        if (ELMTADJMAT(matrixPertemanan, i, userIdx) == 1 && i != userIdx) {
             count++;
         }
     }
+
+    return count;
+}
+
+void daftarTeman() {
+    int userIdx, count;
+
+    userIdx = indexOf(ListUser, Nama(*currentUser));
+    count = jumlahTeman(userIdx);
 
     printf("\n");
     if (count > 0) {
@@ -65,7 +73,7 @@ boolean isFriendsWith(Word nama) {
     if (friendIdx == IDX_UNDEF) {
         return false;
     } else {
-        return (ELMTMAT(matrixPertemanan, userIdx, friendIdx) == 1);
+        return (ELMTADJMAT(matrixPertemanan, userIdx, friendIdx) == 1);
     }
 }
 
@@ -75,8 +83,8 @@ void removeTeman(AdjMatrix *m, Word nama) {
     userIdx = indexOf(ListUser, Nama(*currentUser));
     friendIdx = indexOf(ListUser, nama);
 
-    ELMTMAT(*m, friendIdx, userIdx) = 0;
-    ELMTMAT(*m, userIdx, friendIdx) = 0;
+    ELMTADJMAT(*m, friendIdx, userIdx) = 0;
+    ELMTADJMAT(*m, userIdx, friendIdx) = 0;
 }
 
 void hapusTeman() {
