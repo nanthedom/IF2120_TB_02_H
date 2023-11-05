@@ -124,4 +124,8 @@ void buatBalasan(int idKicau, int idBalas);
 
 void printBalasan(int idKicau);
 
+void deleteTree(TreeNode *reply, int id);
+
+void hapusBalasan(int idKicau, int idBalas);
+
 #endif

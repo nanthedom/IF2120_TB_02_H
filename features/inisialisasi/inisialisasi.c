@@ -53,7 +53,7 @@ void parseMultiCmd(Word w, Word *cmd, Word *param0, Word *param1)
 
 void prosesCmd(Word w)
 {
-    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan;
+    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
@@ -68,6 +68,7 @@ void prosesCmd(Word w)
     strToWord("UBAH_KICAUAN", &ubah_kicauan);
     strToWord("BALAS", &balas);
     strToWord("BALASAN", &balasan);
+    strToWord("HAPUS_BALASAN", &hapus_balasan);
     strToWord("DAFTAR_TEMAN", &daftar_teman);
     strToWord("HAPUS_TEMAN", &hapus_teman);
     strToWord("BUAT_DRAF", &buat_draf);
@@ -282,6 +283,19 @@ void prosesCmd(Word w)
             {
                 int idKicau = wordToInteger(param0);
                 printBalasan(idKicau);
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
+        else if (isKataEqual(newCmd, hapus_balasan))
+        {
+            if (isLogin)
+            {
+                int idKicau = wordToInteger(param0);
+                int idBalas = wordToInteger(param1);
+                hapusBalasan(idKicau, idBalas);
             }
             else
             {

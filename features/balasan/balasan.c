@@ -121,8 +121,8 @@ void printTree(TreeNode *node, int depth)
         }
     }
     printf("\n");
-    printTree(firstChild(node), depth + 1); // Cetak anak pertama
-    printTree(nextSibling(node), depth);    // Cetak saudara berikutnya
+    printTree(firstChild(node), depth + 1); // print firstchildnya
+    printTree(nextSibling(node), depth);    // print nextnya
 }
 
 TreeNode *searchTree(TreeNode *node, int id)
@@ -130,15 +130,14 @@ TreeNode *searchTree(TreeNode *node, int id)
 {
     if (node == NULL)
     {
-        return NULL; // Basis: node tidak ditemukan
+        return NULL; // basis node tidak ditemukan
     }
 
     if (idBalas(ROOT(*node)) == id)
     {
-        return node; // Basis: node ditemukan
+        return node; // basis node ditemukan
     }
 
-    // Cari di anak pertama dan saudara berikutnya
     TreeNode *found = searchTree(firstChild(node), id);
     if (found == NULL)
     {
@@ -369,6 +368,80 @@ void printBalasan(int idKicau)
     {
         printf("\n");
         printf("Tidak terdapat kicauan dengan id tersebut!\n");
+        printf("\n");
+    }
+}
+
+void deleteTree(TreeNode *reply, int id)
+{
+    if (reply == NULL)
+    {
+        return;
+    }
+
+    /* Hapus child dulu */
+    TreeNode *child = firstChild(reply);
+    TreeNode *prevChild = NULL;
+    while (child != NULL)
+    {
+        TreeNode *nextChild = nextSibling(child);
+        if (idBalas(ROOT(*child)) == id)
+        {
+            child = NULL;
+            // hapus nextchild/nextsiblingnya 
+            if (prevChild == NULL)
+            {
+                firstChild(reply) = nextChild;
+            }
+            else
+            {
+                nextSibling(prevChild) = nextChild;
+            }
+            free(child);
+        }
+        else
+        {
+            deleteTree(child, id);
+        }
+        prevChild = child;
+        child = nextChild;
+    }
+}
+
+void hapusBalasan(int idKicau, int idBalas)
+{
+    if (idKicauValid(idKicau))
+    {
+        int idxtweet = searchByIdKicau(idKicau);
+        TreeNode *found = searchTree(&content(ELMTBalas(ListReply, idxtweet)), idBalas);
+        if (found != NULL)
+        {
+            if (isKataEqual(Nama(*currentUser), authorBalas(ROOT(*found))))
+            {
+                deleteTree(&content(ELMTBalas(ListReply, idxtweet)), idBalas);
+                count(ELMTBalas(ListReply, idxtweet))--;
+                printf("\n");
+                printf("Balasan berhasil dihapus\n");
+                printf("\n");
+            }
+            else
+            {
+                printf("\n");
+                printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
+                printf("\n");
+            }
+        }
+        else
+        {
+            printf("\n");
+            printf("Balasan tidak ditemukan\n");
+            printf("\n");
+        }
+    }
+    else
+    {
+        printf("\n");
+        printf("Tidak ditemukan kicauan dengan ID = %d!\n", idKicau);
         printf("\n");
     }
 }
