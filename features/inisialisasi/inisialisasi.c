@@ -6,6 +6,7 @@
 #include "../permintaan/permintaan.h"
 #include "../balasan/balasan.h"
 #include "../draf/draf.h"
+#include "../muat/muat.h"
 #include <stdlib.h>
 #include <stdio.h>
 
