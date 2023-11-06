@@ -178,18 +178,20 @@ void LihatDraf()
         }
         else if (isKataEqual(currentWord, simpan))
         {
-          Draf topDraf;
-          PopDraft(&SDraf, &topDraf);
-          textDraf(topDraf) = currentText;
-          PushDraft(&SDraf, topDraf);
+          // Draf topDraf;
+          // PopDraft(&SDraf, &topDraf);
+          // textDraf(topDraf) = currentText;
+          // PushDraft(&SDraf, topDraf);
+          SimpanDraf(currentText);
           printf("\nDraf telah berhasil disimpan!\n");
         }
         else if (isKataEqual(currentWord, terbit))
         {
-          Draf topDraf, tempDraf;
-          PopDraft(&SDraf, &topDraf);
-          textDraf(topDraf) = currentText;
-          PushDraft(&SDraf, topDraf);
+          // Draf topDraf, tempDraf;
+          // PopDraft(&SDraf, &topDraf);
+          // textDraf(topDraf) = currentText;
+          // PushDraft(&SDraf, topDraf);
+          SimpanDraf(currentText);
           TerbitDraf();
           PopDraft(&SDraf, &tempDraf);
         }
