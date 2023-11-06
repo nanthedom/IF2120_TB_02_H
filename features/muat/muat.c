@@ -154,7 +154,7 @@ void loadfirst(){
         }
     }
 }
-void muat(Word cmd){
+void Muat(){
     Word directory;
     printf("Masukkan nama folder yang hendak dimuat.");
     ReadWord();
@@ -167,13 +167,13 @@ void muat(Word cmd){
 }
 
 
-int main(){
-    Word x;
-    CreateWord(&x);
-    ReadWord();
-    x = currentWord;
-    load(x);
-    // printWord(x);
-}
+// int main(){
+//     Word x;
+//     CreateWord(&x);
+//     ReadWord();
+//     x = currentWord;
+//     load(x);
+//     // printWord(x);
+// }
 
 
