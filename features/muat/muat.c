@@ -8,26 +8,91 @@
 #include "../teman/teman.h"
 #include "../draf/draf.h"
 #include "../balasan/balasan.h"
+#include "../permintaan/permintaan.h"
 
 extern boolean isLogin;
 extern boolean isClosed;
 extern Word currentWord;
+extern ListPengguna ListUser;
+extern AdjMatrix matrixPertemanan;
+
+void StoreDataPengguna(int n, Word data){
+    Word nama,password,bio,no,weton,isPub,pic,publik;
+    boolean pub;
+    Pengguna P;
+    MatrixFoto M;
+    strToWord("Publik", &publik);
+
+    // nama
+    AdvNewLine(1);
+    nama = currentWord;
+    // password
+    AdvNewLine(1);
+    password = currentWord;
+    // bio
+    AdvNewLine(1);
+    bio = currentWord;
+    // No.HP
+    AdvNewLine(1);
+    no = currentWord;
+    // Weton
+    AdvNewLine(1);
+    weton = currentWord;
+    // isPublic
+    AdvNewLine(1);
+    isPub = currentWord;
+    if(isKataEqual(isPub,publik)){
+        pub = true;
+    }else{
+        pub = false;
+    }
+    // ProfPic
+    AdvNewLine(5);
+    pic = currentWord;
+    M = ReadFotoFile(pic);
+    CreatePenggunaFile(&P,nama,password,bio,no,weton,pub,M);
+    insertLast(&ListUser,P);
+    
+}
 
 void loadPengguna(char *path){
-    // printf("%s",path);
-    // ReadFromFile(*path);
+    int n,pre,NPermintaan;
+    Word dataPengguna,pertemanan,permintaan;
+
+    printf("%s",path);
+    ReadFromFile(path);
+    printWord(currentWord);
+    AdvNewLine(1);
+    n = wordToInteger(currentWord);
+    for (int i=0;i<n;++i){
+        AdvNewLine(11);
+        dataPengguna = currentWord;
+        StoreDataPengguna(n,dataPengguna,&ListUser);
+    }
+    // Pertemanan
+    AdvNewLine(n);
+    pertemanan = currentWord;
+    CreateAdjMatrixFile(&matrixPertemanan,pertemanan,n);
+    AdvNewLine(1);
+    // Permintaan
+    NPermintaan = wordToInteger(currentWord);
+    AdvNewLine(NPermintaan);
+    permintaan =currentWord;
+    MatrixPermintaanFile(permintaan, &matrixPermintaan, NPermintaan);
+    printList(ListUser);
+
 }
 void loadKicauan(char *path){
-    printf("%s",path);
+    // printf("%s",path);
 }
 void loadBalasan(char *path){
-    printf("%s",path);
+    // printf("%s",path);
 }
 void loadDraf(char *path){
-    printf("%s",path);
+    // printf("%s",path);
 }
 void loadUtas(char *path){
-    printf("%s",path);
+    // printf("%s",path);
 }
 
 
@@ -36,30 +101,30 @@ void load(Word dir){
     char *file = "text.txt";
     char path[256];
     const char *fileNames[] = {"pengguna.config", "kicauan.config", "balasan.config", "draf.config", "utas.config"};
-    printf("%s",path);
-    // for(int i=0;i<5;++i){
-    //     snprintf(path,sizeof(path), "%s/%s/%s", "data", directory,fileNames[i]);
-    //     switch (i){
-    //         case 0:
-    //             loadPengguna(path);
-    //             break;
-    //         case 1:
-    //             loadKicauan(path);
-    //             break;
-    //         case 2:
-    //             loadBalasan(path);
-    //             break;
-    //         case 3:
-    //             loadDraf(path);
-    //             break;
-    //         case 4:
-    //             loadUtas(path);
-    //             break;
+    // printf("%s",path);
+    for(int i=0;i<5;++i){
+        snprintf(path,sizeof(path), "%s/%s/%s", "data", directory,fileNames[i]);
+        switch (i){
+            case 0:
+                loadPengguna(path);
+                break;
+            case 1:
+                loadKicauan(path);
+                break;
+            case 2:
+                loadBalasan(path);
+                break;
+            case 3:
+                loadDraf(path);
+                break;
+            case 4:
+                loadUtas(path);
+                break;
             
-    //         default:
-    //             break;
-    //     }
-    // }
+            default:
+                break;
+        }
+    }
 }
 
 boolean isDirectoryExists(char *path) {
@@ -101,13 +166,14 @@ void Muat(){
     }
 }
 
+
 // int main(){
 //     Word x;
 //     CreateWord(&x);
 //     ReadWord();
 //     x = currentWord;
-//     // load(x);
-//     printWord(x);
+//     load(x);
+//     // printWord(x);
 // }
 
 
