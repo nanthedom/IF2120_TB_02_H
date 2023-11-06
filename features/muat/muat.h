@@ -8,7 +8,8 @@
 #include "features/balasan/balasan.h"
 
 
-
+void StoreDataPengguna(int n, Word data);
+void loadPengguna(char *path);
 void loadfirst();
 void muat();
 

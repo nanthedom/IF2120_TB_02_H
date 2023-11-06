@@ -51,6 +51,7 @@ boolean isWage(Word weton);
 boolean isPon(Word weton);
 boolean isWetonValid(Word weton);
 void ReadWeton(Profil *P);
+MatrixFoto ReadFotoFile(Word w);
 void ReadFoto(Profil *P);
 void PrintFoto(Profil P);
 void displayProfil();

@@ -97,6 +97,16 @@ void ReadWord()
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
 
+void AdvNewLine(int n)
+{
+    Word EMPTY = {"", 0};
+    currentWord = EMPTY;
+    if(currentChar == ENTER){
+        EndWord = false;
+        adv();
+        CopyWordFile(n);
+    }
+}
 // void ADVWORD(){
 //     IgnoreBlanks();
 //     if(currentChar == MARK){
@@ -138,6 +148,24 @@ void CopyWord()
           currentChar = BLANK atau currentChar = MARK;
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
+void CopyWordFile(int row)
+{
+    int i = 0, N = NMax, count=0;
+    while (count<row)
+    {
+        if (i >= N){
+            currentWord.TabWord = (char *)realloc(currentWord.TabWord, 2 * N * sizeof(char));
+            N *= 2;
+        }
+        currentWord.TabWord[i] = currentChar;
+        if(currentWord.TabWord[i] == ENTER){
+            count+=1;
+        }
+        i++;
+        ADV();
+    }
+    currentWord.Length = i;
+}
 
 void printWord(Word word)
 {
@@ -146,6 +174,17 @@ void printWord(Word word)
     {
         printf("%c", word.TabWord[i]);
     }
+}
+
+Word CopySubset(Word w, int n){
+    Word result;
+    CreateWord(&result);
+
+    for (int i = 0; i < n; i++){
+        result.TabWord[i] = w.TabWord[i];
+    }
+    result.Length = n;
+    return result;
 }
 
 void copy(Word w1, Word *w2)
@@ -176,6 +215,8 @@ boolean isKataEqual(Word w1, Word w2)
     }
     return false;
 }
+
+
 
 void strToWord(char *s, Word *w)
 {

@@ -15,6 +15,7 @@ boolean isLogin;
 boolean isClosed;
 Pengguna *currentUser;
 ListPengguna ListUser;
+int NPengguna;
 
 /* Kicauan */
 int currentIdTweet;

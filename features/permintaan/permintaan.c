@@ -20,6 +20,29 @@ void LoadDaftarPermintaan() {
     }
 }
 
+void MatrixPermintaanFile(Word w, Matrix *m, int row){
+    int k=0,val;
+
+    createMatrix(row,3,&m);
+    for(int i=0; i<row; ++i){
+        for(int j=0; j<3; ++j){
+            while(w.TabWord[k] != ENTER && w.TabWord[k] != MARK){
+                while (w.TabWord[k] == BLANK){
+                    k++;
+                }
+                val = w.TabWord[k] - '0';
+                ELMTADJMAT(*m,i,j) = val;
+                k++;
+            }
+            if(w.TabWord[k]==ENTER){
+                k++;
+            }
+            
+        }
+    }
+
+}
+
 boolean sudahKirimPermintaan(int userIdx, int targetIdx) {
     int i;
 
