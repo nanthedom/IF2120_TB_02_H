@@ -6,6 +6,7 @@
 #include "../permintaan/permintaan.h"
 #include "../balasan/balasan.h"
 #include "../draf/draf.h"
+#include "../muat/muat.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -61,11 +62,7 @@ void parseMultiCmd(Word w, Word *cmd, Word *param0, Word *param1)
 
 void prosesCmd(Word w)
 {
-<<<<<<< HEAD
-    Word daftar, muat, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf;
-=======
-    Word daftar, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan;
->>>>>>> 09535b55a47323fa297ef1cdbe1ccfd539ee8ade
+    Word daftar, muat, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
