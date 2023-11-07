@@ -54,13 +54,17 @@ void ReadBio(Profil *P)
     }
     Bio(*P) = bio;
 }
+
+boolean isValidNoHP(Word w){
+    return (isNumber(w)) && (w.Length <= 15)
+}
 void ReadNoHP(Profil *P)
 {
     Word noHP;
     printf("Masukkan No HP:\n");
     ReadWord();
     noHP = currentWord;
-    while (!isNumber(noHP))
+    while (!isValidNoHP(noHP))
     {
         printf("No HP tidak valid. Masukkan lagi yuk!\n");
         printf("Masukkan No HP:\n");
