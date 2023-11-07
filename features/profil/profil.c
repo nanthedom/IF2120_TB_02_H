@@ -23,14 +23,6 @@ void CreateMatrixFoto(MatrixFoto *M)
     }
 }
 
-void CreateProfilFile(Profil *P, Word bio, Word noHP, Word weton, boolean isPub, MatrixFoto M){
-    Bio(*P) = bio;
-    NoHP(*P) = noHP;
-    Weton(*P) = weton;
-    isPublic(*P) = isPub;
-    Profpic(*P) = M;
-}
-
 void CreateProfil(Profil *P)
 {
     Word bio, noHP, weton;
@@ -63,16 +55,13 @@ void ReadBio(Profil *P)
     Bio(*P) = bio;
 }
 
-boolean isValidNoHP(Word w){
-    return (isNumber(w)) && (w.Length <= 15)
-}
 void ReadNoHP(Profil *P)
 {
     Word noHP;
     printf("Masukkan No HP:\n");
     ReadWord();
     noHP = currentWord;
-    while (!isValidNoHP(noHP))
+    while (!isNumber(noHP))
     {
         printf("No HP tidak valid. Masukkan lagi yuk!\n");
         printf("Masukkan No HP:\n");
@@ -340,42 +329,6 @@ void ReadWeton(Profil *P)
         weton = currentWord;
     }
     Weton(*P) = weton;
-}
-
-MatrixFoto ReadFotoFile(Word w){
-    Word format;
-    MatrixFoto M;
-    Foto F;
-    
-    format = w;
-    int i = 0, j = 0, k = 0;
-    while (i < 5)
-    {
-        while (j < 5)
-        {
-            while (format.TabWord[k] == BLANK)
-            {
-                k++;
-            }
-            Warna(F) = format.TabWord[k];
-            k++;
-            while (format.TabWord[k] == BLANK)
-            {
-                k++;
-            }
-            Karakter(F) = format.TabWord[k];
-            k++;
-            PIXEL(M, i, j) = F;
-            j++;
-        }
-        if (i < 4)
-        {
-            k++; // Remove enter;
-        }
-        i++;
-        j = 0;
-    }
-    return M;
 }
 
 void ReadFoto(Profil *P)
