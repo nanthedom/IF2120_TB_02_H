@@ -62,7 +62,11 @@ void parseMultiCmd(Word w, Word *cmd, Word *param0, Word *param1)
 
 void prosesCmd(Word w)
 {
+<<<<<<< HEAD
+    Word daftar, muat, balas, balasan, hapus_balasan, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf;
+=======
     Word daftar, muat, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan;
+>>>>>>> a7a89244dc9b40763e68547d493d2fa573a9b609
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
