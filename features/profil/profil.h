@@ -43,6 +43,7 @@ typedef struct
 void CreateMatrixFoto(MatrixFoto *M);
 void CreateProfil(Profil *P);
 void ReadBio(Profil *P);
+// boolean isValidNoHP(Word w);
 void ReadNoHP(Profil *P);
 boolean isPahing(Word weton);
 boolean isKliwon(Word weton);
