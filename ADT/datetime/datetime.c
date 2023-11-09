@@ -37,7 +37,7 @@ boolean IsDATETIMEValid(int D, int M, int Y, int h, int m, int s)
 DATETIME WordToDT(Word w){
     Word temp;
     DATETIME D;
-    int i = 0, k, count =0,DD,MM,YY,H,M,S;
+    int i = 0, k, count = 0,DD,MM,YY,H,M,S;
 
     while(w.TabWord[i]!=BLANK){
         CreateWord(&temp);
@@ -53,7 +53,7 @@ DATETIME WordToDT(Word w){
         } else if (count==2){
             MM = wordToInteger(temp);
         } else {
-            YY(D) = wordToInteger(temp);
+            YY = wordToInteger(temp);
         }
         ++i;
     }
