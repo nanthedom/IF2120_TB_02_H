@@ -103,7 +103,7 @@ void AdvNewLine(int n)
     currentWord = EMPTY;
     if(currentChar == ENTER){
         EndWord = false;
-        adv();
+        ADV();
         CopyWordFile(n);
     }
 }
@@ -215,7 +215,6 @@ boolean isKataEqual(Word w1, Word w2)
     }
     return false;
 }
-
 
 
 void strToWord(char *s, Word *w)

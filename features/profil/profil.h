@@ -42,6 +42,7 @@ typedef struct
 
 void CreateMatrixFoto(MatrixFoto *M);
 void CreateProfil(Profil *P);
+void CreateProfilFile(Profil *P, Word bio, Word noHP, Word weton, boolean isPub, MatrixFoto M);
 void ReadBio(Profil *P);
 void ReadNoHP(Profil *P);
 boolean isPahing(Word weton);
