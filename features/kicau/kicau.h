@@ -78,6 +78,8 @@ IdxType getLastIdxKicauan(ListKicauan l);
 
 void CreateKicau(Kicauan *kicau);
 
+void CreateKicauFile(Kicauan *kicau, int id, Word text, int like, Word author, DATETIME dt);
+
 void insertLastKicauan(Kicauan kicau);
 
 void insertByTime(Kicauan kicau);

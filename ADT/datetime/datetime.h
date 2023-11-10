@@ -41,6 +41,9 @@ boolean IsDATETIMEValid(int D, int M, int Y, int h, int m, int s);
 /* Mengirim true jika D,M,Y,h,m,s dapat membentuk D yang valid */
 /* dipakai untuk mentest SEBELUM membentuk sebuah DATETIME */
 
+DATETIME WordToDT(Word w);
+// mengubah word ke datetime
+
 /* *** Konstruktor: Membentuk sebuah DATETIME dari komponen-komponennya *** */
 void CreateDATETIME(DATETIME *D, int DD, int MM, int YYYY, int hh, int mm, int ss);
 /* Membentuk sebuah DATETIME dari komponen-komponennya yang valid */

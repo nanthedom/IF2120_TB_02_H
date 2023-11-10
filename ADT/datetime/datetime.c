@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include "../boolean/boolean.h"
+#include "../wordmachine/wordmachine.h"
+#include "../charmachine/charmachine.h"
 #include "datetime.h"
 #include "../time/time.h"
 #include <time.h>
@@ -30,6 +32,51 @@ int GetMaxDay(int M, int Y)
 boolean IsDATETIMEValid(int D, int M, int Y, int h, int m, int s)
 {
     return ((1 <= D) && (D <= GetMaxDay(M, Y)) && (1 <= M) && (M <= 12) && (1900 <= Y) && (Y <= 2030) && (h >= 0) && (h <= 23) && (m >= 0) && (m <= 59) && (s >= 0) && (s <= 59));
+}
+
+DATETIME WordToDT(Word w){
+    Word temp;
+    DATETIME D;
+    int i = 0, k, count = 0,DD,MM,YY,H,M,S;
+
+    while(w.TabWord[i]!=BLANK){
+        CreateWord(&temp);
+        k=0;
+        while(w.TabWord[i]!='/'){
+            temp.TabWord[k] = w.TabWord[i];
+            ++k;
+            ++i;
+        }
+        count+=1;
+        if(count==1){
+            DD = wordToInteger(temp);
+        } else if (count==2){
+            MM = wordToInteger(temp);
+        } else {
+            YY = wordToInteger(temp);
+        }
+        ++i;
+    }
+    while(w.TabWord[i]!=ENTER){
+        CreateWord(&temp);
+        k=0;
+        while(w.TabWord[i]!=':'){
+            temp.TabWord[k] = w.TabWord[i];
+            ++k;
+            ++i;
+        }
+        count+=1;
+        if(count==1){
+            H = wordToInteger(temp);
+        } else if (count==2){
+            M = wordToInteger(temp);
+        } else {
+            S = wordToInteger(temp);
+        }
+        ++i;
+    }
+    CreateDATETIME(&D,DD,MM,YY,H,M,S);
+    return D;
 }
 
 void CreateDATETIME(DATETIME *D, int DD, int MM, int YYYY, int hh, int mm, int ss)

@@ -101,6 +101,14 @@ void CreateKicau(Kicauan *kicau)
     BacaDATETIME(&dt);
     datetimeKicau(*kicau) = dt;
 }
+void CreateKicauFile(Kicauan *kicau, int id, Word text, int like, Word author, DATETIME dt)
+{
+    idKicau(*kicau) = id;
+    textKicau(*kicau) = text;
+    likeKicau(*kicau) = like;
+    authorKicau(*kicau) = author;
+    datetimeKicau(*kicau) = dt;
+}
 
 void insertLastKicauan(Kicauan kicau)
 {

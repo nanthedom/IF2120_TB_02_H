@@ -22,6 +22,8 @@ void CreateBalasan(Balasan *reply)
     datetimeBalas(*reply) = dt;
 }
 
+void CreateBalasanFile()
+
 void createEmptyBalasan(Balasan *reply)
 {
     Word tweet;

@@ -23,7 +23,7 @@ typedef struct {
     ElmPermintaan * T;   /* tabel penyimpan elemen */
     address HEAD;  /* alamat penghapusan */
     address TAIL;  /* alamat penambahan */
-    int MaxEl;     /* Max elemen queue */
+    int MaxElQue;     /* Max elemen queue */
 } PrioQueue;
 /* Definisi PrioQueue kosong: HEAD=Nil; TAIL=Nil. */
 /* Catatan implementasi: T[0] tidak pernah dipakai */
