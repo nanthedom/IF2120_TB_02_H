@@ -23,6 +23,9 @@ void CreateBalasan(Balasan *reply)
 }
 
 void CreateBalasanFile()
+{
+    
+}
 
 void createEmptyBalasan(Balasan *reply)
 {
