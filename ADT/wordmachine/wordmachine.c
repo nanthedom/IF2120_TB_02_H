@@ -9,8 +9,6 @@
 Word currentWord;
 boolean EndWord;
 
-
-
 void IgnoreEnter()
 {
     while (currentChar == ENTER)
@@ -65,13 +63,16 @@ boolean containBlanks(Word w)
     return found;
 }
 
-void ReadFromFile(char *str){
+void ReadFromFile(char *str)
+{
     startFile(str);
     IgnoreBlanks();
-    if (currentChar == MARK){
+    if (currentChar == MARK)
+    {
         EndWord = true;
     }
-    else{
+    else
+    {
         EndWord = false;
         CopyWord();
     }
@@ -101,9 +102,10 @@ void AdvNewLine(int n)
 {
     Word EMPTY = {"", 0};
     currentWord = EMPTY;
-    if(currentChar == ENTER){
+    if (currentChar == ENTER)
+    {
         EndWord = false;
-        adv();
+        ADV();
         CopyWordFile(n);
     }
 }
@@ -150,16 +152,18 @@ void CopyWord()
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 void CopyWordFile(int row)
 {
-    int i = 0, N = NMax, count=0;
-    while (count<row)
+    int i = 0, N = NMax, count = 0;
+    while (count < row)
     {
-        if (i >= N){
+        if (i >= N)
+        {
             currentWord.TabWord = (char *)realloc(currentWord.TabWord, 2 * N * sizeof(char));
             N *= 2;
         }
         currentWord.TabWord[i] = currentChar;
-        if(currentWord.TabWord[i] == ENTER){
-            count+=1;
+        if (currentWord.TabWord[i] == ENTER)
+        {
+            count += 1;
         }
         i++;
         ADV();
@@ -176,11 +180,13 @@ void printWord(Word word)
     }
 }
 
-Word CopySubset(Word w, int n){
+Word CopySubset(Word w, int n)
+{
     Word result;
     CreateWord(&result);
 
-    for (int i = 0; i < n; i++){
+    for (int i = 0; i < n; i++)
+    {
         result.TabWord[i] = w.TabWord[i];
     }
     result.Length = n;
@@ -215,8 +221,6 @@ boolean isKataEqual(Word w1, Word w2)
     }
     return false;
 }
-
-
 
 void strToWord(char *s, Word *w)
 {

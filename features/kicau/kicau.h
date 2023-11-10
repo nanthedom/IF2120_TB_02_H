@@ -31,8 +31,8 @@ typedef int IdxType;
 typedef struct
 {
     Kicauan *buffer; /* memori tempat penyimpan elemen (container) */
-    int nEff;       /* >=0, banyaknya elemen efektif */
-    int capacity;   /* ukuran elemen */
+    int nEff;        /* >=0, banyaknya elemen efektif */
+    int capacity;    /* ukuran elemen */
 } ListKicauan;
 
 /* SELEKTOR */
@@ -89,6 +89,8 @@ void printKicauan();
 boolean idValid(int id);
 
 IdxType searchByIdKicau(int idKicau);
+
+Kicauan searchKicau(int idKicau);
 
 void sukaKicau(int id);
 

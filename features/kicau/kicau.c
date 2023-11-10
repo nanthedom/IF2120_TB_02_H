@@ -233,6 +233,26 @@ IdxType searchByIdKicau(int id)
     return i;
 }
 
+Kicauan searchKicau(int idKicau)
+{
+    Kicauan Kicau;
+    int i = 0;
+    boolean found = false;
+    while (i < NEFFKicau(ListTweet) && !found)
+    {
+        if (idKicau(ELMTKicau(ListTweet, i)) == idKicau)
+        {
+            found = true;
+            Kicau = ELMTKicau(ListTweet, i);
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return Kicau;
+}
+
 void sukaKicau(int id)
 {
     if (idValid(id))
