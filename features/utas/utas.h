@@ -6,6 +6,7 @@
 #include "../../ADT/datetime/datetime.h"
 #include "../kicau/kicau.h"
 #include "../pengguna/pengguna.h"
+#include "../teman/teman.h"
 
 /* Tipe Utas */
 typedef struct
@@ -41,39 +42,15 @@ Address newNode(ElTypeUtas val);
 
 typedef Address List;
 
-#define IDX_UNDEF (-1)
+// #define IDX_UNDEF NULL
 #define FIRST(l) (l)
-
-typedef int IdxTypeUtas;
-typedef struct
-{
-  Address *buffer; /* memori tempat penyimpan elemen (container) */
-  int nEff;        /* >=0, banyaknya elemen efektif */
-  int capacity;    /* ukuran elemen */
-} ListUtasKicau;
-
-/* SELEKTOR */
-#define NEFFListUtas(l) (l).nEff
-#define BUFFERListUtas(l) (l).buffer
-#define ELMTListUtas(l, i) (l).buffer[i]
-#define CAPACITYListUtas(l) (l).capacity
 
 /****************** PEMBUATAN LIST KOSONG ******************/
 void CreateListUtas(List *l);
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 
-void CreateUtas(Word word);
-
-void CreateListUtasUtama(ListUtasKicau *l);
-
-void insertLastListUtas(Utas utas);
-
-boolean isFullListUtas(ListUtasKicau l);
-
-void expandListUtas(ListUtasKicau *l, int num);
-
-IdxTypeUtas getLastIdxListUtas(ListUtasKicau l);
+void CreateUtas(Utas *utas, Word word, int idKicau);
 
 /****************** TEST LIST KOSONG ******************/
 boolean isEmptyUtas(List l);
@@ -83,8 +60,6 @@ boolean isEmptyUtas(List l);
 ElTypeUtas getElmtUtas(List l, int idx);
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
 /* F.S. Mengembalikan nilai elemen l pada indeks idx */
-
-ElTypeUtas getUtasById(int idUtas);
 
 void setElmtUtas(List *l, int idx, ElTypeUtas val);
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
@@ -131,15 +106,13 @@ void deleteAtUtas(List *l, int idx, ElTypeUtas *val);
 /* F.S. val diset dengan elemen l pada indeks ke-idx. */
 /*      Elemen l pada indeks ke-idx dihapus dari l */
 
-int length(List l);
+int lengthUtas(List l);
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 
 void utas(int id);
 
 void sambungUtas(int id, int index);
 
-void displayUtas(List l);
-
-Utas parentUtas(Kicauan Kicau);
+void displayUtas(int id);
 
 #endif

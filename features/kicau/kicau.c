@@ -100,6 +100,8 @@ void CreateKicau(Kicauan *kicau)
     DATETIME dt;
     BacaDATETIME(&dt);
     datetimeKicau(*kicau) = dt;
+    utasUtama(*kicau) = NULL;
+    idUtasKicau(*kicau) = 0;
 }
 void CreateKicauFile(Kicauan *kicau, int id, Word text, int like, Word author, DATETIME dt)
 {
@@ -249,6 +251,26 @@ Kicauan searchKicau(int idKicau)
     while (i < NEFFKicau(ListTweet) && !found)
     {
         if (idKicau(ELMTKicau(ListTweet, i)) == idKicau)
+        {
+            found = true;
+            Kicau = ELMTKicau(ListTweet, i);
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return Kicau;
+}
+
+Kicauan searchByIdUtasKicau(int idUtas)
+{
+    Kicauan Kicau;
+    int i = 0;
+    boolean found = false;
+    while (i < NEFFKicau(ListTweet) && !found)
+    {
+        if (idUtasKicau(ELMTKicau(ListTweet, i)) == idUtas)
         {
             found = true;
             Kicau = ELMTKicau(ListTweet, i);

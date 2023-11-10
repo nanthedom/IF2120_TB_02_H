@@ -3,8 +3,9 @@
 #include <stdlib.h>
 
 extern int currentIdUtas;
-extern ListUtasKicau listUtasUtama;
 extern Pengguna *currentUser;
+extern ListPengguna ListUser;
+extern ListKicauan ListTweet;
 
 Address newNode(ElTypeUtas val)
 {
@@ -25,50 +26,12 @@ void CreateListUtas(List *l)
 void CreateUtas(Utas *utas, Word word, int idKicau)
 {
   idParent(*utas) = idKicau;
-  idUtas(*utas) = currentIdUtas++;
+  idUtas(*utas) = currentIdUtas;
   indexUtas(*utas) = 1;
   textUtas(*utas) = word;
   DATETIME dt;
   BacaDATETIME(&dt);
   datetimeUtas(*utas) = dt;
-}
-
-void CreateListUtasUtama(ListUtasKicau *l)
-{
-  int capacity = 64;
-  BUFFERListUtas(*l) = (Address *)malloc(capacity * sizeof(Address));
-  NEFFListUtas(*l) = 0;
-  CAPACITYListUtas(*l) = capacity;
-}
-
-void insertLastListUtas(Utas utas)
-{
-  if (isFullListUtas(ListUtasKicau))
-  {
-    expandListKicau(&ListUtasKicau, 2 * CAPACITYListUtas(ListUtasKicau));
-    ELMTListUtas(ListUtasKicau, getLastIdxListUtas(ListUtasKicau) + 1) = utas;
-  }
-  else
-  {
-    ELMTListUtas(ListUtasKicau, getLastIdxListUtas(ListUtasKicau) + 1) = utas;
-  }
-  NEFFListUtas(ListUtasKicau)++;
-}
-
-boolean isFullListUtas(ListUtasKicau l)
-{
-  return (NEFFListUtas(l) == CAPACITYListUtas(l));
-}
-
-void expandListUtas(ListUtasKicau *l, int num)
-{
-  BUFFERListUtas(*l) = (Kicauan *)realloc(BUFFERListUtas(*l), (CAPACITYListUtas(*l) + num) * sizeof(Kicauan));
-  CAPACITYListUtas(*l) += num;
-}
-
-IdxTypeUtas getLastIdxListUtas(ListUtasKicau l)
-{
-  return NEFFListUtas(l) - 1;
 }
 
 boolean isEmptyUtas(List l)
@@ -78,7 +41,7 @@ boolean isEmptyUtas(List l)
 
 ElTypeUtas getElmtUtas(List l, int idx)
 {
-  if (!isEmptyLinier(l))
+  if (!isEmptyUtas(l))
   {
     int i = 0;
     Address curAdr;
@@ -90,35 +53,11 @@ ElTypeUtas getElmtUtas(List l, int idx)
     }
     return INFO(curAdr);
   }
-  else
-  {
-    return IDX_UNDEF;
-  }
-}
-
-ElTypeUtas getUtasById(int idUtas)
-{
-  Utas utas;
-  int i = 0;
-  boolean found = false;
-  while (i < NEFFListUtas(listUtasUtama) && !found)
-  {
-    if (idUtas(ELMTListUtas(listUtasUtama, i)) == idUtas)
-    {
-      found = true;
-      utas = ELMTListUtas(listUtasUtama, i);
-    }
-    else
-    {
-      i++;
-    }
-  }
-  return utas;
 }
 
 int indexOfUtas(List l, ElTypeUtas val)
 {
-  if (!isEmptyLinier(l))
+  if (!isEmptyUtas(l))
   {
     int i = 0;
     int idx = IDX_UNDEF;
@@ -126,7 +65,7 @@ int indexOfUtas(List l, ElTypeUtas val)
     boolean found = false;
     while (curAdr != NULL && !found)
     {
-      if (INFO(curAdr) == val)
+      if (indexUtas(INFO(curAdr)) == indexUtas(val))
       {
         found = true;
         idx = i;
@@ -157,9 +96,9 @@ void insertLastUtas(List *l, ElTypeUtas val)
   p = newNode(val);
   if (p != NULL)
   {
-    if (isEmptyLinier(*l))
+    if (isEmptyUtas(*l))
     {
-      insertFirst(l, val);
+      insertFirstUtas(l, val);
     }
     else
     {
@@ -181,7 +120,7 @@ void insertAtUtas(List *l, ElTypeUtas val, int idx)
     int i = 0;
     if (idx == 0)
     {
-      insertFirst(l, val);
+      insertFirstUtas(l, val);
     }
     else
     {
@@ -229,7 +168,7 @@ void deleteAtUtas(List *l, int idx, ElTypeUtas *val)
   int i = 0;
   if (idx == 0)
   {
-    deleteFirst(l, val);
+    deleteFirstUtas(l, val);
   }
   else
   {
@@ -245,7 +184,7 @@ void deleteAtUtas(List *l, int idx, ElTypeUtas *val)
   }
 }
 
-int length(List l)
+int lengthUtas(List l)
 {
   int count = 0;
   Address curAdr = l;
@@ -268,11 +207,10 @@ void utas(int id)
       strToWord("TIDAK", &lanjutUtas);
       List listUtas;
       Word currentText;
-      Utas utas, parent;
+      Utas utas;
       CreateListUtas(&listUtas);
-      parent = newNode(parentUtas(searchKicau(id)));
-      FIRST(listUtas) = parent;
-      insertLastListUtas(parent);
+      currentIdUtas++;
+      FIRST(listUtas) = utasUtama(kicau);
       printf("\nUtas berhasil dibuat!");
       printf("\nMasukkan kicauan:\n");
       ReadWord();
@@ -310,16 +248,25 @@ void sambungUtas(int id, int index)
 {
 }
 
-void displayUtas(List l)
+void displayUtas(int id)
 {
-  if (idValid(id))
+  Kicauan kicau = searchByIdUtasKicau(id);
+  int idxtweet = searchByIdKicau(id);
+  int idxuser = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, idxtweet)));
+  if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, idxtweet))) || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
   {
-    int idxtweet = searchByIdKicau(id);
-    int idxuser = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, idxtweet)));
-    if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, idxtweet))) || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
+    Address p = utasUtama(kicau);
+    printf("\n| ID = %d", idUtasKicau(kicau));
+    printf("\n| ");
+    printWord(authorKicau(kicau));
+    printf("\n| ");
+    TulisDATETIME(datetimeKicau(kicau));
+    printf("\n| ");
+    printWord(textKicau(kicau));
+    p = NEXT(p);
+    while (p != NULL)
     {
-      Address p = FIRST(l);
-      printf("\n| ID = %d", idUtas(INFO(p)));
+      printf("\n| INDEX = %d", indexUtas(INFO(p)));
       printf("\n| ");
       printWord(authorUtas(INFO(p)));
       printf("\n| ");
@@ -327,38 +274,10 @@ void displayUtas(List l)
       printf("\n| ");
       printWord(textUtas(INFO(p)));
       p = NEXT(p);
-      while (p != NULL)
-      {
-        printf("\n| INDEX = %d", indexUtas(INFO(p)));
-        printf("\n| ");
-        printWord(authorUtas(INFO(p)));
-        printf("\n| ");
-        TulisDATETIME(datetimeUtas(INFO(p)));
-        printf("\n| ");
-        printWord(textUtas(INFO(p)));
-        p = NEXT(p);
-      }
-    }
-    else
-    {
-      printf("\nAkun yang membuat utas ini adalah akun privat! Ikuti dahulu akun ini untuk melihat utasnya!\n\n");
     }
   }
   else
   {
-    printf("\nUtas tidak ditemukan!\n\n");
+    printf("\nAkun yang membuat utas ini adalah akun privat! Ikuti dahulu akun ini untuk melihat utasnya!\n\n");
   }
-}
-
-Utas parentUtas(Kicauan Kicau)
-{
-  Utas parent;
-  idParent(parent) = idKicau(Kicau);
-  idUtas(parent) = currentIdUtas;
-  indexUtas(parent) = 0;
-  textUtas(parent) = textKicau(Kicau);
-  authorUtas(parent) = authorKicau(Kicau);
-  datetimeUtas(parent) = datetimeKicau(Kicau);
-
-  return parent;
 }
