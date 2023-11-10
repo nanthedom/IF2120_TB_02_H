@@ -3,6 +3,8 @@
 #include <stdlib.h>
 
 extern int currentIdUtas;
+extern ListUtasKicau listUtasUtama;
+extern Pengguna *currentUser;
 
 Address newNode(ElTypeUtas val)
 {
@@ -29,6 +31,44 @@ void CreateUtas(Utas *utas, Word word, int idKicau)
   DATETIME dt;
   BacaDATETIME(&dt);
   datetimeUtas(*utas) = dt;
+}
+
+void CreateListUtasUtama(ListUtasKicau *l)
+{
+  int capacity = 64;
+  BUFFERListUtas(*l) = (Address *)malloc(capacity * sizeof(Address));
+  NEFFListUtas(*l) = 0;
+  CAPACITYListUtas(*l) = capacity;
+}
+
+void insertLastListUtas(Utas utas)
+{
+  if (isFullListUtas(ListUtasKicau))
+  {
+    expandListKicau(&ListUtasKicau, 2 * CAPACITYListUtas(ListUtasKicau));
+    ELMTListUtas(ListUtasKicau, getLastIdxListUtas(ListUtasKicau) + 1) = utas;
+  }
+  else
+  {
+    ELMTListUtas(ListUtasKicau, getLastIdxListUtas(ListUtasKicau) + 1) = utas;
+  }
+  NEFFListUtas(ListUtasKicau)++;
+}
+
+boolean isFullListUtas(ListUtasKicau l)
+{
+  return (NEFFListUtas(l) == CAPACITYListUtas(l));
+}
+
+void expandListUtas(ListUtasKicau *l, int num)
+{
+  BUFFERListUtas(*l) = (Kicauan *)realloc(BUFFERListUtas(*l), (CAPACITYListUtas(*l) + num) * sizeof(Kicauan));
+  CAPACITYListUtas(*l) += num;
+}
+
+IdxTypeUtas getLastIdxListUtas(ListUtasKicau l)
+{
+  return NEFFListUtas(l) - 1;
 }
 
 boolean isEmptyUtas(List l)
@@ -59,6 +99,21 @@ ElTypeUtas getElmtUtas(List l, int idx)
 ElTypeUtas getUtasById(int idUtas)
 {
   Utas utas;
+  int i = 0;
+  boolean found = false;
+  while (i < NEFFListUtas(listUtasUtama) && !found)
+  {
+    if (idUtas(ELMTListUtas(listUtasUtama, i)) == idUtas)
+    {
+      found = true;
+      utas = ELMTListUtas(listUtasUtama, i);
+    }
+    else
+    {
+      i++;
+    }
+  }
+  return utas;
 }
 
 int indexOfUtas(List l, ElTypeUtas val)
@@ -207,7 +262,7 @@ void utas(int id)
   if (idValid(id))
   {
     Kicauan kicau = searchKicau(id);
-    if (isKataEqual(Nama(currentUser), authorKicau(kicau)))
+    if (isKataEqual(Nama(*currentUser), authorKicau(kicau)))
     {
       Word lanjutUtas;
       strToWord("TIDAK", &lanjutUtas);
@@ -217,6 +272,7 @@ void utas(int id)
       CreateListUtas(&listUtas);
       parent = newNode(parentUtas(searchKicau(id)));
       FIRST(listUtas) = parent;
+      insertLastListUtas(parent);
       printf("\nUtas berhasil dibuat!");
       printf("\nMasukkan kicauan:\n");
       ReadWord();

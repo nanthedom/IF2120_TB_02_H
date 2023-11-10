@@ -44,12 +44,36 @@ typedef Address List;
 #define IDX_UNDEF (-1)
 #define FIRST(l) (l)
 
+typedef int IdxTypeUtas;
+typedef struct
+{
+  Address *buffer; /* memori tempat penyimpan elemen (container) */
+  int nEff;        /* >=0, banyaknya elemen efektif */
+  int capacity;    /* ukuran elemen */
+} ListUtasKicau;
+
+/* SELEKTOR */
+#define NEFFListUtas(l) (l).nEff
+#define BUFFERListUtas(l) (l).buffer
+#define ELMTListUtas(l, i) (l).buffer[i]
+#define CAPACITYListUtas(l) (l).capacity
+
 /****************** PEMBUATAN LIST KOSONG ******************/
 void CreateListUtas(List *l);
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 
 void CreateUtas(Word word);
+
+void CreateListUtasUtama(ListUtasKicau *l);
+
+void insertLastListUtas(Utas utas);
+
+boolean isFullListUtas(ListUtasKicau l);
+
+void expandListUtas(ListUtasKicau *l, int num);
+
+IdxTypeUtas getLastIdxListUtas(ListUtasKicau l);
 
 /****************** TEST LIST KOSONG ******************/
 boolean isEmptyUtas(List l);

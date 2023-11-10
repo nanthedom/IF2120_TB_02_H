@@ -193,6 +193,7 @@ void LihatDraf()
           // PushDraft(&SDraf, topDraf);
           SimpanDraf(currentText);
           TerbitDraf();
+          Draf tempDraf;
           PopDraft(&SDraf, &tempDraf);
         }
       }

@@ -24,7 +24,7 @@ void CreateBalasan(Balasan *reply)
 
 void CreateBalasanFile()
 
-void createEmptyBalasan(Balasan *reply)
+    void createEmptyBalasan(Balasan *reply)
 {
     Word tweet;
     strToWord("root-kicau", &tweet);
@@ -390,7 +390,7 @@ void deleteTree(TreeNode *reply, int id)
         if (idBalas(ROOT(*child)) == id)
         {
             child = NULL;
-            // hapus nextchild/nextsiblingnya 
+            // hapus nextchild/nextsiblingnya
             if (prevChild == NULL)
             {
                 firstChild(reply) = nextChild;
