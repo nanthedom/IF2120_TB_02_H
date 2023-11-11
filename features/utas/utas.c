@@ -7,7 +7,7 @@ extern Pengguna *currentUser;
 extern ListPengguna ListUser;
 extern ListKicauan ListTweet;
 
-Address newNode(ElTypeUtas val)
+Address newNodeUtas(ElTypeUtas val)
 {
   Address N = (Address)malloc(sizeof(Node));
   if (N != NULL)
@@ -41,18 +41,15 @@ boolean isEmptyUtas(List l)
 
 ElTypeUtas getElmtUtas(List l, int idx)
 {
-  if (!isEmptyUtas(l))
+  int i = 0;
+  Address curAdr;
+  curAdr = FIRST(l);
+  while (i < idx)
   {
-    int i = 0;
-    Address curAdr;
-    curAdr = FIRST(l);
-    while (i < idx)
-    {
-      curAdr = NEXT(curAdr);
-      i++;
-    }
-    return INFO(curAdr);
+    curAdr = NEXT(curAdr);
+    i++;
   }
+  return INFO(curAdr);
 }
 
 int indexOfUtas(List l, ElTypeUtas val)
@@ -81,7 +78,7 @@ int indexOfUtas(List l, ElTypeUtas val)
 void insertFirstUtas(List *l, ElTypeUtas val)
 {
   Address p;
-  p = newNode(val);
+  p = newNodeUtas(val);
   if (p != NULL)
   {
     NEXT(p) = *l;
@@ -93,7 +90,7 @@ void insertLastUtas(List *l, ElTypeUtas val)
 {
   Address p, curAdr;
   curAdr = *l;
-  p = newNode(val);
+  p = newNodeUtas(val);
   if (p != NULL)
   {
     if (isEmptyUtas(*l))
@@ -114,7 +111,7 @@ void insertLastUtas(List *l, ElTypeUtas val)
 void insertAtUtas(List *l, ElTypeUtas val, int idx)
 {
   Address p, curAdr = *l;
-  p = newNode(val);
+  p = newNodeUtas(val);
   if (p != NULL)
   {
     int i = 0;
@@ -216,7 +213,7 @@ void utas(int id)
       ReadWord();
       currentText = currentWord;
       CreateUtas(&utas, currentText, id);
-      Address P = newNode(utas);
+      Address P = newNodeUtas(utas);
       NEXT(listUtas) = P;
       printf("\nApakah Anda ingin melanjutkan utas ini? (YA/TIDAK)");
       ReadWord();
@@ -226,7 +223,7 @@ void utas(int id)
         ReadWord();
         currentText = currentWord;
         CreateUtas(&utas, currentText, id);
-        Address P = newNode(utas);
+        Address P = newNodeUtas(utas);
         NEXT(listUtas) = P;
         printf("\nApakah Anda ingin melanjutkan utas ini? (YA/TIDAK)");
         ReadWord();
