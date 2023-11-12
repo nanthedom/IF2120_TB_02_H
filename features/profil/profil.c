@@ -55,7 +55,7 @@ void ReadBio(Profil *P)
     Bio(*P) = bio;
 }
 boolean isValidNoHP(Word w){
-    return w.Length <= 15 && isNumber(w)
+    return w.Length <= 15 && isNumber(w);
 }
 void ReadNoHP(Profil *P)
 {
