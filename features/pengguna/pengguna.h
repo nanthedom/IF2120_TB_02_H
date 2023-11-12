@@ -33,6 +33,7 @@ typedef struct
 #define length(l) (l).length
 
 void CreatePengguna(Pengguna *p, Word Nama, Word Password);
+void CreatePenggunaFile(Pengguna* p, Word Nama, Word Password, Word bio, Word noHP, Word weton, boolean isPub, MatrixFoto M);
 void CreateList(ListPengguna *l);
 boolean isEmpty(ListPengguna l);
 boolean isFull(ListPengguna l);

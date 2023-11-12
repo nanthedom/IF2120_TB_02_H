@@ -7,7 +7,9 @@
 #include "../../ADT/boolean/boolean.h"
 #include "../../ADT/wordmachine/wordmachine.h"
 #include "../../ADT/datetime/datetime.h"
+#include "../../features/utas/utas.h"
 
+typedef struct node *Address;
 // Tipe Kicauan
 typedef struct
 {
@@ -16,6 +18,8 @@ typedef struct
     int likeKicau;
     Word authorKicau;
     DATETIME datetimeKicau;
+    Address utasUtama;
+    int idUtasKicau;
 } Kicauan;
 
 // SELEKTOR
@@ -24,6 +28,8 @@ typedef struct
 #define likeKicau(p) (p).likeKicau
 #define authorKicau(p) (p).authorKicau
 #define datetimeKicau(p) (p).datetimeKicau
+#define utasUtama(p) (p).utasUtama
+#define idUtasKicau(p) (p).idUtasKicau
 
 /* List dinamis dengan implementasi rata kiri*/
 /* Definisi elemen dan koleksi objek */
@@ -31,8 +37,8 @@ typedef int IdxType;
 typedef struct
 {
     Kicauan *buffer; /* memori tempat penyimpan elemen (container) */
-    int nEff;       /* >=0, banyaknya elemen efektif */
-    int capacity;   /* ukuran elemen */
+    int nEff;        /* >=0, banyaknya elemen efektif */
+    int capacity;    /* ukuran elemen */
 } ListKicauan;
 
 /* SELEKTOR */
@@ -78,6 +84,8 @@ IdxType getLastIdxKicauan(ListKicauan l);
 
 void CreateKicau(Kicauan *kicau);
 
+void CreateKicauFile(Kicauan *kicau, int id, Word text, int like, Word author, DATETIME dt);
+
 void insertLastKicauan(Kicauan kicau);
 
 void insertByTime(Kicauan kicau);
@@ -89,6 +97,10 @@ void printKicauan();
 boolean idValid(int id);
 
 IdxType searchByIdKicau(int idKicau);
+
+Kicauan searchKicau(int idKicau);
+
+Kicauan searchByIdUtasKicau(int idUtas);
 
 void sukaKicau(int id);
 

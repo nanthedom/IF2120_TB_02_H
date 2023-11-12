@@ -56,7 +56,7 @@ void StoreDataPengguna(int n, Word data){
 }
 
 void loadPengguna(char *path){
-    int n,pre,NPermintaan;
+    int n,NPermintaan;
     Word dataPengguna,pertemanan,permintaan;
 
     printf("%s",path);
@@ -67,7 +67,7 @@ void loadPengguna(char *path){
     for (int i=0;i<n;++i){
         AdvNewLine(11);
         dataPengguna = currentWord;
-        StoreDataPengguna(n,dataPengguna,&ListUser);
+        StoreDataPengguna(n,dataPengguna);
     }
     // Pertemanan
     AdvNewLine(n);
@@ -98,7 +98,7 @@ void loadUtas(char *path){
 
 void load(Word dir){
     char *directory = dir.TabWord;
-    char *file = "text.txt";
+    // char *file = "text.txt";
     char path[256];
     const char *fileNames[] = {"pengguna.config", "kicauan.config", "balasan.config", "draf.config", "utas.config"};
     // printf("%s",path);

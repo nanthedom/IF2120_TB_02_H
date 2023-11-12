@@ -15,7 +15,6 @@ boolean isLogin;
 boolean isClosed;
 Pengguna *currentUser;
 ListPengguna ListUser;
-int NPengguna;
 
 /* Kicauan */
 int currentIdTweet;
@@ -36,6 +35,9 @@ PrioQueue daftarPermintaan;
 StackDraf SDraf;
 Draf draf;
 
+/* Utas */
+int currentIdUtas;
+
 int main()
 {
   CreateListKicauan(&ListTweet);
@@ -49,7 +51,7 @@ int main()
   // ELMTMAT(matrixPertemanan, 1, 0) = 1;
   // ELMTMAT(matrixPertemanan, 1, 1) = 1;
   init();
-//   loadfirst(); nanti mau dibuat di muat
+  //   loadfirst(); nanti mau dibuat di muat
   Word cmd;
   while (!isClosed)
   {

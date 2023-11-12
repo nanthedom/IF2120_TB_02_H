@@ -7,19 +7,20 @@
 #include "../balasan/balasan.h"
 #include "../draf/draf.h"
 #include "../muat/muat.h"
+#include "../utas/utas.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 void init()
 {
     printf(".______    __    __  .______      .______    __  .______      \n"
-            "|   _  \\  |  |  |  | |   _  \\     |   _  \\  |  | |   _  \\     \n"
-            "|  |_)  | |  |  |  | |  |_)  |    |  |_)  | |  | |  |_)  |    \n"
-            "|   _  <  |  |  |  | |      /     |   _  <  |  | |      /     \n"
-            "|  |_)  | |  `--'  | |  |\\  \\----.|  |_)  | |  | |  |\\  \\----.\n"
-            "|______/   \\______/  | _| `._____||______/  |__| | _| `._____|\n\n"                                                            
-            "Selamat datang di BurBir. \n"
-            "Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n");
+           "|   _  \\  |  |  |  | |   _  \\     |   _  \\  |  | |   _  \\     \n"
+           "|  |_)  | |  |  |  | |  |_)  |    |  |_)  | |  | |  |_)  |    \n"
+           "|   _  <  |  |  |  | |      /     |   _  <  |  | |      /     \n"
+           "|  |_)  | |  `--'  | |  |\\  \\----.|  |_)  | |  | |  |\\  \\----.\n"
+           "|______/   \\______/  | _| `._____||______/  |__| | _| `._____|\n\n"
+           "Selamat datang di BurBir. \n"
+           "Aplikasi untuk studi kualitatif mengenai perilaku manusia dengan menggunakan metode (pengambilan data berupa) Focused Group Discussion kedua di zamannya.\n");
     isLogin = false;
     isClosed = false;
 }
@@ -62,11 +63,7 @@ void parseMultiCmd(Word w, Word *cmd, Word *param0, Word *param1)
 
 void prosesCmd(Word w)
 {
-<<<<<<< HEAD
-    Word daftar, muat, balas, balasan, hapus_balasan, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, daftar_teman, hapus_teman, buat_draf, lihat_draf;
-=======
-    Word daftar, muat, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan;
->>>>>>> a7a89244dc9b40763e68547d493d2fa573a9b609
+    Word daftar, muat, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan, cmdUtas;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
@@ -90,6 +87,7 @@ void prosesCmd(Word w)
     strToWord("TAMBAH_TEMAN", &tambah_teman);
     strToWord("SETUJUI_PERTEMANAN", &setujui_pertemanan);
     strToWord("DAFTAR_PERMINTAAN_PERTEMANAN", &daftar_permintaan_pertemanan);
+    strToWord("UTAS", &cmdUtas);
     if (isKataEqual(w, daftar))
     {
         Daftar();
@@ -321,6 +319,18 @@ void prosesCmd(Word w)
                 int idKicau = wordToInteger(param0);
                 int idBalas = wordToInteger(param1);
                 hapusBalasan(idKicau, idBalas);
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
+        else if (isKataEqual(newCmd, cmdUtas))
+        {
+            if (isLogin)
+            {
+                int idKicau = wordToInteger(param0);
+                utas(idKicau);
             }
             else
             {

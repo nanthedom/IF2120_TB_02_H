@@ -20,6 +20,8 @@ extern AdjMatrix matrixPertemanan;
 
 void CreateAdjMatrix(int nEff, AdjMatrix *m);
 
+void CreateAdjMatrixFile(AdjMatrix *m, Word w, int Neff);
+
 void printDaftarTeman();
 
 int jumlahTeman();

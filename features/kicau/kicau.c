@@ -100,6 +100,16 @@ void CreateKicau(Kicauan *kicau)
     DATETIME dt;
     BacaDATETIME(&dt);
     datetimeKicau(*kicau) = dt;
+    utasUtama(*kicau) = NULL;
+    idUtasKicau(*kicau) = 0;
+}
+void CreateKicauFile(Kicauan *kicau, int id, Word text, int like, Word author, DATETIME dt)
+{
+    idKicau(*kicau) = id;
+    textKicau(*kicau) = text;
+    likeKicau(*kicau) = like;
+    authorKicau(*kicau) = author;
+    datetimeKicau(*kicau) = dt;
 }
 
 void insertLastKicauan(Kicauan kicau)
@@ -231,6 +241,46 @@ IdxType searchByIdKicau(int id)
         }
     }
     return i;
+}
+
+Kicauan searchKicau(int idKicau)
+{
+    Kicauan Kicau;
+    int i = 0;
+    boolean found = false;
+    while (i < NEFFKicau(ListTweet) && !found)
+    {
+        if (idKicau(ELMTKicau(ListTweet, i)) == idKicau)
+        {
+            found = true;
+            Kicau = ELMTKicau(ListTweet, i);
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return Kicau;
+}
+
+Kicauan searchByIdUtasKicau(int idUtas)
+{
+    Kicauan Kicau;
+    int i = 0;
+    boolean found = false;
+    while (i < NEFFKicau(ListTweet) && !found)
+    {
+        if (idUtasKicau(ELMTKicau(ListTweet, i)) == idUtas)
+        {
+            found = true;
+            Kicau = ELMTKicau(ListTweet, i);
+        }
+        else
+        {
+            i++;
+        }
+    }
+    return Kicau;
 }
 
 void sukaKicau(int id)
