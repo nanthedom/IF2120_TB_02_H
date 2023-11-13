@@ -16,7 +16,7 @@ int main(){
             ReadWord();
             CreateWord(&word);
             copy(currentWord, &word);
-            printf("%d", word2Int(word));
+            printf("%d", wordToInteger(word));
             break;
         case 3:
             ReadWord();
