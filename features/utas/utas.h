@@ -38,7 +38,7 @@ typedef struct node
 #define INFO(p) (p)->info
 #define NEXT(p) (p)->next
 
-Address newNode(ElTypeUtas val);
+Address newNodeUtas(ElTypeUtas val);
 
 typedef Address List;
 

@@ -6,6 +6,7 @@ extern StackDraf SDraf;
 extern Draf draf;
 extern ListKicauan ListTweet;
 extern int currentIdTweet;
+extern Pengguna *currentUser;
 
 void CreateDraf(Draf *D)
 {
@@ -13,6 +14,7 @@ void CreateDraf(Draf *D)
   BacaDATETIME(&dt);
   datetimeDraf(*D) = dt;
   textDraf(*D) = currentWord;
+  authorDraf(*D) = *currentUser;
 }
 
 void CreateEmptyDraft(StackDraf *S)
@@ -91,13 +93,10 @@ void TerbitDraf()
 
 void DrafToKicau(Draf D, Kicauan *Kicau)
 {
-  // Kicauan Kicau;
-  CreateKicau(Kicau);
   idKicau(*Kicau) = currentIdTweet;
   textKicau(*Kicau) = textDraf(D);
   datetimeKicau(*Kicau) = datetimeDraf(D);
-
-  // return Kicau;
+  authorKicau(*Kicau) = authorDraf(D);
 }
 
 void BuatDraf()
@@ -205,4 +204,27 @@ void LihatDraf()
       }
     }
   }
+}
+
+int CountDraftUser(StackDraf SDraf, Word nama)
+{
+  int countDraf = 0;
+  Draf top;
+  StackDraf temp;
+  CreateEmptyDraft(&temp);
+  while (!IsDraftEmpty(SDraf))
+  {
+    PopDraft(&SDraf, &top);
+    if (authorDraf(top) == nama)
+    {
+      countDraf++;
+    }
+    PushDraft(&temp, top);
+  }
+  while (!IsDraftEmpty(temp))
+  {
+    PopDraft(&temp, &top);
+    PushDraft(&SDraf, top);
+  }
+  return countDraf;
 }

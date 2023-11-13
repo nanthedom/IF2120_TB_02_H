@@ -15,11 +15,13 @@ typedef struct
 {
   DATETIME datetimeDraf;
   Word textDraf;
+  Word authorDraf;
 } Draf;
 
 /* Definisi akses dengan Selektor : Set dan Get */
 #define datetimeDraf(d) (d).datetimeDraf
 #define textDraf(d) (d).textDraf
+#define authorDraf(d) (d).authorDraf
 
 /* Stack Draf */
 typedef Draf infotype;
@@ -89,5 +91,7 @@ void DrafToKicau(Draf D, Kicauan *Kicau);
 void BuatDraf();
 
 void LihatDraf();
+
+int CountDratfUser(StackDraf SDraf);
 
 #endif

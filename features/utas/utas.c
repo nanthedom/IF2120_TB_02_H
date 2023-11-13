@@ -243,6 +243,19 @@ void utas(int id)
 
 void sambungUtas(int id, int index)
 {
+  if (authorKicau(searchByIdUtasKicau(id)) == Nama(*currentUser))
+  {
+    if (idUtasKicau(searchByIdUtasKicau(id)) <= currentIdUtas)
+    {
+    }
+    else
+    {
+    }
+  }
+  else
+  {
+    printf("Anda tidak bisa menyambung utas ini!")
+  }
 }
 
 void displayUtas(int id)
