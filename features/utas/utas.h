@@ -56,6 +56,8 @@ void CreateUtas(Utas *utas, Word word, int idKicau);
 boolean isEmptyUtas(List l);
 /* Mengirim true jika list kosong */
 
+boolean isIdxUtasValid(List l, int index);
+
 /****************** GETTER SETTER ******************/
 ElTypeUtas getElmtUtas(List l, int idx);
 /* I.S. l terdefinisi, idx indeks yang valid dalam l, yaitu 0..length(l) */
@@ -112,6 +114,8 @@ int lengthUtas(List l);
 void utas(int id);
 
 void sambungUtas(int id, int index);
+
+void hapusUtas(int id, int index);
 
 void displayUtas(int id);
 

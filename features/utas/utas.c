@@ -39,6 +39,24 @@ boolean isEmptyUtas(List l)
   return FIRST(l) == NULL;
 }
 
+boolean isIdxUtasValid(List l, int index)
+{
+  Address p = FIRST(l);
+  int idx = 0;
+  while (p != NULL)
+  {
+    idx++;
+  }
+  if (idx <= index)
+  {
+    return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+
 ElTypeUtas getElmtUtas(List l, int idx)
 {
   int i = 0;
@@ -243,18 +261,76 @@ void utas(int id)
 
 void sambungUtas(int id, int index)
 {
-  if (authorKicau(searchByIdUtasKicau(id)) == Nama(*currentUser))
+  Kicauan kicau = searchByIdUtasKicau(id);
+  Address p = utasUtama(kicau);
+  if (isKataEqual(authorKicau(kicau), Nama(*currentUser)))
   {
-    if (idUtasKicau(searchByIdUtasKicau(id)) <= currentIdUtas)
+    if (idUtasKicau(kicau) <= currentIdUtas)
     {
+      while (NEXT(p) != NULL)
+      {
+        p = NEXT(p);
+      }
+      Word currentText;
+      Utas utas;
+      if (isIdxUtasValid(p, index))
+      {
+        printf("\nMasukkan kicauan:\n");
+        ReadWord();
+        currentText = currentWord;
+        CreateUtas(&utas, currentText, id);
+        insertLastUtas(&p, utas);
+      }
+      else
+      {
+        printf("\nIndex terlalu tinggi!\n");
+      }
     }
     else
     {
+      printf("\nUtas tidak ditemukan!");
     }
   }
   else
   {
-    printf("Anda tidak bisa menyambung utas ini!")
+    printf("\nAnda tidak bisa menyambung utas ini!\n");
+  }
+}
+
+void hapusUtas(int id, int index)
+{
+  Kicauan kicau = searchByIdUtasKicau(id);
+  Address p = utasUtama(kicau);
+  if (index == 0)
+  {
+    if (isKataEqual(authorKicau(kicau), Nama(*currentUser)))
+    {
+      if (idUtasKicau(kicau) <= currentIdUtas)
+      {
+        if (isIdxUtasValid(p, index))
+        {
+          ElTypeUtas utas;
+          deleteAtUtas(&utasUtama(kicau), index, &utas);
+          printf("\nKicauan sambungan berhasil dihapus!\n");
+        }
+        else
+        {
+          printf("\nKicauan sambungan dengan index %d tidak ditemukan pada utas!", index);
+        }
+      }
+      else
+      {
+        printf("\nUtas tidak ditemukan!");
+      }
+    }
+    else
+    {
+      printf("\nAnda tidak bisa menghapus kicauan dalam utas ini!\n");
+    }
+  }
+  else
+  {
+    printf("\nAnda tidak bisa menghapus kicauan utama!\n");
   }
 }
 

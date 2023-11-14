@@ -14,7 +14,7 @@ void CreateDraf(Draf *D)
   BacaDATETIME(&dt);
   datetimeDraf(*D) = dt;
   textDraf(*D) = currentWord;
-  authorDraf(*D) = *currentUser;
+  authorDraf(*D) = Nama(*currentUser);
 }
 
 void CreateEmptyDraft(StackDraf *S)
@@ -215,7 +215,7 @@ int CountDraftUser(StackDraf SDraf, Word nama)
   while (!IsDraftEmpty(SDraf))
   {
     PopDraft(&SDraf, &top);
-    if (authorDraf(top) == nama)
+    if (isKataEqual(authorDraf(top), nama))
     {
       countDraf++;
     }
