@@ -105,7 +105,7 @@ void AdvNewLine(int n)
     if (currentChar == ENTER)
     {
         EndWord = false;
-        ADV();
+        ADVFile();
         CopyWordFile(n);
     }
 }
