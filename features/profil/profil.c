@@ -330,6 +330,17 @@ void ReadWeton(Profil *P)
         ReadWord();
         weton = currentWord;
     }
+    if(isPahing(weton)){
+        weton = strToWord("Pahing");
+    } else if(isPon(weton)){
+        weton = strToWord("Pon");
+    } else if (isLegi(weton)){
+        weton = strToWord("Legi");
+    } else if (isKliwon(weton)){
+        weton = strToWord("Kliwon")
+    } else{
+        weton = strToWord("Wage")
+    }
     Weton(*P) = weton;
 }
 

@@ -18,7 +18,12 @@ void startFile(char *str){
               printf("File tidak ditemukan. Exiting....\n");
               exit(0);
        }
-       ADV();
+       ADVFile();
+}
+
+void ADVFile(){
+       retval = fscanf(pita, "%c", &currentChar);
+       EOP = currentChar == EOF;
 }
 
 void START()
