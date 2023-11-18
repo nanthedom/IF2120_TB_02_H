@@ -21,7 +21,8 @@ void START();
 void startFile(char *str);
 // I.S : Sembarang
 // F.S : currentChar adalah char pertama di file
-
+void ADVFile();
+void ADVinFile();
 void ADV();
 /* Pita dimajukan satu karakter.
    I.S. : Karakter pada jendela = currentChar, currentChar != MARK

@@ -112,7 +112,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            Muat();
+            // Muat();
         }
     }
     else if (isKataEqual(w, ganti_profil))

@@ -21,6 +21,16 @@ void startFile(char *str){
        ADV();
 }
 
+void ADVFile(){
+       retval = fscanf(pita, "%c", &currentChar);
+       EOP = currentChar == EOF;
+}
+
+void ADVinFile(){
+       retval = fscanf(pita, "%c", &currentChar);
+       EOP = currentChar == '\n';
+}
+
 void START()
 {
        /* Mesin siap dioperasikan. Pita disiapkan untuk dibaca.
