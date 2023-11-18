@@ -16,70 +16,67 @@ extern Word currentWord;
 extern ListPengguna ListUser;
 extern AdjMatrix matrixPertemanan;
 
-void StoreDataPengguna(int n, Word data){
+void StoreDataPengguna(int n){
     Word nama,password,bio,no,weton,isPub,pic,publik;
     boolean pub;
     Pengguna P;
     MatrixFoto M;
     strToWord("Publik", &publik);
-
-    // nama
-    AdvNewLine(1);
-    nama = currentWord;
-    // password
-    AdvNewLine(1);
-    password = currentWord;
-    // bio
-    AdvNewLine(1);
-    bio = currentWord;
-    // No.HP
-    AdvNewLine(1);
-    no = currentWord;
-    // Weton
-    AdvNewLine(1);
-    weton = currentWord;
-    // isPublic
-    AdvNewLine(1);
-    isPub = currentWord;
-    if(isKataEqual(isPub,publik)){
-        pub = true;
-    }else{
-        pub = false;
+    int i;
+    for(i = 0; i < n; i++){
+        // nama
+        ReadLine(1);
+        nama = currentWord;
+        // password
+        ReadLine(1);
+        password = currentWord;
+        // bio
+        ReadLine(1);
+        bio = currentWord;
+        // No.HP
+        ReadLine(1);
+        no = currentWord;
+        // Weton
+        ReadLine(1);
+        weton = currentWord;
+        // isPublic
+        ReadLine(1);
+        isPub = currentWord;
+        if(isKataEqual(isPub,publik)){
+            pub = true;
+        }else{
+            pub = false;
+        }
+        // ProfPic
+        ReadLineWithEnter(5);
+        pic = currentWord;
+        M = ReadFotoFile(pic);
+        CreatePenggunaFile(&P,nama,password,bio,no,weton,pub,M);
+        insertLast(&ListUser,P);
     }
-    // ProfPic
-    AdvNewLine(5);
-    pic = currentWord;
-    M = ReadFotoFile(pic);
-    CreatePenggunaFile(&P,nama,password,bio,no,weton,pub,M);
-    insertLast(&ListUser,P);
-    
 }
 
 void loadPengguna(char *path){
     int n,NPermintaan;
     Word dataPengguna,pertemanan,permintaan;
-
-    printf("%s",path);
+    printf("%s\n",path);
     ReadFromFile(path);
     printWord(currentWord);
-    AdvNewLine(1);
+    printf("\n");
     n = wordToInteger(currentWord);
-    for (int i=0;i<n;++i){
-        AdvNewLine(11);
-        dataPengguna = currentWord;
-        StoreDataPengguna(n,dataPengguna);
-    }
-    // Pertemanan
-    AdvNewLine(n);
-    pertemanan = currentWord;
-    CreateAdjMatrixFile(&matrixPertemanan,pertemanan,n);
-    AdvNewLine(1);
-    // Permintaan
-    NPermintaan = wordToInteger(currentWord);
-    AdvNewLine(NPermintaan);
-    permintaan =currentWord;
-    MatrixPermintaanFile(permintaan, &matrixPermintaan, NPermintaan);
-    printList(ListUser);
+    StoreDataPengguna(n);
+    
+    // // Pertemanan
+    // ReadLine(n);
+    // pertemanan = currentWord;
+    // CreateAdjMatrixFile(&matrixPertemanan,pertemanan,n);
+    // ReadLine(1);
+    // // Permintaan
+    // NPermintaan = wordToInteger(currentWord);
+    // ReadLine(NPermintaan);
+    // permintaan =currentWord;
+    // MatrixPermintaanFile(permintaan, &matrixPermintaan, NPermintaan);
+    // printList(ListUser);
 
 }
 void loadKicauan(char *path){

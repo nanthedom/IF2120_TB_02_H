@@ -66,7 +66,8 @@ boolean containBlanks(Word w)
 void ReadFromFile(char *str)
 {
     startFile(str);
-    IgnoreBlanks();
+    IgnoreCarriageEnter();
+    currentWord.TabWord = (char *)malloc(NMax * sizeof(char));
     if (currentChar == EOF)
     {
         EndWord = true;
@@ -98,15 +99,27 @@ void ReadWord()
           atau EndWord = false, currentWord adalah kata yang sudah diakuisisi,
           currentChar karakter pertama sesudah karakter terakhir kata */
 
-void AdvNewLine(int n)
+void ReadLine(int n)
 {
-    Word EMPTY = {"", 0};
+    Word EMPTY;
+    CreateWord(&EMPTY);
     currentWord = EMPTY;
-    if (currentChar == ENTER)
+    if (currentChar != EOF)
     {
         EndWord = false;
-        ADVFile();
         CopyWordFile(n);
+    }
+}
+
+void ReadLineWithEnter(int n)
+{
+    Word EMPTY;
+    CreateWord(&EMPTY);
+    currentWord = EMPTY;
+    if (currentChar != EOF)
+    {
+        EndWord = false;
+        CopyWordFileWithEnter(n);
     }
 }
 // void ADVWORD(){
@@ -153,20 +166,40 @@ void CopyWord()
 void CopyWordFile(int row)
 {
     int i = 0, N = NMax, count = 0;
-    while (count < row)
+    while (count < row && currentChar != EOF)
     {
-        if (i >= N)
-        {
+        if (i >= N){
             currentWord.TabWord = (char *)realloc(currentWord.TabWord, 2 * N * sizeof(char));
             N *= 2;
         }
-        currentWord.TabWord[i] = currentChar;
-        if (currentWord.TabWord[i] == ENTER)
-        {
-            count += 1;
+        if(currentChar != ENTER && currentChar != CARRIAGE){
+            currentWord.TabWord[i] = currentChar;
+            i++;
+        } else if(currentChar == ENTER){
+            count++;
         }
-        i++;
-        ADV();
+        ADVFile();
+    }
+    currentWord.Length = i;
+}
+
+void CopyWordFileWithEnter(int row)
+{
+    int i = 0, N = NMax, count = 0;
+    while (count < row && currentChar != EOF)
+    {
+        if (i >= N){
+            currentWord.TabWord = (char *)realloc(currentWord.TabWord, 2 * N * sizeof(char));
+            N *= 2;
+        }
+        if(currentChar != CARRIAGE){
+            currentWord.TabWord[i] = currentChar;
+            i++;
+        } 
+        if(currentChar == ENTER){
+            count++;
+        }
+        ADVFile();
     }
     currentWord.Length = i;
 }

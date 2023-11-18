@@ -56,7 +56,6 @@ void ReadWeton(Profil *P);
 MatrixFoto ReadFotoFile(Word w);
 void ReadFoto(Profil *P);
 void PrintFoto(Profil P);
-void displayProfil();
 void GantiProfil();
 void LihatProfil(Word Nama);
 void AturJenisAkun();
