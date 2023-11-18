@@ -15,12 +15,12 @@ void CreatePengguna(Pengguna *p, Word Nama, Word Password)
     Password(*p) = Password;
     CreateProfil(&Profil(*p));
 }
-// void CreatePenggunaFile(Pengguna *p, Word Nama, Word Password, Word bio, Word noHP, Word weton, boolean isPub, MatrixFoto M)
-// {
-//     Nama(*p) = Nama;
-//     Password(*p) = Password;
-//     CreateProfilFile(&Profil(*p), bio, noHP, weton, isPub, M);
-// }
+void CreatePenggunaFile(Pengguna *p, Word Nama, Word Password, Word bio, Word noHP, Word weton, boolean isPub, MatrixFoto M)
+{
+    Nama(*p) = Nama;
+    Password(*p) = Password;
+    CreateProfilFile(&Profil(*p), bio, noHP, weton, isPub, M);
+}
 
 void CreateList(ListPengguna *l)
 {

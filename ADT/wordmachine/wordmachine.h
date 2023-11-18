@@ -49,7 +49,8 @@ void ReadWord();
 
 void ReadFromFile(char *str);
 // membaca file
-void AdvNewLine(int n);
+void ReadLine(int n);
+void ReadLineWithEnter(int n);
 void CopyWord();
 /* Mengakuisisi kata, menyimpan dalam currentWord
    I.S. : currentChar adalah karakter pertama dari kata
@@ -58,6 +59,7 @@ void CopyWord();
           currentChar adalah karakter sesudah karakter terakhir yang diakuisisi.
           Jika panjang kata melebihi NMax, maka sisa kata "dipotong" */
 void CopyWordFile();
+void CopyWordFileWithEnter();
 void printWord(Word word);
 Word CopySubset(Word w, int n);
 void copy(Word w1, Word *w2);

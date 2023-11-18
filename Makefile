@@ -27,6 +27,7 @@ SRC_PERMINTAAN = features/permintaan/permintaan.c
 SRC_INIT = features/inisialisasi/inisialisasi.c
 SRC_PROFIL = features/profil/profil.c
 SRC_BALASAN = features/balasan/balasan.c
+SRC_MUAT = features/muat/muat.c
 SRC_UTAS = features/utas/utas.c
 
 OBJ_TIME = $(SRC_TIME:.c=.o)
@@ -51,6 +52,7 @@ OBJ_PERMINTAAN = $(SRC_PERMINTAAN:.c=.o)
 OBJ_INIT = $(SRC_INIT:.c=.o)
 OBJ_PROFIL = $(SRC_PROFIL:.c=.o)
 OBJ_BALASAN = $(SRC_BALASAN:.c=.o)
+OBJ_MUAT = $(SRC_MUAT:.c=.o)
 OBJ_UTAS = $(SRC_UTAS:.c=.o)
 
 
@@ -68,7 +70,7 @@ run :
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f main_program mword test_dt test_stack $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_TEST) $(TEST_RESULTS) $(STDOUT)
+	rm -f main_program mword mqueue test_dt test_stack test_queue test_statik mchar $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_TEST) $(TEST_RESULTS) $(STDOUT)
 
 # UNIT TESTS
 
@@ -81,7 +83,7 @@ TEST_CASES_DT = $(wildcard $(TESTS_DIR_DT)/*.in)
 TEST_OUTPUTS_DT = $(TEST_CASES_DT:.in=.out)
 TEST_RESULTS_DT = $(TEST_CASES_DT:.in=.result)
 
-testdt: $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_TEST_DT) 
+testdt: $(OBJ_TIME) $(OBJ_WORD) $(OBJ_CHAR) $(OBJ_DATETIME) $(OBJ_TEST_DT) 
 	$(CC) $(CFLAGS) -o $@ $^
 
 
@@ -95,6 +97,47 @@ $(TEST_RESULTS_DT): $(TESTS_DIR_DT)/%.result: $(TESTS_DIR_DT)/%.in $(TESTS_DIR_D
 		echo "$< $(word 2,$^): WRONG"; \
 	fi > $@
 
+# LISTSTATIK
+SRC_TEST_LS = ADT/liststatik/tests/mstatik.c
+OBJ_TEST_LS = $(SRC_TEST_LS:.c=.o)
+
+TESTS_DIR_LS = ADT/liststatik/tests
+TEST_CASES_LS = $(wildcard $(TESTS_DIR_LS)/*.in)
+TEST_OUTPUTS_LS = $(TEST_CASES_LS:.in=.out)
+TEST_RESULTS_LS = $(TEST_CASES_LS:.in=.result)
+
+mstatik: $(OBJ_LISTST) $(OBJ_TEST_LS)
+	$(CC) $(CFLAGS) -o $@ $^
+test_statik: mstatik $(TEST_RESULTS_LS)
+	@cat $(TEST_RESULTS_LS)
+	
+$(TEST_RESULTS_LS): $(TESTS_DIR_LS)/%.result: $(TESTS_DIR_LS)/%.in $(TESTS_DIR_LS)/%.out mstatik
+	@if ./mstatik < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
+
+# CHAR
+SRC_TEST_CHAR = ADT/charmachine/tests/mchar.c
+OBJ_TEST_CHAR = $(SRC_TEST_CHAR:.c=.o)
+
+TESTS_DIR_CHAR = ADT/charmachine/tests
+TEST_CASES_CHAR = $(wildcard $(TESTS_DIR_CHAR)/*.in)
+TEST_OUTPUTS_CHAR = $(TEST_CASES_CHAR:.in=.out)
+TEST_RESULTS_CHAR = $(TEST_CASES_CHAR:.in=.result)
+
+mchar: $(OBJ_CHAR) $(OBJ_TEST_CHAR)
+	$(CC) $(CFLAGS) -o $@ $^
+test_char: mchar $(TEST_RESULTS_CHAR)
+	@cat $(TEST_RESULTS_CHAR)
+	
+$(TEST_RESULTS_CHAR): $(TESTS_DIR_CHAR)/%.result: $(TESTS_DIR_CHAR)/%.in $(TESTS_DIR_CHAR)/%.out mchar
+	@if ./mchar < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
 # WORD
 SRC_TEST_WORD = ADT/wordmachine/tests/mword.c
 OBJ_TEST_WORD = $(SRC_TEST_WORD:.c=.o)
@@ -139,19 +182,88 @@ $(TEST_RESULTS_ST): $(TESTS_DIR_ST)/%.result: $(TESTS_DIR_ST)/%.in $(TESTS_DIR_S
 		echo "$< $(word 2,$^): WRONG"; \
 	fi > $@
 
+# QUEUE
+SRC_TEST_Q = ADT/queue/tests/mqueue.c
+OBJ_TEST_Q = $(SRC_TEST_Q:.c=.o)
+
+TESTS_DIR_Q = ADT/queue/tests
+TEST_CASES_Q = $(wildcard $(TESTS_DIR_Q)/*.in)
+TEST_OUTPUTS_Q = $(TEST_CASES_Q:.in=.out)
+TEST_RESULTS_Q = $(TEST_CASES_Q:.in=.result)
+
+testQueue: $(OBJ_QUEUE) $(OBJ_TEST_Q) 
+	$(CC) $(CFLAGS) -o $@ $^
+
+
+test_queue: testQueue $(TEST_RESULTS_Q)
+	@cat $(TEST_RESULTS_Q)
+
+$(TEST_RESULTS_Q): $(TESTS_DIR_Q)/%.result: $(TESTS_DIR_Q)/%.in $(TESTS_DIR_Q)/%.out testQueue
+	@if ./testQueue < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
+
+# PRIOQUEUE
+SRC_TEST_PQ = ADT/prioqueue/tests/mqueue.c
+OBJ_TEST_PQ = $(SRC_TEST_PQ:.c=.o)
+
+TESTS_DIR_PQ = ADT/prioqueue/tests
+TEST_CASES_PQ = $(wildcard $(TESTS_DIR_PQ)/*.in)
+TEST_OUTPUTS_PQ = $(TEST_CASES_PQ:.in=.out)
+TEST_RESULTS_PQ = $(TEST_CASES_PQ:.in=.result)
+
+testprioQueue: $(OBJ_PRIO) $(OBJ_TEST_PQ) 
+	$(CC) $(CFLAGS) -o $@ $^
+
+
+test_prioqueue: testprioQueue $(TEST_RESULTS_PQ)
+	@cat $(TEST_RESULTS_PQ)
+
+$(TEST_RESULTS_PQ): $(TESTS_DIR_PQ)/%.result: $(TESTS_DIR_PQ)/%.in $(TESTS_DIR_PQ)/%.out testprioQueue
+	@if ./testprioQueue < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
+
+# PCOLOR
+SRC_TEST_PC = ADT/pcolor/tests/mcolor.c
+OBJ_TEST_PC = $(SRC_TEST_PC:.c=.o)
+
+TESTS_DIR_PC = ADT/pcolor/tests
+TEST_CASES_PC = $(wildcard $(TESTS_DIR_PC)/*.in)
+TEST_OUTPUTS_PC = $(TEST_CASES_PC:.in=.out)
+TEST_RESULTS_PC = $(TEST_CASES_PC:.in=.result)
+
+testpcolor: $(OBJ_PCOLOR) $(OBJ_TEST_PC) 
+	$(CC) $(CFLAGS) -o $@ $^
+
+
+test_pcolor: testpcolor $(TEST_RESULTS_PC)
+	@cat $(TEST_RESULTS_PC)
+
+$(TEST_RESULTS_PC): $(TESTS_DIR_PC)/%.result: $(TESTS_DIR_PC)/%.in $(TESTS_DIR_PC)/%.out testpcolor
+	@if ./testpcolor < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
 
 
 
 
 
-STDOUT = $(addprefix stdout_,$(notdir $(TEST_CASES:.in=.txt)))
+
+STDOUT = $(addprefix stdout_,$(notdir $(TEST_CASES_PC:.in=.txt)))
 
 
 
 create_stdout: $(STDOUT)
 
-$(STDOUT): stdout_%.txt: $(TESTS_DIR)/%.in $(file)
-	@./mword < $< | tr '\r' '\n' > $@
+$(STDOUT): stdout_%.txt: $(TESTS_DIR_PC)/%.in testpcolor
+	@./testpcolor < $(word 1, $^) | tr '\r' '\n' > $@
 
-main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTLIN) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN) $(OBJ_PERMINTAAN) $(OBJ_BALASAN) $(OBJ_UTAS)
+main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTLIN) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN) $(OBJ_PERMINTAAN) $(OBJ_BALASAN) $(OBJ_MUAT) $(OBJ_UTAS)
 	$(CC) $(CFLAGS) -o $@ $^
