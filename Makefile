@@ -70,7 +70,7 @@ run :
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f main_program mword mqueue test_dt test_stack test_queue $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_TEST) $(TEST_RESULTS) $(STDOUT)
+	rm -f main_program mword mqueue test_dt test_stack test_queue test_statik mchar $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_TEST) $(TEST_RESULTS) $(STDOUT)
 
 # UNIT TESTS
 
@@ -118,6 +118,26 @@ $(TEST_RESULTS_LS): $(TESTS_DIR_LS)/%.result: $(TESTS_DIR_LS)/%.in $(TESTS_DIR_L
 		echo "$< $(word 2,$^): WRONG"; \
 	fi > $@
 
+# CHAR
+SRC_TEST_CHAR = ADT/charmachine/tests/mchar.c
+OBJ_TEST_CHAR = $(SRC_TEST_CHAR:.c=.o)
+
+TESTS_DIR_CHAR = ADT/charmachine/tests
+TEST_CASES_CHAR = $(wildcard $(TESTS_DIR_CHAR)/*.in)
+TEST_OUTPUTS_CHAR = $(TEST_CASES_CHAR:.in=.out)
+TEST_RESULTS_CHAR = $(TEST_CASES_CHAR:.in=.result)
+
+mchar: $(OBJ_CHAR) $(OBJ_TEST_CHAR)
+	$(CC) $(CFLAGS) -o $@ $^
+test_char: mchar $(TEST_RESULTS_CHAR)
+	@cat $(TEST_RESULTS_CHAR)
+	
+$(TEST_RESULTS_CHAR): $(TESTS_DIR_CHAR)/%.result: $(TESTS_DIR_CHAR)/%.in $(TESTS_DIR_CHAR)/%.out mchar
+	@if ./mchar < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
 # WORD
 SRC_TEST_WORD = ADT/wordmachine/tests/mword.c
 OBJ_TEST_WORD = $(SRC_TEST_WORD:.c=.o)
