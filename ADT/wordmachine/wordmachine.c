@@ -67,14 +67,14 @@ void ReadFromFile(char *str)
 {
     startFile(str);
     IgnoreBlanks();
-    if (currentChar == MARK)
+    if (currentChar == EOF)
     {
         EndWord = true;
     }
     else
     {
         EndWord = false;
-        CopyWord();
+        CopyWordFile(1);
     }
 }
 
