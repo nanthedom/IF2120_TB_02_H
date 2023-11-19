@@ -24,10 +24,9 @@ void CreateBalasan(Balasan *reply)
 
 void CreateBalasanFile()
 {
-    
 }
 
-    void createEmptyBalasan(Balasan *reply)
+void createEmptyBalasan(Balasan *reply)
 {
     Word tweet;
     strToWord("root-kicau", &tweet);
@@ -417,29 +416,38 @@ void hapusBalasan(int idKicau, int idBalas)
 {
     if (idKicauValid(idKicau))
     {
-        int idxtweet = searchByIdKicau(idKicau);
-        TreeNode *found = searchTree(&content(ELMTBalas(ListReply, idxtweet)), idBalas);
-        if (found != NULL)
+        if (idBalas != -1)
         {
-            if (isKataEqual(Nama(*currentUser), authorBalas(ROOT(*found))))
+            int idxtweet = searchByIdKicau(idKicau);
+            TreeNode *found = searchTree(&content(ELMTBalas(ListReply, idxtweet)), idBalas);
+            if (found != NULL)
             {
-                deleteTree(&content(ELMTBalas(ListReply, idxtweet)), idBalas);
-                count(ELMTBalas(ListReply, idxtweet))--;
-                printf("\n");
-                printf("Balasan berhasil dihapus\n");
-                printf("\n");
+                if (isKataEqual(Nama(*currentUser), authorBalas(ROOT(*found))))
+                {
+                    deleteTree(&content(ELMTBalas(ListReply, idxtweet)), idBalas);
+                    count(ELMTBalas(ListReply, idxtweet))--;
+                    printf("\n");
+                    printf("Balasan berhasil dihapus\n");
+                    printf("\n");
+                }
+                else
+                {
+                    printf("\n");
+                    printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
+                    printf("\n");
+                }
             }
             else
             {
                 printf("\n");
-                printf("Hei, ini balasan punya siapa? Jangan dihapus ya!\n");
+                printf("Balasan tidak ditemukan\n");
                 printf("\n");
             }
         }
         else
         {
             printf("\n");
-            printf("Balasan tidak ditemukan\n");
+            printf("Anda tidak bisa menghapus kicauan utama\n");
             printf("\n");
         }
     }
