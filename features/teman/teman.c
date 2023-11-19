@@ -24,14 +24,14 @@ void CreateAdjMatrixFile(AdjMatrix *m, Word w, int Neff){
     NEFFM(*m)=Neff;
     while (i < NEFFM(*m)){
         while (j < NEFFM(*m)){
-            while (format.TabWord[k] == BLANK){
+            while (format.TabWord[k] == BLANK || format.TabWord[k] == ENTER){
                 k++;
             }
-            ELMTADJMAT(*m,i,j) = format.TabWord[k];
+            ELMTADJMAT(*m,i,j) = format.TabWord[k] - '0';
             k++;
             j++;
-        i++;
         }
+        i++; j = 0;
     }    
 }
 
