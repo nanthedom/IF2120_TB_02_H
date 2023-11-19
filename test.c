@@ -26,5 +26,16 @@ int main(){
     loadPengguna("data/save1/pengguna.config");
     printList(ListUser);
     PrintFoto((Profil(ListUser.buffer[0])));
+<<<<<<< HEAD
     PrintFoto((Profil(ListUser.buffer[2])));
+=======
+    currentUser = &ListUser.buffer[2]; isLogin= true;
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            printf("%d ", ELMTADJMAT(matrixPertemanan,i,j));
+        }
+        printf("\n");
+    }
+    printDaftarTeman();
+>>>>>>> e620ed31f9cfca4024701151c9d51472c13587f7
 }

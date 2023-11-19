@@ -61,15 +61,14 @@ void loadPengguna(char *path){
     Word dataPengguna,pertemanan,permintaan;
     printf("%s\n",path);
     ReadFromFile(path);
-    printWord(currentWord);
-    printf("\n");
     n = wordToInteger(currentWord);
     StoreDataPengguna(n);
     
-    // // Pertemanan
-    // ReadLine(n);
-    // pertemanan = currentWord;
-    // CreateAdjMatrixFile(&matrixPertemanan,pertemanan,n);
+    // Pertemanan
+    ReadLineWithEnter(n);
+    pertemanan = currentWord;
+    // printWord(pertemanan);
+    CreateAdjMatrixFile(&matrixPertemanan,pertemanan,n);
     // ReadLine(1);
     // // Permintaan
     // NPermintaan = wordToInteger(currentWord);
