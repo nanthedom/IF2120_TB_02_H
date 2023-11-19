@@ -325,3 +325,28 @@ int wordToInteger(Word w)
 
     return n;
 }
+
+void wordToString(Word w, char** str){
+    *str = (char*) malloc((w.Length+1)*sizeof(char));
+    int i;
+    for(i = 0; i < w.Length; i++){
+        (*str)[i] = w.TabWord[i];
+    }
+    (*str)[i] = '\0';
+}
+
+Word concatWord(Word w1, Word w2){
+    Word w;
+    CreateWord(&w);
+    w.Length = w1.Length + w2.Length;
+    int i;
+    for (i = 0; i < w1.Length; i++){
+        w.TabWord[i] = w1.TabWord[i];
+        // printf("char : %c", w.TabWord[i]);
+    }
+    for (i = 0; i < w2.Length; i++){
+        w.TabWord[i+w1.Length] = w2.TabWord[i];
+        // printf("char : %c", w.TabWord[i+w1.Length]);
+    }
+    return w;
+}

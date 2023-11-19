@@ -68,4 +68,6 @@ void strToWord(char *s, Word *w);
 boolean isNumerical(char c);
 boolean isNumber(Word w);
 int wordToInteger(Word w);
+void wordToString(Word w, char** str);
+Word concatWord(Word w1, Word w2);
 #endif
