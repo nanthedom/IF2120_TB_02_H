@@ -19,19 +19,26 @@ void CreateAdjMatrix(int nEff, AdjMatrix *m) {
 void CreateAdjMatrixFile(AdjMatrix *m, Word w, int Neff){
     Word format;
     format = w;
-    int i = 0, j = 0, k = 0;
+    int i = 0, k = 0;
 
     NEFFM(*m)=Neff;
     while (i < NEFFM(*m)){
+        // printf("yuhuu");
+        // printf("%d", i);
+        int j=0;
         while (j < NEFFM(*m)){
-            while (format.TabWord[k] == BLANK){
+            // printf("inij");
+            // printf("%d", j);
+            while (format.TabWord[k] == BLANK || format.TabWord[k] == ENTER){
                 k++;
             }
-            ELMTADJMAT(*m,i,j) = format.TabWord[k];
+            // printf("%c",format.TabWord[k]);
+            int val = format.TabWord[k]-48;
+            ELMTADJMAT(*m,i,j) = val;
             k++;
             j++;
-        i++;
         }
+        i++;
     }    
 }
 

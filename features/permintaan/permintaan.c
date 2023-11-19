@@ -4,6 +4,7 @@
 extern Pengguna* currentUser;
 extern boolean isLogin;
 extern ListPengguna ListUser;
+extern Matrix matrixPermintaan;
 
 void LoadDaftarPermintaan() {
     int i, userIdx; ElmPermintaan e;
@@ -20,13 +21,13 @@ void LoadDaftarPermintaan() {
     }
 }
 
-void MatrixPermintaanFile(Word w, Matrix *m, int row){
+void MatrixPermintaanFile(Word w, Matrix *m,  int row){
     int k=0,val;
 
-    createMatrix(row,3,m);
     for(int i=0; i<row; ++i){
         for(int j=0; j<3; ++j){
-            while(w.TabWord[k] != ENTER && w.TabWord[k] != MARK){
+            printf("%c",w.TabWord[k]);
+            while(w.TabWord[k] != ENTER){
                 while (w.TabWord[k] == BLANK){
                     k++;
                 }

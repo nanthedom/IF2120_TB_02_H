@@ -22,9 +22,47 @@ AdjMatrix matrixPertemanan;
 Matrix matrixPermintaan;
 PrioQueue daftarPermintaan;
 
+// Kicauan
+int currentIdTweet;
+ListKicauan ListTweet;
+
 int main(){
-    loadPengguna("data/save1/pengguna.config");
-    printList(ListUser);
-    PrintFoto((Profil(ListUser.buffer[0])));
-    PrintFoto((Profil(ListUser.buffer[2])));
+    Word x;
+    CreateWord(&x);
+    ReadWord();
+    x = currentWord;
+    // printWord(x);
+    // printf("\n%s", x.TabWord);
+    load(x);
+    // loadPengguna("data/save1/pengguna.config");
+    // test matrix pertemanan
+    // printf("%d", matrixPertemanan.mem[0][0]);
+    // printf("%d", matrixPertemanan.mem[0][1]);
+    // printf("%d\n", matrixPertemanan.mem[0][2]);
+    // printf("%d", matrixPertemanan.mem[1][0]);
+    // printf("%d", matrixPertemanan.mem[1][1]);
+    // printf("%d\n", matrixPertemanan.mem[1][2]);
+    // printf("%d", matrixPertemanan.mem[2][0]);
+    // printf("%d", matrixPertemanan.mem[2][1]);
+    // printf("%d", matrixPertemanan.mem[2][2]);
+
+    // test pengguna
+    // *currentUser = ListUser.buffer[0];
+    // daftarTeman();
+    // printList(ListUser);
+    // PrintFoto((Profil(ListUser.buffer[0])));
+    // PrintFoto((Profil(ListUser.buffer[2])));
+
+
+    // test matrixpermintaan
+    // printf("%d", matrixPermintaan.mem[0][0]);
+    // printf("%d", matrixPermintaan.mem[0][1]);
+    // printf("%d\n", matrixPermintaan.mem[0][2]);
+    // printf("%d", matrixPermintaan.mem[1][0]);
+    // printf("%d", matrixPermintaan.mem[1][1]);
+    // printf("%d\n", matrixPermintaan.mem[1][2]);
+    // printf("%d", matrixPermintaan.mem[2][0]);
+    // printf("%d", matrixPermintaan.mem[2][1]);
+    // printf("%d", matrixPermintaan.mem[2][2]);
+
 }
