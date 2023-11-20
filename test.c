@@ -4,6 +4,7 @@
 #include "features/muat/muat.h"
 #include "features/teman/teman.h"
 #include "features/permintaan/permintaan.h"
+#include "features/draf/draf.h"
 #include "ADT/wordmachine/wordmachine.h"
 #include "ADT/charmachine/charmachine.h"
 #include "ADT/prioqueue/prioqueue.h"
@@ -26,17 +27,30 @@ PrioQueue daftarPermintaan;
 int currentIdTweet;
 ListKicauan ListTweet;
 
+// draf
+StackDraf SDraf;
+Draf draf;
+
 int main(){
     Word x;
     // createMatrix(0, 3, &matrixPermintaan);
     CreateWord(&x);
     CreateListKicauan(&ListTweet);
+    CreateEmptyDraft(&SDraf);
     ReadWord();
     x = currentWord;
     // printWord(x)
     // int v = wordToInteger(x);
     // printf("%d", v);
     load(x);
+    // Word nama = authorDraf(InfoTop(SDraf));
+    // int count = CountDraftUser(SDraf, nama);
+    // printf("%d",count);
+    // printWord(nama);
+
+
+
+
     // printf("%d",NEFFKicau(ListTweet));
     // Kicauan K = ELMTKicau(ListTweet,0);
     // printWord(K.textKicau);

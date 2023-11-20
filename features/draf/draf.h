@@ -49,6 +49,10 @@ void CreateDraf(Draf *D);
 /* I.S. Sembarang */
 /* F.S. Membuat sebuah draf D */
 
+void CreateDrafFile(Draf *D, Word nama, Word text, DATETIME dt);
+/* I.S. Sembarang */
+/* F.S. Membuat sebuah draf D dari file*/
+
 void CreateEmptyDraft(StackDraf *S);
 /* I.S. sembarang; */
 /* F.S. Membuat sebuah stack S yang kosong berkapasitas MaxEl */
@@ -92,6 +96,6 @@ void BuatDraf();
 
 void LihatDraf();
 
-int CountDratfUser(StackDraf SDraf);
+int CountDraftUser(StackDraf SDraf, Word nama);
 
 #endif

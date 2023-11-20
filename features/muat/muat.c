@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 #include "../../ADT/wordmachine/wordmachine.h"
 #include "../pengguna/pengguna.h"
@@ -18,6 +19,7 @@ extern AdjMatrix matrixPertemanan;
 extern Matrix matrixPermintaan;
 extern int currentIdTweet;
 extern ListKicauan ListTweet;
+extern StackDraf SDraf;
 
 void StoreDataPengguna(int n){
     Word nama,password,bio,no,weton,isPub,pic,publik;
@@ -126,10 +128,63 @@ void loadBalasan(char *path){
     // printWord(currentWord);
 
 }
+
+void StoreDataDraf(){
+    int i = 0, nDraft, nBlank=0;
+    Word nama;
+    CreateWord(&nama);
+
+    ReadLine(1);
+    while (i<currentWord.Length){ //hitung blank
+        if(currentWord.TabWord[i]==BLANK){
+            nBlank+=1;
+        }
+        ++i;
+    }
+    i=0;
+    while (i<currentWord.Length){ //masukin nama sama jumlah ndraf
+        if(currentWord.TabWord[i]==BLANK){
+            nBlank-=1;
+        }
+        if(nBlank>0){
+            nama.TabWord[i] = currentWord.TabWord[i];
+        }else{
+            i++;
+            nDraft = currentWord.TabWord[i]-'0';
+        }
+        i++;
+    }
+    nama.Length = i;
+    // printWord(nama);
+    // printf("%d",nDraft);
+
+    //masukin draft
+    while(nDraft>0){
+        Draf D;Word text; Word dt;
+        CreateWord(&text);
+        CreateWord(&dt);
+
+        ReadLine(1);
+        text = currentWord;
+        ReadLine(1);
+        dt = currentWord;
+        CreateDrafFile(&D,nama,text,WordToDT(dt));
+        PushDraft(&SDraf,D);
+        nDraft--;
+    }
+
+
+    
+}
+
 void loadDraf(char *path){
-    printf("%s",path);
-    // ReadFromFile(path);
+    // printf("%s",path);
+    ReadFromFile(path);
     // printWord(currentWord);
+    int N = wordToInteger(currentWord);
+    for(int i=0 ; i<N; i++){
+        StoreDataDraf();
+    }
 }
 void loadUtas(char *path){
     printf("%s",path);
@@ -168,9 +223,9 @@ void load(Word dir){
 
     loadPengguna(penggunacfg.TabWord);
     loadKicauan(kicauancfg.TabWord);
-    loadBalasan(balasancfg.TabWord);
-    // loadDraf(drafcfg.TabWord);
-    // loadUtas(utascfg.TabWord);
+    // loadBalasan(balasancfg.TabWord);
+    loadDraf(drafcfg.TabWord);
+    loadUtas(utascfg.TabWord);
 
 }
 
