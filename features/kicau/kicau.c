@@ -43,6 +43,7 @@ boolean isEmptyKicauan(ListKicauan l)
 {
     return (NEFFKicau(l) == 0);
 }
+
 /* *** Test list penuh *** */
 boolean isFullKicauan(ListKicauan l)
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
@@ -92,6 +93,8 @@ IdxType getLastIdxKicauan(ListKicauan l)
 }
 
 void CreateKicau(Kicauan *kicau)
+/* I.S. Kicau sembarang */
+/* F.S. Terbentuk kicauan dengan komponennya berasal dari masukan user */
 {
     idKicau(*kicau) = currentIdTweet;
     textKicau(*kicau) = currentWord;
@@ -104,15 +107,21 @@ void CreateKicau(Kicauan *kicau)
     idUtasKicau(*kicau) = 0;
 }
 void CreateKicauFile(Kicauan *kicau, int id, Word text, int like, Word author, DATETIME dt)
+/* I.S. Kicau sembarang */
+/* F.S. Terbentuk kicauan dengan komponennya berasal dari file yang telah dibaca */
 {
     idKicau(*kicau) = id;
     textKicau(*kicau) = text;
     likeKicau(*kicau) = like;
     authorKicau(*kicau) = author;
     datetimeKicau(*kicau) = dt;
+    utasUtama(*kicau) = NULL;
+    idUtasKicau(*kicau) = 0;
 }
 
 void insertLastKicauan(Kicauan kicau)
+/* I.S. Terdefinisi ListKicauan ListTweet */
+/* F.S. Kicau menjadi elemen terakhir ListKicauan ListTweet */
 {
     if (isFullKicauan(ListTweet))
     {
@@ -127,6 +136,8 @@ void insertLastKicauan(Kicauan kicau)
 }
 
 void insertByTime(Kicauan kicau)
+/* I.S. Terdefinisi ListKicauan ListTweet */
+/* F.S. Kicau menjadi elemen ListKicauan ListTweet terurut berdasarkan DATETIME */
 {
     if (isFullKicauan(ListTweet))
     {
@@ -159,6 +170,7 @@ void insertByTime(Kicauan kicau)
 }
 
 void Kicau()
+/* Melakukan kicau sesuai dengan spesifikasi */
 {
     printf("\n");
     printf("Masukkan kicauan:\n");
@@ -184,6 +196,7 @@ void Kicau()
         }
         // update ListTweet
         insertLastKicauan(tweet);
+        // output
         printf("Selamat! kicauan telah diterbitkan!\n");
         printf("Detil kicauan:\n");
         printf("| ID = %d", idKicau(tweet));
@@ -199,6 +212,7 @@ void Kicau()
 }
 
 void printKicauan()
+/* Menampilkan kicauan sesuai dengan spesifikasi */
 {
     printf("\n");
     int i;
@@ -221,11 +235,13 @@ void printKicauan()
 }
 
 boolean idValid(int id)
+/* Mengrimkan True jika id valid untuk id kicau */
 {
     return id - 1 >= 0 && id - 1 < NEFFKicau(ListTweet);
 }
 
 IdxType searchByIdKicau(int id)
+/* Mengirim indeks ditemukannya kicauan berdasarkan idKicau di ListTweet */
 {
     int i = 0;
     boolean found = false;
@@ -244,6 +260,7 @@ IdxType searchByIdKicau(int id)
 }
 
 Kicauan searchKicau(int idKicau)
+/* Mengirim kicauan berdasarkan idKicau dari ListKicauan ListTweet */
 {
     Kicauan Kicau;
     int i = 0;
@@ -264,6 +281,7 @@ Kicauan searchKicau(int idKicau)
 }
 
 Kicauan searchByIdUtasKicau(int idUtas)
+/* Mengirim Kicauan berdasarkan idKicau dari ListKicauan ListTweet */
 {
     Kicauan Kicau;
     int i = 0;
@@ -284,6 +302,7 @@ Kicauan searchByIdUtasKicau(int idUtas)
 }
 
 void sukaKicau(int id)
+/* Melakukan suka kicauan sesuai dengan spesifikasi */
 {
     if (idValid(id))
     {
@@ -321,6 +340,7 @@ void sukaKicau(int id)
 }
 
 void ubahKicauan(int id)
+/* Melakukan ubah kicauan sesuai dengan spesifikasi */
 {
     if (idValid(id))
     {

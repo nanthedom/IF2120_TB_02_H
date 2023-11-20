@@ -8,14 +8,16 @@
 // Tipe Balasan
 typedef struct
 {
-    int id;
+    int idbalas;
+    int idparentBalas;
     Word text;
     Word author;
     DATETIME datetime;
 } Balasan;
 
 /* Selektor */
-#define idBalas(p) (p).id
+#define idBalas(p) (p).idbalas
+#define idParentBalas(p) (p).idparentBalas
 #define textBalas(p) (p).text
 #define authorBalas(p) (p).author
 #define datetimeBalas(p) (p).datetime
@@ -58,7 +60,7 @@ typedef struct
 #define ELMTBalas(l, i) (l).buffer[i]
 #define CAPACITYBalas(l) (l).capacity
 
-void createBalasan(Balasan *reply);
+void createBalasan(Balasan *reply, int idprnt);
 /* Terbentuk balasan dengan id, text, author, dan waktu yang valid */
 
 void createEmptyBalasan(Balasan *reply);
@@ -93,6 +95,9 @@ IdxType getFirstIdxBalasan(ListBalasan l);
 IdxType getLastIdxBalasan(ListBalasan l);
 /* Prekondisi : List l tidak kosong */
 /* Mengirimkan indeks elemen l terakhir */
+
+int countKicauBalasan(ListBalasan l);
+/* Mengembalikan jumlah kicauan yang memiliki balasan */
 
 void createListBalasan(ListBalasan *l);
 /* I.S. l sembarang, capacity > 0 */

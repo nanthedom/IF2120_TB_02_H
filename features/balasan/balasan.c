@@ -1,7 +1,7 @@
 #include "../pengguna/pengguna.h"
 #include "../teman/teman.h"
 #include "../kicau/kicau.h"
-#include "balasan.h"
+#include "../balasan/balasan.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -12,9 +12,10 @@ extern ListKicauan ListTweet;
 extern ListPengguna ListUser;
 extern Pengguna *currentUser;
 
-void CreateBalasan(Balasan *reply)
+void CreateBalasan(Balasan *reply, int idprnt)
 {
     idBalas(*reply) = currentIdReply;
+    idParentBalas(*reply) = idprnt;
     textBalas(*reply) = currentWord;
     authorBalas(*reply) = Nama(*currentUser);
     DATETIME dt;
@@ -31,6 +32,7 @@ void createEmptyBalasan(Balasan *reply)
     Word tweet;
     strToWord("root-kicau", &tweet);
     idBalas(*reply) = -1;
+    idParentBalas(*reply) = -1;
     textBalas(*reply) = tweet;
     authorBalas(*reply) = Nama(*currentUser);
     DATETIME dt;
@@ -180,6 +182,22 @@ IdxType getLastIdxBalasan(ListBalasan l)
     return NEFFBalas(l) - 1;
 }
 
+int countKicauBalasan(ListBalasan l)
+/* Mengembalikan jumlah kicauan yang memiliki balasan */
+{
+    int cnt = 0;
+    int i;
+    for (i = 0; i < NEFFBalas(l); i++)
+    {
+        if (count(ELMT(l, i)) > 0)
+        {
+            cnt++;
+        }
+    }
+
+    return cnt;
+}
+
 void createListBalasan(ListBalasan *l)
 /* I.S. l sembarang, capacity > 0 */
 /* F.S. Terbentuk list dinamis l kosong dengan kapasitas capacity */
@@ -287,12 +305,12 @@ void buatBalasan(int idKicau, int idBalas)
                         currentIdReply++;
                         if (balasanValid())
                         {
-                            CreateBalasan(&reply);
+                            CreateBalasan(&reply, idBalas);
                         }
                         else
                         {
                             currentWord.Length = 280;
-                            CreateBalasan(&reply);
+                            CreateBalasan(&reply, idBalas);
                         }
                         // update TreeNode balasan
                         count(ELMTBalas(ListReply, idKicau - 1))++;

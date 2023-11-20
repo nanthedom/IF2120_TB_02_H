@@ -58,6 +58,7 @@ boolean kicauanBlanks();
 /* *** Test list kosong *** */
 boolean isEmptyKicauan(ListKicauan l);
 /* Mengirimkan true jika list l kosong, mengirimkan false jika tidak */
+
 /* *** Test list penuh *** */
 boolean isFullKicauan(ListKicauan l);
 /* Mengirimkan true jika list l penuh, mengirimkan false jika tidak */
@@ -83,28 +84,44 @@ IdxType getLastIdxKicauan(ListKicauan l);
 /* Mengirimkan indeks elemen l terakhir */
 
 void CreateKicau(Kicauan *kicau);
+/* I.S. Kicau sembarang */
+/* F.S. Terbentuk kicauan dengan komponennya berasal dari masukan user */
 
 void CreateKicauFile(Kicauan *kicau, int id, Word text, int like, Word author, DATETIME dt);
+/* I.S. Kicau sembarang */
+/* F.S. Terbentuk kicauan dengan komponennya berasal dari file yang telah dibaca */
 
 void insertLastKicauan(Kicauan kicau);
+/* I.S. Terdefinisi ListKicauan ListTweet */
+/* F.S. Kicau menjadi elemen terakhir ListKicauan ListTweet */
 
 void insertByTime(Kicauan kicau);
+/* I.S. Terdefinisi ListKicauan ListTweet */
+/* F.S. Kicau menjadi elemen ListKicauan ListTweet terurut berdasarkan DATETIME */
 
 void Kicau();
+/* Melakukan kicau sesuai dengan spesifikasi */
 
 void printKicauan();
+/* Menampilkan kicauan sesuai dengan spesifikasi */
 
 boolean idValid(int id);
+/* Mengrimkan True jika id valid untuk id kicau */
 
 IdxType searchByIdKicau(int idKicau);
+/* Mengirim indeks ditemukannya kicauan berdasarkan idKicau dari ListKicauan ListTweet */
 
 Kicauan searchKicau(int idKicau);
+/* Mengirim Kicauan berdasarkan idKicau dari ListKicauan ListTweet */
 
 Kicauan searchByIdUtasKicau(int idUtas);
+/* Mengirim Kicauan berdasarkan idKicau dari ListKicauan ListTweet */
 
 void sukaKicau(int id);
+/* Melakukan suka kicauan sesuai dengan spesifikasi */
 
 void ubahKicauan(int id);
+/* Melakukan ubah kicauan sesuai dengan spesifikasi */
 
 void expandListKicau(ListKicauan *l, int num);
 /* Proses : Menambahkan capacity l sebanyak num */
