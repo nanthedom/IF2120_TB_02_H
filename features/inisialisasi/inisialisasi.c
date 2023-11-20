@@ -114,6 +114,7 @@ void prosesCmd(Word w)
         }
         else
         {
+            Muat();
             // Muat();
         }
     }

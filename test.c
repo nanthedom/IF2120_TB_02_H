@@ -104,6 +104,13 @@ int main(){
 
     // PrintFoto((Profil(ListUser.buffer[2])));
     // currentUser = &ListUser.buffer[2]; isLogin= true;
+=========
+    loadPengguna("data/save1/pengguna.config");
+    printList(ListUser);
+    PrintFoto((Profil(ListUser.buffer[0])));
+    currentUser = &ListUser.buffer[2]; isLogin= true;
+    Simpan();
+>>>>>>>>> Temporary merge branch 2
     // for(int i = 0; i < 3; i++){
     //     for(int j = 0; j < 3; j++){
     //         printf("%d ", ELMTADJMAT(matrixPertemanan,i,j));
@@ -111,5 +118,8 @@ int main(){
     //     printf("\n");
     // }
     // printDaftarTeman();
+<<<<<<<<< Temporary merge branch 1
 
+=========
+>>>>>>>>> Temporary merge branch 2
 }

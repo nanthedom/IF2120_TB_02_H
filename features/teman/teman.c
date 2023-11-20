@@ -6,16 +6,6 @@ extern Pengguna* currentUser;
 extern boolean isLogin;
 extern ListPengguna ListUser;
 
-void CreateAdjMatrix(int nEff, AdjMatrix *m) {
-    int i, j;
-
-    NEFFM(*m) = nEff;
-    for (i = 0; i < SIZE_CAP; i++) {
-        for (j = 0; j < SIZE_CAP; j++) {
-            ELMTADJMAT(matrixPertemanan, i, j) = 0;
-        }
-    }
-}
 void CreateAdjMatrixFile(AdjMatrix *m, Word w, int Neff){
     Word format;
     format = w;

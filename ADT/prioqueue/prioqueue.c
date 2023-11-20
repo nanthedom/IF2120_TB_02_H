@@ -49,46 +49,26 @@ void DeAlokasi(PrioQueue * Q){
 /* I.S. Q pernah dialokasi */
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxElPQ(Q) diset 0 */
 
-/* *** Primitif Add/Delete *** */
-void Enqueue (PrioQueue * Q, ElmPermintaan X){
-    if(IsEmpty(*Q)){
+void Enqueue(PrioQueue *Q, ElmPermintaan X)
+{
+    int i, j; ElmPermintaan temp;
+
+    if (IsEmpty(*Q)) {
         Head(*Q) = 0;
         Tail(*Q) = 0;
-        ElmtPQ(*Q,Tail(*Q)) = X;
-    } else{
-        int i = Head(*Q), idx = i; boolean found = false;
-        while ((!found) && (i != Tail(*Q))){
-            if(Prio(ElmtPQ(*Q,i)) > Prio(X)){
-                found = true;
-                idx = i;
-            }
-            i =  (i + 1)%MaxElPQ(*Q); 
-        }
-        if(found){
-            int i = Tail(*Q);
-            while(i != idx){
-                ElmtPQ(*Q,(i+1)%MaxElPQ(*Q)) = ElmtPQ(*Q,i);
-                i--;
-                i = (i >= 0)? i: i + MaxElPQ(*Q);
-            }
-            ElmtPQ(*Q,i+1) = ElmtPQ(*Q,i);
-            ElmtPQ(*Q,idx) = X;
-            Tail(*Q) = (Tail(*Q) + 1) % MaxElPQ(*Q);
-        } else{
-            if(i == Tail(*Q) && !found){
-                if(Prio(ElmtPQ(*Q,i)) > Prio(X)){
-                    found = true;
-                    idx = i;
-                }
-                if(found){
-                    ElmtPQ(*Q,(idx+1) % MaxElPQ(*Q)) = ElmtPQ(*Q,idx);
-                    ElmtPQ(*Q,idx) = X;
-                    Tail(*Q) = (Tail(*Q) + 1) % MaxElPQ(*Q);
-                } else{
-                    ElmtPQ(*Q, (Tail(*Q)+1) % MaxElPQ(*Q)) = X;
-                    Tail(*Q) = (Tail(*Q) + 1) % MaxElPQ(*Q);
-                }
-            }
+        InfoTail(*Q) = X;
+    }
+    else {
+        Tail(*Q) = Tail(*Q) == MaxElPQ(*Q) - 1 ? 0 : Tail(*Q) + 1;
+        InfoTail(*Q) = X;
+        i = Tail(*Q);
+        j = i == 0 ? MaxElPQ(*Q) - 1 : i - 1;
+        while (i != Head(*Q) && Prio(ElmtPQ(*Q, i)) > (Prio(ElmtPQ(*Q, j)))) {
+            temp = ElmtPQ(*Q, i);
+            ElmtPQ(*Q, i) = ElmtPQ(*Q, j);
+            ElmtPQ(*Q, j) = temp;
+            i = j;
+            j = i == 0 ? MaxElPQ(*Q) - 1 : i - 1;
         }
     }
 }
