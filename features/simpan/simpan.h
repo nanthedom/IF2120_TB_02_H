@@ -3,6 +3,8 @@
 #include "../pengguna/pengguna.h"
 #include "../kicau/kicau.h"
 #include "../balasan/balasan.h"
+#include "../draf/draf.h"
+
 
 #ifndef SIMPAN_H
 #define SIMPAN_H

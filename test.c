@@ -28,27 +28,31 @@ PrioQueue daftarPermintaan;
 int currentIdTweet;
 ListKicauan ListTweet;
 
+// Balasan
+ListBalasan ListReply;
+
 // draf
 StackDraf SDraf;
 Draf draf;
 
 int main(){
+    loadDraf("data/save1/draf.config");
     loadPengguna("data/save1/pengguna.config");
     printList(ListUser);
-    PrintFoto((Profil(ListUser.buffer[0])));
-    currentUser = &ListUser.buffer[2]; isLogin= true;
+    // PrintFoto((Profil(ListUser.buffer[0])));
+    // currentUser = &ListUser.buffer[2]; isLogin= true;
     Simpan();
-    Word x;
-    // createMatrix(0, 3, &matrixPermintaan);
-    CreateWord(&x);
-    CreateListKicauan(&ListTweet);
-    CreateEmptyDraft(&SDraf);
-    ReadWord();
-    x = currentWord;
+    // Word x;
+    // // createMatrix(0, 3, &matrixPermintaan);
+    // CreateWord(&x);
+    // CreateListKicauan(&ListTweet);
+    // CreateEmptyDraft(&SDraf);
+    // ReadWord();
+    // x = currentWord;
     // printWord(x)
     // int v = wordToInteger(x);
     // printf("%d", v);
-    load(x);
+    // load(x);
     // Word nama = authorDraf(InfoTop(SDraf));
     // int count = CountDraftUser(SDraf, nama);
     // printf("%d",count);

@@ -192,19 +192,19 @@ void loadUtas(char *path){
     // printWord(currentWord);
 }
 
-Word concatWord(Word w1, Word w2){
-    Word ans;
-    CreateWord(&ans);
-    ans.Length = w1.Length + w2.Length;
-    int i;
-    for(i = 0; i < w1.Length; i++){
-        ans.TabWord[i] = w1.TabWord[i];
-    }
-    for(i = 0; i < w2.Length;i++){
-        ans.TabWord[i+w1.Length] = w2.TabWord[i];
-    }
-    return ans;
-}
+// Word concatWord(Word w1, Word w2){
+//     Word ans;
+//     CreateWord(&ans);
+//     ans.Length = w1.Length + w2.Length;
+//     int i;
+//     for(i = 0; i < w1.Length; i++){
+//         ans.TabWord[i] = w1.TabWord[i];
+//     }
+//     for(i = 0; i < w2.Length;i++){
+//         ans.TabWord[i+w1.Length] = w2.TabWord[i];
+//     }
+//     return ans;
+// }
 
 void load(Word dir){
     Word filepengguna = {"/pengguna.config",16};
