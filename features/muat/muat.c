@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 #include "../../ADT/wordmachine/wordmachine.h"
 #include "../pengguna/pengguna.h"
@@ -15,6 +16,10 @@ extern boolean isClosed;
 extern Word currentWord;
 extern ListPengguna ListUser;
 extern AdjMatrix matrixPertemanan;
+extern Matrix matrixPermintaan;
+extern int currentIdTweet;
+extern ListKicauan ListTweet;
+extern StackDraf SDraf;
 
 void StoreDataPengguna(int n){
     Word nama,password,bio,no,weton,isPub,pic,publik;
@@ -59,68 +64,169 @@ void StoreDataPengguna(int n){
 void loadPengguna(char *path){
     int n,NPermintaan;
     Word dataPengguna,pertemanan,permintaan;
-    printf("%s\n",path);
+
     ReadFromFile(path);
+    // printWord(currentWord);
     n = wordToInteger(currentWord);
     StoreDataPengguna(n);
-    
+
     // Pertemanan
     ReadLineWithEnter(n);
-    pertemanan = currentWord;
-    // printWord(pertemanan);
-    CreateAdjMatrixFile(&matrixPertemanan,pertemanan,n);
-    // ReadLine(1);
-    // // Permintaan
-    // NPermintaan = wordToInteger(currentWord);
-    // ReadLine(NPermintaan);
-    // permintaan =currentWord;
-    // MatrixPermintaanFile(permintaan, &matrixPermintaan, NPermintaan);
+    CreateAdjMatrixFile(&matrixPertemanan,currentWord,n);
+    // Permintaan
+    ReadLine(1);
+    NPermintaan = wordToInteger(currentWord);
+    ReadLineWithEnter(NPermintaan);
+    permintaan =currentWord;
+    // printWord(currentWord);
+    MatrixPermintaanFile(permintaan, NPermintaan);//sudah aman
     // printList(ListUser);
 
 }
+//pengguna dah aman
+
+void StoreDataKicau(int n){
+    Kicauan tweet;
+    int i, id,like;
+    Word text,author;
+    DATETIME dt;
+
+    for(i = 0; i < n; i++){
+        ReadLine(1);
+        id = wordToInteger(currentWord);
+        ReadLine(1);
+        text = currentWord;
+        ReadLine(1);
+        like = wordToInteger(currentWord);
+        ReadLine(1);
+        author = currentWord;
+        ReadLine(1);
+        dt = WordToDT(currentWord); //sudah aman
+        // TulisDATETIME(dt);
+        CreateKicauFile(&tweet,id,text,like,author,dt);//dah bosa masuk
+        // printWord(tweet.textKicau);
+        insertLastKicauan(tweet);//dah aman
+    }
+
+}
+
 void loadKicauan(char *path){
-    // printf("%s",path);
+    int nKicau;
+    
+    ReadFromFile(path);
+    nKicau = wordToInteger(currentWord);
+    StoreDataKicau(nKicau);
+
+
 }
 void loadBalasan(char *path){
     // printf("%s",path);
+    ReadFromFile(path);
+    printWord(currentWord);
+    // AdvNewLine(1);
+    // printf("%s",currentWord.TabWord);
+    // printWord(currentWord);
+
 }
+
+void StoreDataDraf(){
+    int i = 0, nDraft, nBlank=0;
+    Word nama;
+    CreateWord(&nama);
+
+    ReadLine(1);
+    while (i<currentWord.Length){ //hitung blank
+        if(currentWord.TabWord[i]==BLANK){
+            nBlank+=1;
+        }
+        ++i;
+    }
+    i=0;
+    while (i<currentWord.Length){ //masukin nama sama jumlah ndraf
+        if(currentWord.TabWord[i]==BLANK){
+            nBlank-=1;
+        }
+        if(nBlank>0){
+            nama.TabWord[i] = currentWord.TabWord[i];
+        }else{
+            i++;
+            nDraft = currentWord.TabWord[i]-'0';
+        }
+        i++;
+    }
+    nama.Length = i;
+    // printWord(nama);
+    // printf("%d",nDraft);
+
+    //masukin draft
+    while(nDraft>0){
+        Draf D;Word text; Word dt;
+        CreateWord(&text);
+        CreateWord(&dt);
+
+        ReadLine(1);
+        text = currentWord;
+        ReadLine(1);
+        dt = currentWord;
+        CreateDrafFile(&D,nama,text,WordToDT(dt));
+        PushDraft(&SDraf,D);
+        nDraft--;
+    }
+
+
+    
+}
+
 void loadDraf(char *path){
     // printf("%s",path);
+    ReadFromFile(path);
+    // printWord(currentWord);
+    int N = wordToInteger(currentWord);
+    for(int i=0 ; i<N; i++){
+        StoreDataDraf();
+    }
 }
 void loadUtas(char *path){
-    // printf("%s",path);
+    printf("%s",path);
+    // ReadFromFile(path);
+    // printWord(currentWord);
 }
 
+Word concatWord(Word w1, Word w2){
+    Word ans;
+    CreateWord(&ans);
+    ans.Length = w1.Length + w2.Length;
+    int i;
+    for(i = 0; i < w1.Length; i++){
+        ans.TabWord[i] = w1.TabWord[i];
+    }
+    for(i = 0; i < w2.Length;i++){
+        ans.TabWord[i+w1.Length] = w2.TabWord[i];
+    }
+    return ans;
+}
 
 void load(Word dir){
-    char *directory = dir.TabWord;
-    // char *file = "text.txt";
-    char path[256];
-    const char *fileNames[] = {"pengguna.config", "kicauan.config", "balasan.config", "draf.config", "utas.config"};
-    // printf("%s",path);
-    for(int i=0;i<5;++i){
-        snprintf(path,sizeof(path), "%s/%s/%s", "data", directory,fileNames[i]);
-        switch (i){
-            case 0:
-                loadPengguna(path);
-                break;
-            case 1:
-                loadKicauan(path);
-                break;
-            case 2:
-                loadBalasan(path);
-                break;
-            case 3:
-                loadDraf(path);
-                break;
-            case 4:
-                loadUtas(path);
-                break;
-            
-            default:
-                break;
-        }
-    }
+    Word filepengguna = {"/pengguna.config",16};
+    Word filekicauan = {"/kicauan.config",15};
+    Word filebalasan = {"/balasan.config",15};
+    Word filedraf = {"/draf.config",12};
+    Word fileutas = {"/utas.config",12};
+
+    Word data = {"data/", 5};
+    Word path = concatWord(data,dir);
+    Word penggunacfg = concatWord(path,filepengguna);
+    Word kicauancfg = concatWord(path,filekicauan);
+    Word balasancfg = concatWord(path,filebalasan);
+    Word drafcfg = concatWord(path,filedraf);
+    Word utascfg = concatWord(path,fileutas);
+
+    loadPengguna(penggunacfg.TabWord);
+    loadKicauan(kicauancfg.TabWord);
+    // loadBalasan(balasancfg.TabWord);
+    loadDraf(drafcfg.TabWord);
+    loadUtas(utascfg.TabWord);
+
 }
 
 boolean isDirectoryExists(char *path) {
@@ -168,8 +274,9 @@ void Muat(){
 //     CreateWord(&x);
 //     ReadWord();
 //     x = currentWord;
-//     load(x);
 //     // printWord(x);
+//     // printf("\n%s", x.TabWord);
+//     load(x);
 // }
 
 

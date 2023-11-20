@@ -17,6 +17,12 @@ void CreateDraf(Draf *D)
   authorDraf(*D) = Nama(*currentUser);
 }
 
+void CreateDrafFile(Draf *D, Word nama, Word text, DATETIME dt){
+  datetimeDraf(*D) = dt;
+  textDraf(*D) = text;
+  authorDraf(*D) = nama;
+}
+
 void CreateEmptyDraft(StackDraf *S)
 {
   Top(*S) = Nil;
