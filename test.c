@@ -28,67 +28,10 @@ int currentIdTweet;
 ListKicauan ListTweet;
 
 int main(){
-<<<<<<< HEAD
     loadPengguna("data/save1/pengguna.config");
     printList(ListUser);
-    PrintFoto((Profil(ListUser.buffer[0])));
-    currentUser = &ListUser.buffer[2]; isLogin= true;
-    Simpan();
-=======
-    Word x;
-    // createMatrix(0, 3, &matrixPermintaan);
-    CreateWord(&x);
-    CreateListKicauan(&ListTweet);
-    ReadWord();
-    x = currentWord;
-    // printWord(x)
-    // int v = wordToInteger(x);
-    // printf("%d", v);
-    load(x);
-    // printf("%d",NEFFKicau(ListTweet));
-    // Kicauan K = ELMTKicau(ListTweet,0);
-    // printWord(K.textKicau);
-    // printKicauan();
-    // displayMatrix(matrixPermintaan);
-    // loadPengguna("data/save1/pengguna.config");
-    // test matrix pertemanan
-    // printf("%d", matrixPertemanan.mem[0][0]);
-    // printf("%d", matrixPertemanan.mem[0][1]);
-    // printf("%d\n", matrixPertemanan.mem[0][2]);
-    // printf("%d", matrixPertemanan.mem[1][0]);
-    // printf("%d", matrixPertemanan.mem[1][1]);
-    // printf("%d\n", matrixPertemanan.mem[1][2]);
-    // printf("%d", matrixPertemanan.mem[2][0]);
-    // printf("%d", matrixPertemanan.mem[2][1]);
-    // printf("%d", matrixPertemanan.mem[2][2]);
-
-    // test pengguna
-    // *currentUser = ListUser.buffer[0];
-    // daftarTeman();
-    // printList(ListUser);
-    // PrintFoto((Profil(ListUser.buffer[0])));
-    // PrintFoto((Profil(ListUser.buffer[2])));
-
-
-    // test matrixpermintaan
-    // printf("%d", matrixPermintaan.mem[0][0]);
-    // printf("%d", matrixPermintaan.mem[0][1]);
-    // printf("%d\n", matrixPermintaan.mem[0][2]);
-    // printf("%d", matrixPermintaan.mem[1][0]);
-    // printf("%d", matrixPermintaan.mem[1][1]);
-    // printf("%d\n", matrixPermintaan.mem[1][2]);
-    // printf("%d", matrixPermintaan.mem[2][0]);
-    // printf("%d", matrixPermintaan.mem[2][1]);
-    // printf("%d", matrixPermintaan.mem[2][2]);
-
-
-    // loadPengguna("data/save1/pengguna.config")
-    // printList(ListUser);
-    // PrintFoto((Profil(ListUser.buffer[0])));
-
-    // PrintFoto((Profil(ListUser.buffer[2])));
-    // currentUser = &ListUser.buffer[2]; isLogin= true;
->>>>>>> origin/iki
+    DisplayAdjMatrix(matrixPertemanan);
+    displayMatrix(matrixPermintaan);
     // for(int i = 0; i < 3; i++){
     //     for(int j = 0; j < 3; j++){
     //         printf("%d ", ELMTADJMAT(matrixPertemanan,i,j));
@@ -96,8 +39,4 @@ int main(){
     //     printf("\n");
     // }
     // printDaftarTeman();
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/iki
 }

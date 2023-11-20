@@ -77,32 +77,78 @@ void StoreDataPengguna(int n)
 }
 
 void StoreDataPertemanan(int n) {
-    Word tempPertemanan;
+    Word tempPertemanan, temp; int i, j, k;
 
+    CreateWord(&temp);
+    temp.Length = 1;
     ReadLineWithEnter(n);
     tempPertemanan = currentWord;
 
-    printWord(tempPertemanan);
+    i = 0;
+    j = 0;
+    for (k = 0; k < tempPertemanan.Length; k++) {
+        if (tempPertemanan.TabWord[k] == '0' || tempPertemanan.TabWord[k] == '1') {
+            temp.TabWord[0] = tempPertemanan.TabWord[k];
+            ELMTADJMAT(matrixPertemanan, i, j) = wordToInteger(temp);
+            i++;
+            if (i == n) {
+                i = 0;
+                j++;
+            }
+        }
+    }
+}
+
+void StoreDataPermintaan(int n) {
+    Word tempPermintaan, temp; int i, j, k;
+
+    CreateWord(&temp);
+    ReadLineWithEnter(n);
+    tempPermintaan = currentWord;
+
+    i = 0;
+    j = 0;
+    for (k = 0; k < tempPermintaan.Length; k++) {
+        temp.Length = 0;
+        if (tempPermintaan.TabWord[k] != BLANK && tempPermintaan.TabWord[k] != ENTER) {
+            while (tempPermintaan.TabWord[k] != BLANK && tempPermintaan.TabWord[k] != ENTER) {
+                temp.TabWord[temp.Length] = tempPermintaan.TabWord[k];
+                temp.Length++;
+                k++;
+            }
+            ELMTMAT(matrixPermintaan, i, j) = wordToInteger(temp);
+            j++;
+            if (j == 3) {
+                j = 0;
+                i++;
+                ROW_EFF(matrixPermintaan)++;
+            }
+        }
+    }
 }
 
 void loadPengguna(char *path)
 {
-    int n, NPermintaan;
-    Word permintaan;
+    int n; // NPermintaan;
+    // Word permintaan;
 
     ReadFromFile(path);
     n = wordToInteger(currentWord);
     StoreDataPengguna(n);
-
-    // Pertemanan
-    ReadLineWithEnter(n);
-    CreateAdjMatrixFile(&matrixPertemanan, currentWord, n);
-    // Permintaan
+    StoreDataPertemanan(n);
     ReadLine(1);
-    NPermintaan = wordToInteger(currentWord);
-    ReadLineWithEnter(NPermintaan);
-    permintaan = currentWord;
-    MatrixPermintaanFile(permintaan, NPermintaan);
+    n = wordToInteger(currentWord);
+    StoreDataPermintaan(n);
+
+    // // Pertemanan
+    // ReadLineWithEnter(n);
+    // CreateAdjMatrixFile(&matrixPertemanan, currentWord, n);
+    // // Permintaan
+    // ReadLine(1);
+    // NPermintaan = wordToInteger(currentWord);
+    // ReadLineWithEnter(NPermintaan);
+    // permintaan = currentWord;
+    // MatrixPermintaanFile(permintaan, NPermintaan);
 }
 
 void StoreDataKicau(int n)

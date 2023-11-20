@@ -7,7 +7,11 @@ void CreateAdjMatrix(int nEff, AdjMatrix *m) {
     NEFFM(*m) = nEff;
     for (i = 0; i < SIZE_CAP; i++) {
         for (j = 0; j < SIZE_CAP; j++) {
-            ELMTADJMAT(*m, i, j) = 0;
+            if (i != j) {
+                ELMTADJMAT(*m, i, j) = 0;
+            } else {
+                ELMTADJMAT(*m, i, j) = 1;
+            }
         }
     }
 }
