@@ -1,6 +1,9 @@
-#include "../pengguna/pengguna.h"
 #include "../../ADT/wordmachine/wordmachine.h"
+#include "../pengguna/pengguna.h"
+#include "../kicau/kicau.h"
+
 void Simpan();
-void SimpanPengguna();
+void SimpanPengguna(Word path);
+void simpanKicauan(Word path);
 void printWordToFile(Word w, FILE* filename); 
 // Menghasilkan pengguna.config

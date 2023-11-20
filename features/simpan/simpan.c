@@ -5,6 +5,9 @@
 
 // User
 extern ListPengguna ListUser;
+// Kicau
+extern ListKicauan ListTweet;
+
 void Simpan(){
     Word parentPath;
     strToWord("data/", &parentPath);
@@ -81,4 +84,29 @@ void SimpanPengguna(Word path){
     }
 
     // SIMPAN MATRIKS PERTEMANAN DAN PERMINTAAN PERTEMANAN
+}
+
+void simpanKicauan(Word path)
+{
+    Word kicauanConfig, configPath;
+    char* fconfPath;
+    FILE* fconfKicauan;
+    strToWord("/kicauan.config", &kicauanConfig);
+    configPath = concatWord(path, kicauanConfig);
+    wordToString(configPath, &fconfPath);
+    fconfKicauan = fopen(fconfPath, "w");
+
+    int count;
+    count = countKicauan(ListTweet);
+    fprintf(fconfKicauan, "%d\n", n);
+
+    int i;
+    for (i = 0; i < count; i++)
+    {
+        printWordToFile(idKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
+        printWordToFile(textKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
+        printWordToFile(likeKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
+        printWordToFile(authorKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
+        printWordToFile(datetimeKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
+    }
 }
