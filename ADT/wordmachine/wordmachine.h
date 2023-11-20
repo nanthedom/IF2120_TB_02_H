@@ -68,10 +68,6 @@ void strToWord(char *s, Word *w);
 boolean isNumerical(char c);
 boolean isNumber(Word w);
 int wordToInteger(Word w);
-<<<<<<< HEAD
-#endif
-=======
 void wordToString(Word w, char** str);
 Word concatWord(Word w1, Word w2);
 #endif
->>>>>>> c585cc8ada50f50e9e7d46e6d2e370bc34f8c4fa
