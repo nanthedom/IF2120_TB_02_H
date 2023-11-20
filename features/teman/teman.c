@@ -9,10 +9,13 @@ extern ListPengguna ListUser;
 void CreateAdjMatrixFile(AdjMatrix *m, Word w, int Neff){
     Word format;
     format = w;
-    int i = 0, j = 0, k = 0;
+    int i = 0, k = 0;
 
     NEFFM(*m)=Neff;
     while (i < NEFFM(*m)){
+        // printf("yuhuu");
+        // printf("%d", i);
+        int j=0;
         while (j < NEFFM(*m)){
             while (format.TabWord[k] == BLANK || format.TabWord[k] == ENTER){
                 k++;
