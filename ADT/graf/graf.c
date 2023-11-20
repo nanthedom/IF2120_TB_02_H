@@ -1,4 +1,5 @@
 #include "graf.h"
+#include <stdio.h>
 
 void CreateAdjMatrix(int nEff, AdjMatrix *m) {
     int i, j;
@@ -12,13 +13,24 @@ void CreateAdjMatrix(int nEff, AdjMatrix *m) {
 }
 
 void InsertEdge(AdjMatrix *m, int i, int j) {
-
+    ELMTADJMAT(*m, i, j) = 1;
+    ELMTADJMAT(*m, j, i) = 1;
 }
 
 void DeleteEdge(AdjMatrix *m, int i, int j) {
-
+    ELMTADJMAT(*m, i, j) = 0;
+    ELMTADJMAT(*m, j, i) = 0;
 }
 
 void DisplayAdjMatrix(AdjMatrix m) {
-
+    int i, j;
+    for(i = 0; i < NEFFM(m); i++){
+        for(j = 0; j < NEFFM(m); j++){
+            printf("%d", ELMTADJMAT(m,i,j));
+            if(j < NEFFM(m) - 1){
+                printf(" ");
+            }
+        }
+        printf("\n");
+    }
 }

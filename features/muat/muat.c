@@ -76,6 +76,15 @@ void StoreDataPengguna(int n)
     }
 }
 
+void StoreDataPertemanan(int n) {
+    Word tempPertemanan;
+
+    ReadLineWithEnter(n);
+    tempPertemanan = currentWord;
+
+    printWord(tempPertemanan);
+}
+
 void loadPengguna(char *path)
 {
     int n, NPermintaan;
@@ -274,13 +283,3 @@ void Muat()
         printf("Tidak ada folder yang dimaksud!");
     }
 }
-
-// int main(){
-//     Word x;
-//     CreateWord(&x);
-//     ReadWord();
-//     x = currentWord;
-//     // printWord(x);
-//     // printf("\n%s", x.TabWord);
-//     load(x);
-// }

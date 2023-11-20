@@ -9,6 +9,7 @@
 
 
 void StoreDataPengguna(Word data);
+void StoreDataPertemanan(int n);
 void loadPengguna(char *path);
 void StoreDataKicau(int n);
 void loadKicauan(char *path);
