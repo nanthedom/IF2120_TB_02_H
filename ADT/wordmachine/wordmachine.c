@@ -353,12 +353,10 @@ Word concatWord(Word w1, Word w2)
     for (i = 0; i < w1.Length; i++)
     {
         w.TabWord[i] = w1.TabWord[i];
-        // printf("char : %c", w.TabWord[i]);
     }
     for (i = 0; i < w2.Length; i++)
     {
         w.TabWord[i + w1.Length] = w2.TabWord[i];
-        // printf("char : %c", w.TabWord[i+w1.Length]);
     }
     return w;
 }
