@@ -99,30 +99,28 @@ void StoreDataKicau(int n){
         ReadLine(1);
         author = currentWord;
         ReadLine(1);
-        // printWord(currentWord);
-        // printf("%d", currentWord.Length);
-        dt = WordToDT(currentWord); //segfault
+        dt = WordToDT(currentWord); //sudah aman
         // TulisDATETIME(dt);
-        // CreateKicauFile(&tweet,id,text,like,author,dt);
-        // insertLastKicauan(tweet);
+        CreateKicauFile(&tweet,id,text,like,author,dt);//dah bosa masuk
+        // printWord(tweet.textKicau);
+        insertLastKicauan(tweet);//dah aman
     }
 
 }
 
 void loadKicauan(char *path){
-    // printf("%s",path);
     int nKicau;
     
     ReadFromFile(path);
     nKicau = wordToInteger(currentWord);
-    // printf("%d", nKicau);
     StoreDataKicau(nKicau);
 
 
 }
 void loadBalasan(char *path){
-    printf("%s",path);
-    // ReadFromFile(path);
+    // printf("%s",path);
+    ReadFromFile(path);
+    printWord(currentWord);
     // AdvNewLine(1);
     // printf("%s",currentWord.TabWord);
     // printWord(currentWord);
@@ -170,7 +168,7 @@ void load(Word dir){
 
     loadPengguna(penggunacfg.TabWord);
     loadKicauan(kicauancfg.TabWord);
-    // loadBalasan(balasancfg.TabWord);
+    loadBalasan(balasancfg.TabWord);
     // loadDraf(drafcfg.TabWord);
     // loadUtas(utascfg.TabWord);
 

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "../boolean/boolean.h"
 #include "../wordmachine/wordmachine.h"
 #include "../charmachine/charmachine.h"
@@ -50,34 +51,39 @@ DATETIME WordToDT(Word w){
         }
         count+=1;
         if(count==1){
-            DD = wordToInteger(temp);
-            printf("%s", temp.TabWord);
-            printf("%d\n",DD);
+            DD = atoi(temp.TabWord);
         } else if (count==2){
-            MM = wordToInteger(temp);
+            MM = atoi(temp.TabWord);
         } else {
-            YY = wordToInteger(temp);
+            YY = atoi(temp.TabWord);
         }
         if(w.TabWord[i]!=BLANK){
             ++i;
         }
     }
-    ++i;
+    i=11;count = 0;
+    // printf("%d",i);
     while(i<w.Length){
         CreateWord(&temp);
-        k=0;count = 0;
+        k=0;
         while(w.TabWord[i]!=':' && i<w.Length){
             temp.TabWord[k] = w.TabWord[i];
+            // printWord(w);
+            // printf("%c",temp.TabWord[i]);
             ++k;
             ++i;
         }
         count+=1;
         if(count==1){
-            H = wordToInteger(temp);
+            H = atoi(temp.TabWord);
+            // printf("s");
+            // printf("%d",H);
         } else if (count==2){
-            M = wordToInteger(temp);
+            // printWord(temp);
+            M = atoi(temp.TabWord);
         } else {
-            S = wordToInteger(temp);
+            // printWord(temp);
+            S = atoi(temp.TabWord);
         }
         ++i;
     }

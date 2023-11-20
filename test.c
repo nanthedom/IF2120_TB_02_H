@@ -30,11 +30,17 @@ int main(){
     Word x;
     // createMatrix(0, 3, &matrixPermintaan);
     CreateWord(&x);
+    CreateListKicauan(&ListTweet);
     ReadWord();
     x = currentWord;
-    // printWord(x);
-    // printf("\n%s", x.TabWord);
+    // printWord(x)
+    // int v = wordToInteger(x);
+    // printf("%d", v);
     load(x);
+    // printf("%d",NEFFKicau(ListTweet));
+    // Kicauan K = ELMTKicau(ListTweet,0);
+    // printWord(K.textKicau);
+    // printKicauan();
     // displayMatrix(matrixPermintaan);
     // loadPengguna("data/save1/pengguna.config");
     // test matrix pertemanan
