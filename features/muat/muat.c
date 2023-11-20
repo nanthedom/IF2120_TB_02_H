@@ -64,6 +64,7 @@ void loadPengguna(char *path){
     Word dataPengguna,pertemanan,permintaan;
 
     ReadFromFile(path);
+<<<<<<< HEAD
     // printWord(currentWord);
     n = wordToInteger(currentWord);
     StoreDataPengguna(n);
@@ -79,6 +80,23 @@ void loadPengguna(char *path){
     permintaan =currentWord;
     // MatrixPermintaanFile(permintaan, &matrixPermintaan, NPermintaan);//masih masalah segfault
     printList(ListUser);
+=======
+    n = wordToInteger(currentWord);
+    StoreDataPengguna(n);
+    
+    // Pertemanan
+    ReadLineWithEnter(n);
+    pertemanan = currentWord;
+    // printWord(pertemanan);
+    CreateAdjMatrixFile(&matrixPertemanan,pertemanan,n);
+    // ReadLine(1);
+    // // Permintaan
+    // NPermintaan = wordToInteger(currentWord);
+    // ReadLine(NPermintaan);
+    // permintaan =currentWord;
+    // MatrixPermintaanFile(permintaan, &matrixPermintaan, NPermintaan);
+    // printList(ListUser);
+>>>>>>> main
 
 }
 

@@ -27,6 +27,7 @@ void CreateAdjMatrixFile(AdjMatrix *m, Word w, int Neff){
         // printf("%d", i);
         int j=0;
         while (j < NEFFM(*m)){
+<<<<<<< HEAD
             // printf("inij");
             // printf("%d", j);
             while (format.TabWord[k] == BLANK || format.TabWord[k] == ENTER){
@@ -39,6 +40,16 @@ void CreateAdjMatrixFile(AdjMatrix *m, Word w, int Neff){
             j++;
         }
         i++;
+=======
+            while (format.TabWord[k] == BLANK || format.TabWord[k] == ENTER){
+                k++;
+            }
+            ELMTADJMAT(*m,i,j) = format.TabWord[k] - '0';
+            k++;
+            j++;
+        }
+        i++; j = 0;
+>>>>>>> main
     }    
 }
 
