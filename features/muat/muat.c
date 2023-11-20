@@ -64,7 +64,6 @@ void loadPengguna(char *path){
     Word dataPengguna,pertemanan,permintaan;
 
     ReadFromFile(path);
-<<<<<<< HEAD
     // printWord(currentWord);
     n = wordToInteger(currentWord);
     StoreDataPengguna(n);
@@ -75,30 +74,14 @@ void loadPengguna(char *path){
     // Permintaan
     ReadLine(1);
     NPermintaan = wordToInteger(currentWord);
-    ReadLine(NPermintaan);
-    // printWord(currentWord);
+    ReadLineWithEnter(NPermintaan);
     permintaan =currentWord;
-    // MatrixPermintaanFile(permintaan, &matrixPermintaan, NPermintaan);//masih masalah segfault
-    printList(ListUser);
-=======
-    n = wordToInteger(currentWord);
-    StoreDataPengguna(n);
-    
-    // Pertemanan
-    ReadLineWithEnter(n);
-    pertemanan = currentWord;
-    // printWord(pertemanan);
-    CreateAdjMatrixFile(&matrixPertemanan,pertemanan,n);
-    // ReadLine(1);
-    // // Permintaan
-    // NPermintaan = wordToInteger(currentWord);
-    // ReadLine(NPermintaan);
-    // permintaan =currentWord;
-    // MatrixPermintaanFile(permintaan, &matrixPermintaan, NPermintaan);
+    // printWord(currentWord);
+    MatrixPermintaanFile(permintaan, NPermintaan);//sudah aman
     // printList(ListUser);
->>>>>>> main
 
 }
+//pengguna dah aman
 
 void StoreDataKicau(int n){
     Kicauan tweet;
@@ -116,8 +99,9 @@ void StoreDataKicau(int n){
         ReadLine(1);
         author = currentWord;
         ReadLine(1);
-        printWord(currentWord);
-        // dt = WordToDT(currentWord); //segfault
+        // printWord(currentWord);
+        // printf("%d", currentWord.Length);
+        dt = WordToDT(currentWord); //segfault
         // TulisDATETIME(dt);
         // CreateKicauFile(&tweet,id,text,like,author,dt);
         // insertLastKicauan(tweet);
@@ -131,7 +115,7 @@ void loadKicauan(char *path){
     
     ReadFromFile(path);
     nKicau = wordToInteger(currentWord);
-    printf("%d", nKicau);
+    // printf("%d", nKicau);
     StoreDataKicau(nKicau);
 
 

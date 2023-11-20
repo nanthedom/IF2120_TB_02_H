@@ -21,26 +21,30 @@ void LoadDaftarPermintaan() {
     }
 }
 
-void MatrixPermintaanFile(Word w, Matrix *m,  int row){
+void MatrixPermintaanFile(Word w,  int row){
     int k=0,val;
 
+    createMatrix(row,3,&matrixPermintaan);
     for(int i=0; i<row; ++i){
         for(int j=0; j<3; ++j){
-            printf("%c",w.TabWord[k]);
-            while(w.TabWord[k] != ENTER){
-                while (w.TabWord[k] == BLANK){
-                    k++;
-                }
-                val = w.TabWord[k] - '0';
-                ELMTADJMAT(*m,i,j) = val;
+            while(w.TabWord[k] == ENTER){
                 k++;
             }
+            while (w.TabWord[k] == BLANK){
+                k++;
+            }
+            // printf("%c",w.TabWord[k]);
+            val = w.TabWord[k] - '0';
+            ELMTADJMAT(matrixPermintaan,i,j) = val;
+            k++;
             if(w.TabWord[k]==ENTER){
                 k++;
             }
             
         }
+        // printf("\n");
     }
+    // displayMatrix(matrixPermintaan);
 
 }
 

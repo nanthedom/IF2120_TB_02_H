@@ -27,14 +27,15 @@ int currentIdTweet;
 ListKicauan ListTweet;
 
 int main(){
-<<<<<<< HEAD
     Word x;
+    // createMatrix(0, 3, &matrixPermintaan);
     CreateWord(&x);
     ReadWord();
     x = currentWord;
     // printWord(x);
     // printf("\n%s", x.TabWord);
     load(x);
+    // displayMatrix(matrixPermintaan);
     // loadPengguna("data/save1/pengguna.config");
     // test matrix pertemanan
     // printf("%d", matrixPertemanan.mem[0][0]);
@@ -66,21 +67,19 @@ int main(){
     // printf("%d", matrixPermintaan.mem[2][1]);
     // printf("%d", matrixPermintaan.mem[2][2]);
 
-=======
-    loadPengguna("data/save1/pengguna.config");
-    printList(ListUser);
-    PrintFoto((Profil(ListUser.buffer[0])));
-<<<<<<< HEAD
-    PrintFoto((Profil(ListUser.buffer[2])));
-=======
-    currentUser = &ListUser.buffer[2]; isLogin= true;
-    for(int i = 0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
-            printf("%d ", ELMTADJMAT(matrixPertemanan,i,j));
-        }
-        printf("\n");
-    }
-    printDaftarTeman();
->>>>>>> e620ed31f9cfca4024701151c9d51472c13587f7
->>>>>>> main
+
+    // loadPengguna("data/save1/pengguna.config")
+    // printList(ListUser);
+    // PrintFoto((Profil(ListUser.buffer[0])));
+
+    // PrintFoto((Profil(ListUser.buffer[2])));
+    // currentUser = &ListUser.buffer[2]; isLogin= true;
+    // for(int i = 0; i < 3; i++){
+    //     for(int j = 0; j < 3; j++){
+    //         printf("%d ", ELMTADJMAT(matrixPertemanan,i,j));
+    //     }
+    //     printf("\n");
+    // }
+    // printDaftarTeman();
+
 }

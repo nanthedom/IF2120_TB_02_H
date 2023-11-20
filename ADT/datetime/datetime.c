@@ -38,11 +38,12 @@ DATETIME WordToDT(Word w){
     Word temp;
     DATETIME D;
     int i = 0, k, count = 0,DD,MM,YY,H,M,S;
+    
 
     while(w.TabWord[i]!=BLANK){
         CreateWord(&temp);
         k=0;
-        while(w.TabWord[i]!='/'){
+        while(w.TabWord[i]!='/' && w.TabWord[i]!=BLANK){
             temp.TabWord[k] = w.TabWord[i];
             ++k;
             ++i;
@@ -50,17 +51,22 @@ DATETIME WordToDT(Word w){
         count+=1;
         if(count==1){
             DD = wordToInteger(temp);
+            printf("%s", temp.TabWord);
+            printf("%d\n",DD);
         } else if (count==2){
             MM = wordToInteger(temp);
         } else {
             YY = wordToInteger(temp);
         }
-        ++i;
+        if(w.TabWord[i]!=BLANK){
+            ++i;
+        }
     }
-    while(w.TabWord[i]!=ENTER){
+    ++i;
+    while(i<w.Length){
         CreateWord(&temp);
-        k=0;
-        while(w.TabWord[i]!=':'){
+        k=0;count = 0;
+        while(w.TabWord[i]!=':' && i<w.Length){
             temp.TabWord[k] = w.TabWord[i];
             ++k;
             ++i;
