@@ -9,7 +9,7 @@
 typedef struct
 {
     int idbalas;
-    int idparent;
+    int idparentBalas;
     Word text;
     Word author;
     DATETIME datetime;
@@ -17,7 +17,7 @@ typedef struct
 
 /* Selektor */
 #define idBalas(p) (p).idbalas
-#define idParent(p) (p).idparent
+#define idParentBalas(p) (p).idparentBalas
 #define textBalas(p) (p).text
 #define authorBalas(p) (p).author
 #define datetimeBalas(p) (p).datetime

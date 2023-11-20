@@ -8,6 +8,7 @@
 #include "../draf/draf.h"
 #include "../muat/muat.h"
 #include "../utas/utas.h"
+#include "../simpan/simpan.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -63,7 +64,7 @@ void parseMultiCmd(Word w, Word *cmd, Word *param0, Word *param1)
 
 void prosesCmd(Word w)
 {
-    Word daftar, muat, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan, cmdUtas;
+    Word daftar, muat, simpan, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan, cmdUtas;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
@@ -88,6 +89,7 @@ void prosesCmd(Word w)
     strToWord("SETUJUI_PERTEMANAN", &setujui_pertemanan);
     strToWord("DAFTAR_PERMINTAAN_PERTEMANAN", &daftar_permintaan_pertemanan);
     strToWord("UTAS", &cmdUtas);
+    strToWord("SIMPAN", &simpan);
     if (isKataEqual(w, daftar))
     {
         Daftar();
@@ -112,8 +114,12 @@ void prosesCmd(Word w)
         }
         else
         {
-            Muat();
+            // Muat();
         }
+    }
+    else if (isKataEqual(w, simpan))
+    {
+        Simpan();
     }
     else if (isKataEqual(w, ganti_profil))
     {

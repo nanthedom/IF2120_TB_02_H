@@ -1,7 +1,7 @@
 #include "../pengguna/pengguna.h"
 #include "../teman/teman.h"
 #include "../kicau/kicau.h"
-#include "balasan.h"
+#include "../balasan/balasan.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -15,7 +15,7 @@ extern Pengguna *currentUser;
 void CreateBalasan(Balasan *reply, int idprnt)
 {
     idBalas(*reply) = currentIdReply;
-    idparent(*reply) = idprnt;
+    idParentBalas(*reply) = idprnt;
     textBalas(*reply) = currentWord;
     authorBalas(*reply) = Nama(*currentUser);
     DATETIME dt;
@@ -32,7 +32,7 @@ void createEmptyBalasan(Balasan *reply)
     Word tweet;
     strToWord("root-kicau", &tweet);
     idBalas(*reply) = -1;
-    idParent(*reply) = -1;
+    idParentBalas(*reply) = -1;
     textBalas(*reply) = tweet;
     authorBalas(*reply) = Nama(*currentUser);
     DATETIME dt;

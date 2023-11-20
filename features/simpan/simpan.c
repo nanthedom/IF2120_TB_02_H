@@ -46,6 +46,8 @@ void Simpan()
         }
     }
     SimpanPengguna(completePath);
+    simpanKicauan(completePath);
+    simpanBalasan(completePath);
 }
 
 void printWordToFile(Word w, FILE *filename)
@@ -63,7 +65,6 @@ void SimpanPengguna(Word path)
 /* Menyimpan data pengguna ke file pengguna.config sesuai dengan spesifikasi*/
 {
     int n, i;
-    Word w;
     FILE *userconfig;
     char *confPath;
     Word penggunaConfig;
@@ -106,6 +107,7 @@ void SimpanPengguna(Word path)
     }
 
     // SIMPAN MATRIKS PERTEMANAN DAN PERMINTAAN PERTEMANAN
+    fclose(userconfig);
 }
 
 void simpanKicauan(Word path)
@@ -126,12 +128,77 @@ void simpanKicauan(Word path)
     int i;
     for (i = 0; i < count; i++)
     {
-        printWordToFile(idKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
+        fprintf(fconfKicauan, "%d\n", idKicau(ELMTKicau(ListTweet, i)));
         printWordToFile(textKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
-        printWordToFile(likeKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
+        fprintf(fconfKicauan, "%d\n", likeKicau(ELMTKicau(ListTweet, i)));
         printWordToFile(authorKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
-        printWordToFile(datetimeKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
+        int day = Day(datetimeKicau(ELMTKicau(ListTweet, i)));
+        int month = Month(datetimeKicau(ELMTKicau(ListTweet, i)));
+        int year = Year(datetimeKicau(ELMTKicau(ListTweet, i)));
+        int hour = Hour(Time(datetimeKicau(ELMTKicau(ListTweet, i))));
+        int minute = Minute(Time(datetimeKicau(ELMTKicau(ListTweet, i))));
+        int second = Second(Time(datetimeKicau(ELMTKicau(ListTweet, i))));
+        fprintf(fconfKicauan, "%02d/%02d/%d %02d:%02d:%02d\n", day, month, year, hour, minute, second);
     }
 
     fclose(fconfKicauan);
+}
+
+void writeTree(FILE *filename, TreeNode *node, int depth)
+/* Fungsi untuk menuliskan pohon dengan banyak cabang secara rekursif */
+{
+    if (node == NULL)
+    {
+        return;
+    }
+
+    if (depth != 0)
+    {
+        Balasan reply = ROOT(*node);
+        fprintf(filename, "%d %d\n", idParentBalas(reply), idBalas(reply));
+        printWordToFile(textBalas(reply), filename);
+        printWordToFile(authorBalas(reply), filename);
+        int day = Day(datetimeBalas(reply));
+        int month = Month(datetimeBalas(reply));
+        int year = Year(datetimeBalas(reply));
+        int hour = Hour(Time(datetimeBalas(reply)));
+        int minute = Minute(Time(datetimeBalas(reply)));
+        int second = Second(Time(datetimeBalas(reply)));
+        fprintf(filename, "%02d/%02d/%d %02d:%02d:%02d\n", day, month, year, hour, minute, second);
+    }
+
+    writeTree(filename, firstChild(node), depth + 1); // print firstchildnya
+    writeTree(filename, nextSibling(node), depth);    // print nextnya
+}
+
+void simpanBalasan(Word path)
+/* Menyimpan data balasan ke file balasan.config sesuai dengan spesifikasi*/
+{
+    Word balasanConfig, configPath;
+    char *fconfPath;
+    FILE *fconfbalasan;
+    strToWord("/balasan.config", &balasanConfig);
+    configPath = concatWord(path, balasanConfig);
+    wordToString(configPath, &fconfPath);
+    fconfbalasan = fopen(fconfPath, "w");
+
+    int count;
+    count = countKicauBalasan(ListReply);
+    fprintf(fconfbalasan, "%d\n", count);
+
+    int i;
+    for (i = 0; i < NEFFBalas(ListReply); i++)
+    {
+        if (count(ELMT(ListReply, i)) > 0)
+        {
+            // write id kicau
+            fprintf(fconfbalasan, "%d\n", i + 1);
+            // write jumlah balasan
+            fprintf(fconfbalasan, "%d\n", count(ELMT(ListReply, i)));
+            // write balasan in tree
+            writeTree(fconfbalasan, &content(ELMT(ListReply, i)), 0);
+        }
+    }
+
+    fclose(fconfbalasan);
 }

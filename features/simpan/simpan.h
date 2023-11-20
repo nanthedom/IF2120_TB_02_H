@@ -19,6 +19,9 @@ void SimpanPengguna(Word path);
 void simpanKicauan(Word path);
 /* Menyimpan data kicauan ke file kicauan.config sesuai dengan spesifikasi*/
 
+void writeTree(FILE *filename, TreeNode *node, int depth);
+/* Fungsi untuk menuliskan pohon dengan banyak cabang secara rekursif */
+
 void simpanBalasan(Word path);
 /* Menyimpan data balasan ke file balasan.config sesuai dengan spesifikasi*/
 
