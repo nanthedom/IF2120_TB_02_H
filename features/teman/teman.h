@@ -3,22 +3,9 @@
 
 #include "../../ADT/boolean/boolean.h"
 #include "../../ADT/wordmachine/wordmachine.h"
-
-#define SIZE_CAP 20
-#define IDX_UNDEF -1
-
-typedef struct
-{
-   int mem[SIZE_CAP][SIZE_CAP];
-   int nEff;
-} AdjMatrix;
-
-#define NEFFM(M) (M).nEff
-#define ELMTADJMAT(M, i, j) (M).mem[(i)][(j)]
+#include "../../ADT/graf/graf.h"
 
 extern AdjMatrix matrixPertemanan;
-
-void CreateAdjMatrix(int nEff, AdjMatrix *m);
 
 void CreateAdjMatrixFile(AdjMatrix *m, Word w, int Neff);
 

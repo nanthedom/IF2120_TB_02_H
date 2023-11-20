@@ -3,6 +3,7 @@
 #include "features/inisialisasi/inisialisasi.h"
 #include "ADT/wordmachine/wordmachine.h"
 #include "ADT/matrix/matrix.h"
+#include "ADT/graf/graf.h"
 #include "ADT/prioqueue/prioqueue.h"
 #include "features/profil/profil.h"
 #include "features/kicau/kicau.h"

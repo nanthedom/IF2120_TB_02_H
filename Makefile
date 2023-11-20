@@ -17,6 +17,7 @@ SRC_MATRIX = ADT/matrix/matrix.c
 SRC_LISTSTAT = ADT/liststatik/liststatik.c
 SRC_LISTLIN = ADT/listlinier/listlinier.c
 SRC_LISTDIN = ADT/listdin/listdin.c
+SRC_GRAF = ADT/graf/graf.c
 
 
 SRC_KICAU = features/kicau/kicau.c
@@ -43,7 +44,7 @@ OBJ_MATRIX = $(SRC_MATRIX:.c=.o)
 OBJ_LISTST = $(SRC_LISTSTAT:.c=.o)
 OBJ_LISTLIN = $(SRC_LISTLIN:.c=.o)
 OBJ_LISTDIN = $(SRC_LISTDIN:.c=.o)
-
+OBJ_GRAF = $(SRC_GRAF:.c=.o)
 
 OBJ_KICAU = $(SRC_KICAU:.c=.o)
 OBJ_PENGGUNA = $(SRC_PENGGUNA:.c=.o)
@@ -267,5 +268,5 @@ create_stdout: $(STDOUT)
 $(STDOUT): stdout_%.txt: $(TESTS_DIR_PC)/%.in testpcolor
 	@./testpcolor < $(word 1, $^) | tr '\r' '\n' > $@
 
-main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTLIN) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN) $(OBJ_PERMINTAAN) $(OBJ_BALASAN) $(OBJ_MUAT) $(OBJ_UTAS) $(OBJ_SIMPAN)
+main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTLIN) $(OBJ_GRAF) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN) $(OBJ_PERMINTAAN) $(OBJ_BALASAN) $(OBJ_MUAT) $(OBJ_UTAS) $(OBJ_SIMPAN)
 	$(CC) $(CFLAGS) -o $@ $^
