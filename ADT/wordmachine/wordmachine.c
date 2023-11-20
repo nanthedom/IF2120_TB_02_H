@@ -168,14 +168,18 @@ void CopyWordFile(int row)
     int i = 0, N = NMax, count = 0;
     while (count < row && currentChar != EOF)
     {
-        if (i >= N){
+        if (i >= N)
+        {
             currentWord.TabWord = (char *)realloc(currentWord.TabWord, 2 * N * sizeof(char));
             N *= 2;
         }
-        if(currentChar != ENTER && currentChar != CARRIAGE){
+        if (currentChar != ENTER && currentChar != CARRIAGE)
+        {
             currentWord.TabWord[i] = currentChar;
             i++;
-        } else if(currentChar == ENTER){
+        }
+        else if (currentChar == ENTER)
+        {
             count++;
         }
         ADVFile();
@@ -188,15 +192,18 @@ void CopyWordFileWithEnter(int row)
     int i = 0, N = NMax, count = 0;
     while (count < row && currentChar != EOF)
     {
-        if (i >= N){
+        if (i >= N)
+        {
             currentWord.TabWord = (char *)realloc(currentWord.TabWord, 2 * N * sizeof(char));
             N *= 2;
         }
-        if(currentChar != CARRIAGE){
+        if (currentChar != CARRIAGE)
+        {
             currentWord.TabWord[i] = currentChar;
             i++;
-        } 
-        if(currentChar == ENTER){
+        }
+        if (currentChar == ENTER)
+        {
             count++;
         }
         ADVFile();
@@ -305,13 +312,6 @@ int wordToInteger(Word w)
 {
     int i;
     int n = 0;
-    if (isNumber(w))
-    {
-        for (i = 0; i < w.Length; i++)
-        {
-            n = n * 10 + (w.TabWord[i] - '0');
-        }
-    }
     int j = 0;
     if (w.TabWord[j] == '-')
     {
@@ -322,30 +322,42 @@ int wordToInteger(Word w)
         }
         n = n * (-1);
     }
+    else
+    {
+        for (i = 0; i < w.Length; i++)
+        {
+            n = n * 10 + (w.TabWord[i] - '0');
+        }
+    }
 
     return n;
 }
 
-void wordToString(Word w, char** str){
-    *str = (char*) malloc((w.Length+1)*sizeof(char));
+void wordToString(Word w, char **str)
+{
+    *str = (char *)malloc((w.Length + 1) * sizeof(char));
     int i;
-    for(i = 0; i < w.Length; i++){
+    for (i = 0; i < w.Length; i++)
+    {
         (*str)[i] = w.TabWord[i];
     }
     (*str)[i] = '\0';
 }
 
-Word concatWord(Word w1, Word w2){
+Word concatWord(Word w1, Word w2)
+{
     Word w;
     CreateWord(&w);
     w.Length = w1.Length + w2.Length;
     int i;
-    for (i = 0; i < w1.Length; i++){
+    for (i = 0; i < w1.Length; i++)
+    {
         w.TabWord[i] = w1.TabWord[i];
         // printf("char : %c", w.TabWord[i]);
     }
-    for (i = 0; i < w2.Length; i++){
-        w.TabWord[i+w1.Length] = w2.TabWord[i];
+    for (i = 0; i < w2.Length; i++)
+    {
+        w.TabWord[i + w1.Length] = w2.TabWord[i];
         // printf("char : %c", w.TabWord[i+w1.Length]);
     }
     return w;
