@@ -1,6 +1,11 @@
+#include <stdio.h>
 #include "../../ADT/wordmachine/wordmachine.h"
 #include "../pengguna/pengguna.h"
 #include "../kicau/kicau.h"
+#include "../balasan/balasan.h"
+
+#ifndef SIMPAN_H
+#define SIMPAN_H
 
 void Simpan();
 /* Melakukan prosedur simpan sesuai dengan spesifikasi */
@@ -15,7 +20,7 @@ void simpanKicauan(Word path);
 /* Menyimpan data kicauan ke file kicauan.config sesuai dengan spesifikasi*/
 
 void simpanBalasan(Word path);
-/* Menyimpan data kicauan ke file balasan.config sesuai dengan spesifikasi*/
+/* Menyimpan data balasan ke file balasan.config sesuai dengan spesifikasi*/
 
 void simpanDraf(Word path);
 /* Menyimpan data Draf ke file draf.config sesuai dengan spesifikasi*/

@@ -7,6 +7,8 @@
 extern ListPengguna ListUser;
 // Kicauan
 extern ListKicauan ListTweet;
+// Balasan
+extern ListBalasan ListReply;
 
 void Simpan()
 /* Melakukan prosedur simpan sesuai dengan spesifikasi */
@@ -107,7 +109,7 @@ void SimpanPengguna(Word path)
 }
 
 void simpanKicauan(Word path)
-/* Menyimpan data kicauan ke file pengguna.config sesuai dengan spesifikasi*/
+/* Menyimpan data kicauan ke file kicauan.config sesuai dengan spesifikasi*/
 {
     Word kicauanConfig, configPath;
     char *fconfPath;
@@ -119,7 +121,7 @@ void simpanKicauan(Word path)
 
     int count;
     count = countKicauan(ListTweet);
-    fprintf(fconfKicauan, "%d\n", n);
+    fprintf(fconfKicauan, "%d\n", count);
 
     int i;
     for (i = 0; i < count; i++)
@@ -130,4 +132,6 @@ void simpanKicauan(Word path)
         printWordToFile(authorKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
         printWordToFile(datetimeKicau(ELMTKicau(ListTweet, i)), fconfKicauan);
     }
+
+    fclose(fconfKicauan);
 }
