@@ -29,4 +29,6 @@ void SetujuiPertemanan();
 
 void ClearDaftarPermintaan();
 
+void DeletePermintaanFromMatrix();
+
 #endif

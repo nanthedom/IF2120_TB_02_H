@@ -117,10 +117,12 @@ void DaftarPermintaanPertemanan() {
         jmlPermintaan = NBElmtPQ(daftarPermintaan);
         printf("\nTerdapat %d permintaan pertemanan untuk Anda.\n\n", jmlPermintaan);
 
-        for(i = 0; i < NBElmtPQ(daftarPermintaan); i++) {
+        for(i = Head(daftarPermintaan); i != Tail(daftarPermintaan); i = (i + 1) % MaxElPQ(daftarPermintaan)) {
             printElmtPQ(i);
             printf("\n");
         }
+        printElmtPQ(i);
+        printf("\n");  
     } else {
         printf("\nTidak ada permintaan pertemanan untuk Anda.\n\n");
     }
@@ -132,14 +134,14 @@ void SetujuiPertemanan() {
     if (!IsEmpty(daftarPermintaan)) {
         strToWord("YA", &ya);
 
-        e = ElmtPQ(daftarPermintaan, 0);
+        e = InfoHead(daftarPermintaan);
         nama = Nama(ELMT(ListUser, Info(e)));
         userIdx = indexOf(ListUser, Nama(*currentUser));
         targetIdx = indexOf(ListUser, nama);
         printf("Permintaan pertemanan teratas dari ");
         printWord(nama);
         printf("\n\n");
-        printElmtPQ(0);
+        printElmtPQ(Head(daftarPermintaan));
 
         printf("\nApakah Anda ingin menyetujui permintaan pertemanan ini? (YA/TIDAK) ");
         ReadWord();
@@ -159,6 +161,7 @@ void SetujuiPertemanan() {
             printf(" telah ditolak.\n\n");
         }
         Dequeue(&daftarPermintaan, &val);
+        DeletePermintaanFromMatrix(targetIdx, userIdx);
     } else {
         printf("\nTidak ada permintaan pertemanan untuk Anda.\n\n");
     }
@@ -166,4 +169,15 @@ void SetujuiPertemanan() {
  
 void ClearDaftarPermintaan() {
     DeAlokasi(&daftarPermintaan);
+}
+
+void DeletePermintaanFromMatrix(int userIdx, int targetIdx) {
+    int i;
+    for (i = 0; i < ROW_EFF(matrixPermintaan); i++) {
+        if (ELMTMAT(matrixPermintaan, i, 0) == userIdx && ELMTMAT(matrixPermintaan, i, 1) == targetIdx) {
+            ELMTMAT(matrixPermintaan, i, 0) = ELMTMAT(matrixPermintaan, ROW_EFF(matrixPermintaan) - 1, 0);
+            ELMTMAT(matrixPermintaan, i, 1) = ELMTMAT(matrixPermintaan, ROW_EFF(matrixPermintaan) - 1, 1);
+        }
+    }
+    ROW_EFF(matrixPermintaan)--;
 }
