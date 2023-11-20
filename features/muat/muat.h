@@ -10,6 +10,9 @@
 
 void StoreDataPengguna(Word data);
 void loadPengguna(char *path);
+void StoreDataKicau(int n);
+void loadKicauan(char *path);
 void loadfirst();
+void load(Word dir);
 void Muat();
 

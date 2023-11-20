@@ -13,7 +13,7 @@ extern PrioQueue daftarPermintaan;
 
 void LoadDaftarPermintaan();
 
-void MatrixPermintaanFile(Word w, Matrix *m, int row);
+void MatrixPermintaanFile(Word w, int row);
 
 boolean sudahKirimPermintaan(int userIdx, int targetIdx);
 
