@@ -9,6 +9,10 @@ extern ListPengguna ListUser;
 extern ListKicauan ListTweet;
 // Balasan
 extern ListBalasan ListReply;
+// Teman
+extern AdjMatrix matrixPertemanan;
+// Permintaan Pertemanan
+extern Matrix matrixPermintaan;
 
 void Simpan()
 /* Melakukan prosedur simpan sesuai dengan spesifikasi */
@@ -64,7 +68,7 @@ void printWordToFile(Word w, FILE *filename)
 void SimpanPengguna(Word path)
 /* Menyimpan data pengguna ke file pengguna.config sesuai dengan spesifikasi*/
 {
-    int n, i;
+    int n, i, j;
     FILE *userconfig;
     char *confPath;
     Word penggunaConfig;
@@ -107,6 +111,26 @@ void SimpanPengguna(Word path)
     }
 
     // SIMPAN MATRIKS PERTEMANAN DAN PERMINTAAN PERTEMANAN
+    for (i = 0; i < length(ListUser); i++) {
+        for (j = 0; j < length(ListUser); j++) {
+            fprintf(userconfig, "%d", ELMTADJMAT(matrixPertemanan, i, j));
+            if (j < length(ListUser) - 1) {
+                fprintf(userconfig, " ");
+            }
+        }
+        fprintf(userconfig, "\n");
+    }
+
+    fprintf(userconfig, "%d\n", ROW_EFF(matrixPermintaan));
+    for (i = 0; i < ROW_EFF(matrixPermintaan); i++) {
+        for (j = 0; j < COL_EFF(matrixPermintaan); j++) {
+            fprintf(userconfig, "%d", ELMTMAT(matrixPermintaan, i, j));
+            if (j < COL_EFF(matrixPermintaan) - 1) {
+                fprintf(userconfig, " ");
+            }
+        }
+        fprintf(userconfig, "\n");
+    }
     fclose(userconfig);
 }
 

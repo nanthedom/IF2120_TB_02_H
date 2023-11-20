@@ -11,6 +11,7 @@
 #include "features/draf/draf.h"
 #include "features/balasan/balasan.h"
 #include "features/muat/muat.h"
+#include "features/simpan/simpan.h"
 
 /* USER*/
 boolean isLogin;
@@ -48,13 +49,7 @@ int main()
   CreateEmptyDraft(&SDraf);
   CreateAdjMatrix(20, &matrixPertemanan);
   createMatrix(0, 3, &matrixPermintaan);
-  loadPengguna("data/save1/pengguna.config");
-  DisplayAdjMatrix(matrixPertemanan);
-  displayMatrix(matrixPermintaan);
-  // ELMTMAT(matrixPertemanan, 0, 0) = 1;
-  // ELMTMAT(matrixPertemanan, 0, 1) = 1;
-  // ELMTMAT(matrixPertemanan, 1, 0) = 1;
-  // ELMTMAT(matrixPertemanan, 1, 1) = 1;
+
   init();
   //   loadfirst(); nanti mau dibuat di muat
   Word cmd;
