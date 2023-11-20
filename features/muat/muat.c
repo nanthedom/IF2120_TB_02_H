@@ -129,97 +129,6 @@ void loadKicauan(char *path)
     ReadFromFile(path);
     nKicau = wordToInteger(currentWord);
     StoreDataKicau(nKicau);
-<<<<<<< HEAD
-
-
-}
-void loadBalasan(char *path){
-    // printf("%s",path);
-    ReadFromFile(path);
-    printWord(currentWord);
-    // AdvNewLine(1);
-    // printf("%s",currentWord.TabWord);
-    // printWord(currentWord);
-
-}
-
-void StoreDataDraf(){
-    int i = 0, nDraft, nBlank=0;
-    Word nama;
-    CreateWord(&nama);
-
-    ReadLine(1);
-    while (i<currentWord.Length){ //hitung blank
-        if(currentWord.TabWord[i]==BLANK){
-            nBlank+=1;
-        }
-        ++i;
-    }
-    i=0;
-    while (i<currentWord.Length){ //masukin nama sama jumlah ndraf
-        if(currentWord.TabWord[i]==BLANK){
-            nBlank-=1;
-        }
-        if(nBlank>0){
-            nama.TabWord[i] = currentWord.TabWord[i];
-        }else{
-            i++;
-            nDraft = currentWord.TabWord[i]-'0';
-        }
-        i++;
-    }
-    nama.Length = i;
-    // printWord(nama);
-    // printf("%d",nDraft);
-
-    //masukin draft
-    while(nDraft>0){
-        Draf D;Word text; Word dt;
-        CreateWord(&text);
-        CreateWord(&dt);
-
-        ReadLine(1);
-        text = currentWord;
-        ReadLine(1);
-        dt = currentWord;
-        CreateDrafFile(&D,nama,text,WordToDT(dt));
-        PushDraft(&SDraf,D);
-        nDraft--;
-    }
-
-
-    
-}
-
-void loadDraf(char *path){
-    // printf("%s",path);
-    ReadFromFile(path);
-    // printWord(currentWord);
-    int N = wordToInteger(currentWord);
-    for(int i=0 ; i<N; i++){
-        StoreDataDraf();
-    }
-}
-void loadUtas(char *path){
-    printf("%s",path);
-    // ReadFromFile(path);
-    // printWord(currentWord);
-}
-
-// Word concatWord(Word w1, Word w2){
-//     Word ans;
-//     CreateWord(&ans);
-//     ans.Length = w1.Length + w2.Length;
-//     int i;
-//     for(i = 0; i < w1.Length; i++){
-//         ans.TabWord[i] = w1.TabWord[i];
-//     }
-//     for(i = 0; i < w2.Length;i++){
-//         ans.TabWord[i+w1.Length] = w2.TabWord[i];
-//     }
-//     return ans;
-// }
-=======
 }
 
 void parseID(Word *idparent, Word *idbalas)
@@ -275,7 +184,6 @@ void StoreDataBalasan(int idKicau, int n)
         addChild(foundNode, child);
     }
 }
->>>>>>> 7a89b1975bcca844c5f91e61f58716d7c5392c26
 
 void loadBalasan(char *path)
 {
@@ -314,14 +222,10 @@ void load(Word dir)
 
     loadPengguna(penggunacfg.TabWord);
     loadKicauan(kicauancfg.TabWord);
-<<<<<<< HEAD
-    // loadBalasan(balasancfg.TabWord);
+    loadBalasan(balasancfg.TabWord);
     loadDraf(drafcfg.TabWord);
     loadUtas(utascfg.TabWord);
 
-=======
-    loadBalasan(balasancfg.TabWord);
->>>>>>> 7a89b1975bcca844c5f91e61f58716d7c5392c26
 }
 
 boolean isDirectoryExists(char *path)
