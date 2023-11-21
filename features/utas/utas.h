@@ -50,11 +50,13 @@ void CreateListUtas(List *l);
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 
-void CreateUtas(Utas *utas, Word word, int idKicau);
+void CreateUtas(Utas *utas, Word word, int idKicau, int index);
 
 /****************** TEST LIST KOSONG ******************/
 boolean isEmptyUtas(List l);
 /* Mengirim true jika list kosong */
+
+boolean idUtasValid(int idUtas);
 
 boolean isIdxUtasValid(List l, int index);
 
@@ -118,5 +120,7 @@ void sambungUtas(int id, int index);
 void hapusUtas(int id, int index);
 
 void displayUtas(int id);
+
+int searchByIdUtas(int id);
 
 #endif

@@ -52,7 +52,7 @@ int main()
 
   init();
   loadfirst();
-  
+
   Word cmd;
   while (!isClosed)
   {

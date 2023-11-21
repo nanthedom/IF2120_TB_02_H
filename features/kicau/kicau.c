@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../../ADT/datetime/datetime.h"
+#include "../utas/utas.h"
 
 extern int currentIdTweet;
 extern ListKicauan ListTweet;
@@ -103,7 +104,7 @@ void CreateKicau(Kicauan *kicau)
     DATETIME dt;
     BacaDATETIME(&dt);
     datetimeKicau(*kicau) = dt;
-    utasUtama(*kicau) = NULL;
+    CreateListUtas(&utasUtama(*kicau));
     idUtasKicau(*kicau) = 0;
 }
 void CreateKicauFile(Kicauan *kicau, int id, Word text, int like, Word author, DATETIME dt)
@@ -281,7 +282,7 @@ Kicauan searchKicau(int idKicau)
 }
 
 Kicauan searchByIdUtasKicau(int idUtas)
-/* Mengirim Kicauan berdasarkan idKicau dari ListKicauan ListTweet */
+/* Mengirim Kicauan berdasarkan idUtas dari ListKicauan ListTweet */
 {
     Kicauan Kicau;
     int i = 0;

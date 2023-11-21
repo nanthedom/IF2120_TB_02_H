@@ -17,7 +17,8 @@ void CreateDraf(Draf *D)
   authorDraf(*D) = Nama(*currentUser);
 }
 
-void CreateDrafFile(Draf *D, Word nama, Word text, DATETIME dt){
+void CreateDrafFile(Draf *D, Word nama, Word text, DATETIME dt)
+{
   datetimeDraf(*D) = dt;
   textDraf(*D) = text;
   authorDraf(*D) = nama;
@@ -103,6 +104,8 @@ void DrafToKicau(Draf D, Kicauan *Kicau)
   textKicau(*Kicau) = textDraf(D);
   datetimeKicau(*Kicau) = datetimeDraf(D);
   authorKicau(*Kicau) = authorDraf(D);
+  likeKicau(*Kicau) = 0;
+  CreateListUtas(&utasUtama(*Kicau));
 }
 
 void BuatDraf()
@@ -115,7 +118,7 @@ void BuatDraf()
   printf("Masukkan draf:\n");
   ReadWord();
   currentText = currentWord;
-  printf("Apakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
+  printf("Apakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n>> ");
   ReadWord();
   if (isKataEqual(currentWord, hapus))
   {
@@ -174,7 +177,7 @@ void LihatDraf()
         printf("\nMasukkan draf yang baru:\n");
         ReadWord();
         currentText = currentWord;
-        printf("Apakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
+        printf("Apakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n>> ");
         ReadWord();
         if (isKataEqual(currentWord, hapus))
         {

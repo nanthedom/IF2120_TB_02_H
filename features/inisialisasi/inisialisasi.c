@@ -64,7 +64,7 @@ void parseMultiCmd(Word w, Word *cmd, Word *param0, Word *param1)
 
 void prosesCmd(Word w)
 {
-    Word daftar, muat, simpan, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan, cmdUtas;
+    Word daftar, muat, simpan, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan, cmdUtas, sambung_utas, hapus_utas, cetak_utas;
     strToWord("DAFTAR", &daftar);
     strToWord("MASUK", &masuk);
     strToWord("KELUAR", &keluar);
@@ -89,6 +89,9 @@ void prosesCmd(Word w)
     strToWord("SETUJUI_PERTEMANAN", &setujui_pertemanan);
     strToWord("DAFTAR_PERMINTAAN_PERTEMANAN", &daftar_permintaan_pertemanan);
     strToWord("UTAS", &cmdUtas);
+    strToWord("CETAK_UTAS", &cetak_utas);
+    strToWord("SAMBUNG_UTAS", &sambung_utas);
+    strToWord("HAPUS_UTAS", &hapus_utas);
     strToWord("SIMPAN", &simpan);
     if (isKataEqual(w, daftar))
     {
@@ -337,6 +340,44 @@ void prosesCmd(Word w)
             {
                 int idKicau = wordToInteger(param0);
                 utas(idKicau);
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
+        else if (isKataEqual(newCmd, sambung_utas))
+        {
+            if (isLogin)
+            {
+                int idUtas = wordToInteger(param0);
+                int index = wordToInteger(param1);
+                sambungUtas(idUtas, index);
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
+        else if (isKataEqual(newCmd, hapus_utas))
+        {
+            if (isLogin)
+            {
+                int idUtas = wordToInteger(param0);
+                int index = wordToInteger(param1);
+                hapusUtas(idUtas, index);
+            }
+            else
+            {
+                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            }
+        }
+        else if (isKataEqual(newCmd, cetak_utas))
+        {
+            if (isLogin)
+            {
+                int idUtas = wordToInteger(param0);
+                displayUtas(idUtas);
             }
             else
             {
