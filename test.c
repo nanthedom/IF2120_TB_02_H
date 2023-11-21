@@ -30,14 +30,13 @@ ListKicauan ListTweet;
 
 // Balasan
 ListBalasan ListReply;
-int currentIdReply;
-
 
 // draf
 StackDraf SDraf;
 Draf draf;
 
 int main(){
+    loadDraf("data/save1/draf.config");
     loadPengguna("data/save1/pengguna.config");
     loadDraf("data/save1/draf.config");
     // DisplayDraf(&SDraf);
@@ -119,5 +118,8 @@ int main(){
     //     printf("\n");
     // }
     // printDaftarTeman();
+<<<<<<<<< Temporary merge branch 1
 
+=========
+>>>>>>>>> Temporary merge branch 2
 }

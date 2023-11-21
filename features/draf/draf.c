@@ -234,17 +234,3 @@ int CountDraftUser(StackDraf SDraf, Word nama)
   }
   return countDraf;
 }
-
-void inverseStack(){
-  StackDraf tmp;
-  CreateEmptyDraft(&tmp);
-  Draf D;
-
-  // printf("%s",(s->T)->textDraf.TabWord);
-  while(!IsDraftEmpty(SDraf)){
-    PopDraft(&SDraf,&D);
-    PushDraft(&tmp,D);
-  }
-  SDraf=tmp;
-  
-}

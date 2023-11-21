@@ -215,6 +215,37 @@ void simpanBalasan(Word path)
     wordToString(configPath, &fconfPath);
     fconfbalasan = fopen(fconfPath, "w");
 
+    int count;
+    count = countKicauBalasan(ListReply);
+    fprintf(fconfbalasan, "%d\n", count);
+
+    int i;
+    for (i = 0; i < NEFFBalas(ListReply); i++)
+    {
+        if (count(ELMT(ListReply, i)) > 0)
+        {
+            // write id kicau
+            fprintf(fconfbalasan, "%d\n", i + 1);
+            // write jumlah balasan
+            fprintf(fconfbalasan, "%d\n", count(ELMT(ListReply, i)));
+            // write balasan in tree
+            writeTree(fconfbalasan, &content(ELMT(ListReply, i)), 0);
+        }
+    }
+
+    fclose(fconfbalasan);
+}
+
+void simpanDraf(Word path)
+{
+    Word drafConfig, configPath;
+    char *fconfPath;
+    FILE *fconfdraf;
+    strToWord("/draf.config", &drafConfig);
+    configPath = concatWord(path, drafConfig);
+    wordToString(configPath, &fconfPath);
+    fconfdraf = fopen(fconfPath, "w");
+
     int countUserHaveDraf = 0;
     for(int i=0; i<ListUser.length;++i ){
         // printWord(Nama(ELMT(ListUser,i)));
