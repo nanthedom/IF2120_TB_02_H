@@ -300,18 +300,60 @@ $(TEST_RESULTS_GRAF): $(TESTS_DIR_GRAF)/%.result: $(TESTS_DIR_GRAF)/%.in $(TESTS
 		echo "$< $(word 2,$^): WRONG"; \
 	fi > $@
 
+# TIME
+SRC_TEST_T = ADT/time/tests/mtime.c
+OBJ_TEST_T = $(SRC_TEST_T:.c=.o)
+
+TESTS_DIR_T = ADT/time/tests
+TEST_CASES_T = $(wildcard $(TESTS_DIR_T)/*.in)
+TEST_OUTPUTS_T = $(TEST_CASES_T:.in=.out)
+TEST_RESULTS_T = $(TEST_CASES_T:.in=.result)
+
+testTime: $(OBJ_TIME) $(OBJ_TEST_T)
+	$(CC) $(CFLAGS) -o $@ $^
 
 
+test_time: testTime $(TEST_RESULTS_T)
+	@cat $(TEST_RESULTS_T)
+
+$(TEST_RESULTS_T): $(TESTS_DIR_T)/%.result: $(TESTS_DIR_T)/%.in $(TESTS_DIR_T)/%.out testTime
+	@if ./testTime < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
+
+# LISTDIN
+SRC_TEST_LD = ADT/listdin/tests/mlistdin.c
+OBJ_TEST_LD = $(SRC_TEST_LD:.c=.o)
+
+TESTS_DIR_LD = ADT/listdin/tests
+TEST_CASES_LD = $(wildcard $(TESTS_DIR_LD)/*.in)
+TEST_OUTPUTS_LD = $(TEST_CASES_LD:.in=.out)
+TEST_RESULTS_LD = $(TEST_CASES_LD:.in=.result)
+
+testLD: $(OBJ_LISTDIN) $(OBJ_TEST_LD)
+	$(CC) $(CFLAGS) -o $@ $^
 
 
-STDOUT = $(addprefix stdout_,$(notdir $(TEST_CASES_PC:.in=.txt)))
+test_ld: testLD $(TEST_RESULTS_LD)
+	@cat $(TEST_RESULTS_LD)
+
+$(TEST_RESULTS_LD): $(TESTS_DIR_LD)/%.result: $(TESTS_DIR_LD)/%.in $(TESTS_DIR_LD)/%.out testLD
+	@if ./testLD < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
+
+STDOUT = $(addprefix stdout_,$(notdir $(TEST_CASES_LD:.in=.txt)))
 
 
 
 create_stdout: $(STDOUT)
 
-$(STDOUT): stdout_%.txt: $(TESTS_DIR_PC)/%.in testpcolor
-	@./testpcolor < $(word 1, $^) | tr '\r' '\n' > $@
+$(STDOUT): stdout_%.txt: $(TESTS_DIR_LD)/%.in testLD
+	@./testLD < $(word 1, $^) | tr '\r' '\n' > $@
 
 main_program: $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_CHAR) $(OBJ_TIME) $(OBJ_DATETIME) $(OBJ_PRIO) $(OBJ_PCOLOR) $(OBJ_MATRIX) $(OBJ_LISTLIN) $(OBJ_GRAF) $(OBJ_PROFIL) $(OBJ_INIT) $(OBJ_KICAU) $(OBJ_PENGGUNA) $(OBJ_DRAF) $(OBJ_TEMAN) $(OBJ_PERMINTAAN) $(OBJ_BALASAN) $(OBJ_MUAT) $(OBJ_UTAS) $(OBJ_SIMPAN)
 	$(CC) $(CFLAGS) -o $@ $^
