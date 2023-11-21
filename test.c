@@ -30,15 +30,22 @@ ListKicauan ListTweet;
 
 // Balasan
 ListBalasan ListReply;
+int currentIdReply;
+
 
 // draf
 StackDraf SDraf;
 Draf draf;
 
 int main(){
-    loadDraf("data/save1/draf.config");
     loadPengguna("data/save1/pengguna.config");
-    printList(ListUser);
+    loadDraf("data/save1/draf.config");
+    // DisplayDraf(&SDraf);
+    // Word nama = {"Tuan Man", 8};
+    // ReadWord();
+
+    // printf("%d", CountDraftUser(SDraf, currentWord));
+    // printList(ListUser);
     // PrintFoto((Profil(ListUser.buffer[0])));
     // currentUser = &ListUser.buffer[2]; isLogin= true;
     Simpan();
@@ -104,13 +111,7 @@ int main(){
 
     // PrintFoto((Profil(ListUser.buffer[2])));
     // currentUser = &ListUser.buffer[2]; isLogin= true;
-=========
-    loadPengguna("data/save1/pengguna.config");
-    printList(ListUser);
-    PrintFoto((Profil(ListUser.buffer[0])));
-    currentUser = &ListUser.buffer[2]; isLogin= true;
-    Simpan();
->>>>>>>>> Temporary merge branch 2
+
     // for(int i = 0; i < 3; i++){
     //     for(int j = 0; j < 3; j++){
     //         printf("%d ", ELMTADJMAT(matrixPertemanan,i,j));
@@ -118,8 +119,5 @@ int main(){
     //     printf("\n");
     // }
     // printDaftarTeman();
-<<<<<<<<< Temporary merge branch 1
 
-=========
->>>>>>>>> Temporary merge branch 2
 }

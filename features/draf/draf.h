@@ -98,4 +98,5 @@ void LihatDraf();
 
 int CountDraftUser(StackDraf SDraf, Word nama);
 
+void inverseStack();
 #endif

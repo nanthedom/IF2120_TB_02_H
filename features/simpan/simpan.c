@@ -215,10 +215,36 @@ void simpanDraf(Word path){
     wordToString(configPath, &fconfPath);
     fconfdraf = fopen(fconfPath, "w");
 
-    int countDraf = 0;
+    int countUserHaveDraf = 0;
     for(int i=0; i<ListUser.length;++i ){
-        printWord(Nama(ELMT(ListUser,i)));
-        countDraf += CountDraftUser(SDraf,Nama(ELMT(ListUser,i)));
+        // printWord(Nama(ELMT(ListUser,i)));
+        if(CountDraftUser(SDraf,Nama(ELMT(ListUser,i)))>0){
+            countUserHaveDraf += 1 ;
+        }
     }
-    printf("%d", countDraf);
+    fprintf(fconfdraf,"%d\n",countUserHaveDraf);
+    for(int i=0; i<ListUser.length;++i ){
+        StackDraf tmpSDraf = SDraf;
+        int n = CountDraftUser(tmpSDraf,Nama(ELMT(ListUser,i)));
+        if(n>0){
+            fprintf(fconfdraf,"%s %d\n", Nama(ELMT(ListUser,i)).TabWord, n );
+            while(!IsDraftEmpty(tmpSDraf)){
+                Draf tmpDraf;
+                PopDraft(&tmpSDraf, &tmpDraf);
+                if(isKataEqual(authorDraf(tmpDraf),Nama(ELMT(ListUser,i)))){
+                    // printf("s");
+                    fprintf(fconfdraf,"%s\n",textDraf(tmpDraf).TabWord);
+                    int day = Day(datetimeDraf(tmpDraf));
+                    int month = Month(datetimeDraf(tmpDraf));
+                    int year = Year(datetimeDraf(tmpDraf));
+                    int hour = Hour(Time(datetimeDraf(tmpDraf)));
+                    int minute = Minute(Time(datetimeDraf(tmpDraf)));
+                    int second = Second(Time(datetimeDraf(tmpDraf)));
+                    fprintf(fconfdraf, "%02d/%02d/%d %02d:%02d:%02d\n", day, month, year, hour, minute, second);
+                }
+            }
+        }
+    }
+    fprintf(fconfdraf, ";");
+    fclose(fconfdraf);
 }
