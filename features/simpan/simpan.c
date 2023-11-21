@@ -38,7 +38,6 @@ void Simpan()
         printf(" terlebih dahulu.\n");
         if (mkdir(path, 0777) == 0)
         {
-            printf("Directory created: %s\n", path);
             printf("Mohon tunggu... \n");
             printf("1...\n");
             printf("2...\n");
@@ -51,6 +50,13 @@ void Simpan()
             perror("mkdir");
         }
     }
+    printf("Anda akan melakukan penyimpanan di ");
+    printWord(relativePath);
+    printf(".\n\n");
+    printf("Mohon tunggu... \n");
+    printf("1...\n");
+    printf("2...\n");
+    printf("3...\n");
     SimpanPengguna(completePath);
     simpanKicauan(completePath);
     simpanBalasan(completePath);
