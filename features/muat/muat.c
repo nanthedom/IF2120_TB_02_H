@@ -317,15 +317,14 @@ void StoreDataDraf()
     {
         Draf D;
         Word text;
-        Word dt;
         CreateWord(&text);
-        CreateWord(&dt);
 
         ReadLine(1);
         text = currentWord;
         ReadLine(1);
-        dt = currentWord;
-        CreateDrafFile(&D, nama, text, WordToDT(dt));
+        DATETIME dt;
+        dt = WordToDT(currentWord);
+        CreateDrafFile(&D, nama, text, dt);
         PushDraft(&SDraf, D);
         nDraft--;
     }
@@ -355,37 +354,37 @@ void load(Word dir)
     Word filepengguna;
     Word filekicauan;
     Word filebalasan;
-    // Word filedraf;
+    Word filedraf;
     // Word fileutas;
 
     strToWord("/pengguna.config", &filepengguna);
     strToWord("/kicauan.config", &filekicauan);
     strToWord("/balasan.config", &filebalasan);
-    // strToWord("/draf.config", &filedraf);
+    strToWord("/draf.config", &filedraf);
     // strToWord("/utas.config", &fileutas);
 
     Word WpathPengguna = concatWord(dir, filepengguna);
     Word wpathKicauan = concatWord(dir, filekicauan);
     Word wpathBalasan = concatWord(dir, filebalasan);
-    // Word wpathDraf = concatWord(dir, filedraf);
+    Word wpathDraf = concatWord(dir, filedraf);
     // Word wpathUtas = concatWord(dir, fileutas);
 
     char *pathPengguna;
     char *pathKicauan;
     char *pathBalasan;
-    // char *pathDraf;
+    char *pathDraf;
     // char *pathUtas;
 
     wordToString(WpathPengguna, &pathPengguna);
     wordToString(wpathKicauan, &pathKicauan);
     wordToString(wpathBalasan, &pathBalasan);
-    // wordToString(completePath, &pathDraf);
-    // wordToString(completePath, &pathUtas);
+    wordToString(wpathDraf, &pathDraf);
+    // wordToString(wpathUtas, &pathUtas);
 
     loadPengguna(pathPengguna);
     loadKicauan(pathKicauan);
     loadBalasan(pathBalasan);
-    // loadDraf(drafcfg.TabWord);
+    loadDraf(pathDraf);
     // loadUtas(utascfg.TabWord);
 }
 
