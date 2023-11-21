@@ -10,19 +10,23 @@
 
 void StoreDataPengguna(Word data);
 void StoreDataPertemanan(int n);
+void StoreDataPermintaan(int n);
 void loadPengguna(char *path);
+
 void StoreDataKicau(int n);
 void loadKicauan(char *path);
-<<<<<<< HEAD
+
+void parseID(Word *idparent, Word *idbalas);
+void StoreDataBalasan(int idKicau, int n);
 void loadBalasan(char *path);
+
 void StoreDataDraf();
 void loadDraf(char *path);
+
 void loadUtas(char *path);
-=======
-void StoreDataBalasan(int n);
-void loadBalasan(char *path);
->>>>>>> 7a89b1975bcca844c5f91e61f58716d7c5392c26
+
 void loadfirst();
 void load(Word dir);
+
 void Muat();
 

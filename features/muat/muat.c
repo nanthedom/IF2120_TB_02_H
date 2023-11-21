@@ -78,8 +78,10 @@ void StoreDataPengguna(int n)
     }
 }
 
-void StoreDataPertemanan(int n) {
-    Word tempPertemanan, temp; int i, j, k;
+void StoreDataPertemanan(int n)
+{
+    Word tempPertemanan, temp;
+    int i, j, k;
 
     CreateWord(&temp);
     temp.Length = 1;
@@ -88,12 +90,15 @@ void StoreDataPertemanan(int n) {
 
     i = 0;
     j = 0;
-    for (k = 0; k < tempPertemanan.Length; k++) {
-        if (tempPertemanan.TabWord[k] == '0' || tempPertemanan.TabWord[k] == '1') {
+    for (k = 0; k < tempPertemanan.Length; k++)
+    {
+        if (tempPertemanan.TabWord[k] == '0' || tempPertemanan.TabWord[k] == '1')
+        {
             temp.TabWord[0] = tempPertemanan.TabWord[k];
             ELMTADJMAT(matrixPertemanan, i, j) = wordToInteger(temp);
             i++;
-            if (i == n) {
+            if (i == n)
+            {
                 i = 0;
                 j++;
             }
@@ -101,8 +106,10 @@ void StoreDataPertemanan(int n) {
     }
 }
 
-void StoreDataPermintaan(int n) {
-    Word tempPermintaan, temp; int i, j, k;
+void StoreDataPermintaan(int n)
+{
+    Word tempPermintaan, temp;
+    int i, j, k;
 
     CreateWord(&temp);
     ReadLineWithEnter(n);
@@ -110,20 +117,25 @@ void StoreDataPermintaan(int n) {
 
     i = 0;
     j = 0;
-    for (k = 0; k < tempPermintaan.Length; k++) {
+    for (k = 0; k < tempPermintaan.Length; k++)
+    {
         temp.Length = 0;
-        if (tempPermintaan.TabWord[k] != BLANK && tempPermintaan.TabWord[k] != ENTER) {
-            while (tempPermintaan.TabWord[k] != BLANK && tempPermintaan.TabWord[k] != ENTER) {
+        if (tempPermintaan.TabWord[k] != BLANK && tempPermintaan.TabWord[k] != ENTER)
+        {
+            while (tempPermintaan.TabWord[k] != BLANK && tempPermintaan.TabWord[k] != ENTER)
+            {
                 temp.TabWord[temp.Length] = tempPermintaan.TabWord[k];
                 temp.Length++;
                 k++;
             }
             ELMTMAT(matrixPermintaan, i, j) = wordToInteger(temp);
             j++;
-            if (j == 3) {
+            if (j == 3)
+            {
                 j = 0;
                 i++;
-                ROW_EFF(matrixPermintaan)++;
+                ROW_EFF(matrixPermintaan)
+                ++;
             }
         }
     }
@@ -131,9 +143,7 @@ void StoreDataPermintaan(int n) {
 
 void loadPengguna(char *path)
 {
-    int n; // NPermintaan;
-    // Word permintaan;
-
+    int n;
     ReadFromFile(path);
     n = wordToInteger(currentWord);
     StoreDataPengguna(n);
@@ -141,16 +151,6 @@ void loadPengguna(char *path)
     ReadLine(1);
     n = wordToInteger(currentWord);
     StoreDataPermintaan(n);
-
-    // // Pertemanan
-    // ReadLineWithEnter(n);
-    // CreateAdjMatrixFile(&matrixPertemanan, currentWord, n);
-    // // Permintaan
-    // ReadLine(1);
-    // NPermintaan = wordToInteger(currentWord);
-    // ReadLineWithEnter(NPermintaan);
-    // permintaan = currentWord;
-    // MatrixPermintaanFile(permintaan, NPermintaan);
 }
 
 void StoreDataKicau(int n)
@@ -261,76 +261,86 @@ void loadBalasan(char *path)
 
 void load(Word dir)
 {
-    Word filepengguna = {"/pengguna.config", 16};
-    Word filekicauan = {"/kicauan.config", 15};
-    Word filebalasan = {"/balasan.config", 15};
-    // Word filedraf = {"/draf.config", 12};
-    // Word fileutas = {"/utas.config", 12};
+    Word filepengguna;
+    Word filekicauan;
+    Word filebalasan;
+    // Word filedraf;
+    // Word fileutas;
 
-    Word data = {"data/", 5};
-    Word path = concatWord(data, dir);
-    Word penggunacfg = concatWord(path, filepengguna);
-    Word kicauancfg = concatWord(path, filekicauan);
-    Word balasancfg = concatWord(path, filebalasan);
-    // Word drafcfg = concatWord(path, filedraf);
-    // Word utascfg = concatWord(path, fileutas);
+    strToWord("/pengguna.config", &filepengguna);
+    strToWord("/kicau.config", &filekicauan);
+    strToWord("/balasan.config", &filebalasan);
+    // strToWord("/draf.config", &filedraf);
+    // strToWord("/utas.config", &fileutas);
 
-    loadPengguna(penggunacfg.TabWord);
-    loadKicauan(kicauancfg.TabWord);
-    loadBalasan(balasancfg.TabWord);
-    loadDraf(drafcfg.TabWord);
-    loadUtas(utascfg.TabWord);
+    Word WpathPengguna = concatWord(dir, filepengguna);
+    Word wpathKicauan = concatWord(dir, filekicauan);
+    Word wpathBalasan = concatWord(dir, filebalasan);
+    // Word wpathDraf = concatWord(dir, filedraf);
+    // Word wpathUtas = concatWord(dir, fileutas);
 
-}
+    char *pathPengguna;
+    char *pathKicauan;
+    char *pathBalasan;
+    // char *pathDraf;
+    // char *pathUtas;
 
-boolean isDirectoryExists(char *path)
-{
-    struct stat fileStat;
+    wordToString(WpathPengguna, &pathPengguna);
+    wordToString(wpathKicauan, &pathKicauan);
+    wordToString(wpathBalasan, &pathBalasan);
+    // wordToString(completePath, &pathDraf);
+    // wordToString(completePath, &pathUtas);
 
-    if (stat(path, &fileStat) == 0)
-    {
-        if (S_ISDIR(fileStat.st_mode))
-        {
-            return true; // Direktori ada
-        }
-    }
-
-    return false; // Direktori tidak ada
+    loadPengguna(pathPengguna);
+    loadKicauan(pathKicauan);
+    loadBalasan(pathBalasan);
+    // loadDraf(drafcfg.TabWord);
+    // loadUtas(utascfg.TabWord);
 }
 
 void loadfirst()
 {
-    Word directory;
+    Word parentPath;
+    strToWord("data/", &parentPath);
     boolean succes = false;
     while (!succes)
     {
-        printf("Silahkan masukan folder konfigurasi untuk dimuat: ");
+        printf("\n");
+        printf("Silahkan masukkan folder konfigurasi untuk dimuat: ");
         ReadWord();
-        directory = currentWord;
-        if (isDirectoryExists(directory.TabWord))
-        { // udah ada
-            load(directory);
-            succes = true;
+        printf("\n");
+
+        Word relativePath = currentWord;
+        Word completePath = concatWord(parentPath, relativePath);
+        char *path;
+        wordToString(completePath, &path);
+        struct stat st = {0};
+        if (stat(path, &st) == -1)
+        {
+            printf("\n");
+            printf("Tidak ada folder yang dimaksud!\n");
+            printf("\n");
         }
         else
         {
-            printf("Tidak ada folder yang dimaksud!");
+            load(completePath);
+            succes = true;
         }
     }
 }
 
-void Muat()
-{
-    Word directory;
-    printf("Masukkan nama folder yang hendak dimuat.");
-    ReadWord();
-    directory = currentWord;
-    if (isDirectoryExists(directory.TabWord))
-    { // udah ada
-        load(directory);
-    }
-    else
-    {
-        printf("Tidak ada folder yang dimaksud!");
-    }
-}
+// void Muat()
+// {
+//     Word directory;
+//     printf("Masukkan nama folder yang hendak dimuat.");
+//     ReadWord();
+//     directory = currentWord;
+//     if (isDirectoryExists(directory.TabWord))
+//     { // udah ada
+//         load(directory);
+//     }
+//     else
+//     {
+//         printf("Tidak ada folder yang dimaksud!");
+//     }
+// }
