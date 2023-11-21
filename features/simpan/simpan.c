@@ -49,7 +49,7 @@ void Simpan()
     }
     SimpanPengguna(completePath);
     simpanKicauan(completePath);
-    simpanBalasan(completePath);
+    // simpanBalasan(completePath);
     simpanDraf(completePath);
 }
 
@@ -174,37 +174,37 @@ void writeTree(FILE *filename, TreeNode *node, int depth)
     writeTree(filename, nextSibling(node), depth);    // print nextnya
 }
 
-void simpanBalasan(Word path)
-/* Menyimpan data balasan ke file balasan.config sesuai dengan spesifikasi*/
-{
-    Word balasanConfig, configPath;
-    char *fconfPath;
-    FILE *fconfbalasan;
-    strToWord("/balasan.config", &balasanConfig);
-    configPath = concatWord(path, balasanConfig);
-    wordToString(configPath, &fconfPath);
-    fconfbalasan = fopen(fconfPath, "w");
+// void simpanBalasan(Word path)
+// /* Menyimpan data balasan ke file balasan.config sesuai dengan spesifikasi*/
+// {
+//     Word balasanConfig, configPath;
+//     char *fconfPath;
+//     FILE *fconfbalasan;
+//     strToWord("/balasan.config", &balasanConfig);
+//     configPath = concatWord(path, balasanConfig);
+//     wordToString(configPath, &fconfPath);
+//     fconfbalasan = fopen(fconfPath, "w");
 
-    int count;
-    count = countKicauBalasan(ListReply);
-    fprintf(fconfbalasan, "%d\n", count);
+//     int count;
+//     count = countKicauBalasan(ListReply);
+//     fprintf(fconfbalasan, "%d\n", count);
 
-    int i;
-    for (i = 0; i < NEFFBalas(ListReply); i++)
-    {
-        if (count(ELMT(ListReply, i)) > 0)
-        {
-            // write id kicau
-            fprintf(fconfbalasan, "%d\n", i + 1);
-            // write jumlah balasan
-            fprintf(fconfbalasan, "%d\n", count(ELMT(ListReply, i)));
-            // write balasan in tree
-            writeTree(fconfbalasan, &content(ELMT(ListReply, i)), 0);
-        }
-    }
+//     int i;
+//     for (i = 0; i < NEFFBalas(ListReply); i++)
+//     {
+//         if (count(ELMT(ListReply, i)) > 0)
+//         {
+//             // write id kicau
+//             fprintf(fconfbalasan, "%d\n", i + 1);
+//             // write jumlah balasan
+//             fprintf(fconfbalasan, "%d\n", count(ELMT(ListReply, i)));
+//             // write balasan in tree
+//             writeTree(fconfbalasan, &content(ELMT(ListReply, i)), 0);
+//         }
+//     }
 
-    fclose(fconfbalasan);
-}
+//     fclose(fconfbalasan);
+// }
 
 void simpanDraf(Word path){
     Word drafConfig, configPath;
