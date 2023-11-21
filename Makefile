@@ -73,7 +73,7 @@ run :
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f main_program mword mqueue test_dt test_stack test_queue test_statik mchar $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_TEST) $(TEST_RESULTS) $(STDOUT)
+	rm -f main_program mword mqueue test_dt test_stack test_queue test_statik mchar *.o */*/*.o
 
 # UNIT TESTS
 
