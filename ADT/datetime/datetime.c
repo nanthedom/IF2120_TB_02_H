@@ -11,7 +11,7 @@ int GetMaxDay(int M, int Y)
 {
     if (M == 1 || M == 3 || M == 5 || M == 7 || M == 8 || M == 10 || M == 12)
     {
-        return 31;                
+        return 31;
     }
     else if (M == 4 || M == 6 || M == 9 || M == 11)
     {
@@ -35,59 +35,70 @@ boolean IsDATETIMEValid(int D, int M, int Y, int h, int m, int s)
     return ((1 <= D) && (D <= GetMaxDay(M, Y)) && (1 <= M) && (M <= 12) && (1900 <= Y) && (Y <= 2030) && (h >= 0) && (h <= 23) && (m >= 0) && (m <= 59) && (s >= 0) && (s <= 59));
 }
 
-DATETIME WordToDT(Word w){
+DATETIME WordToDT(Word w)
+{
     Word temp;
     DATETIME D;
-    int i = 0, k, count = 0,DD,MM,YY,H,M,S;
-    
+    int i = 0, k, count = 0, DD, MM, YY, H, M, S;
 
-    while(w.TabWord[i]!=BLANK){
+    while (w.TabWord[i] != BLANK)
+    {
         CreateWord(&temp);
-        k=0;
-        while(w.TabWord[i]!='/' && w.TabWord[i]!=BLANK){
+        k = 0;
+        while (w.TabWord[i] != '/' && w.TabWord[i] != BLANK)
+        {
             temp.TabWord[k] = w.TabWord[i];
             ++k;
             ++i;
         }
-        count+=1;
-        if(count==1){
+        temp.Length = k;
+        count += 1;
+        if (count == 1)
+        {
             DD = wordToInteger(temp);
-        } else if (count==2){
+        }
+        else if (count == 2)
+        {
             MM = wordToInteger(temp);
-        } else {
+        }
+        else
+        {
             YY = wordToInteger(temp);
         }
-        if(w.TabWord[i]!=BLANK){
+        if (w.TabWord[i] != BLANK)
+        {
             ++i;
         }
     }
-    i=11;count = 0;
-    // printf("%d",i);
-    while(i<w.Length){
+    i = 11;
+    count = 0;
+    while (i < w.Length)
+    {
         CreateWord(&temp);
-        k=0;
-        while(w.TabWord[i]!=':' && i<w.Length){
+        k = 0;
+        while (w.TabWord[i] != ':' && i < w.Length)
+        {
             temp.TabWord[k] = w.TabWord[i];
-            // printWord(w);
-            // printf("%c",temp.TabWord[i]);
             ++k;
             ++i;
         }
-        count+=1;
-        if(count==1){
+        temp.Length = k;
+        count += 1;
+        if (count == 1)
+        {
             H = wordToInteger(temp);
-            // printf("s");
-            // printf("%d",H);
-        } else if (count==2){
-            // printWord(temp);
+        }
+        else if (count == 2)
+        {
             M = wordToInteger(temp);
-        } else {
-            // printWord(temp);
+        }
+        else
+        {
             S = wordToInteger(temp);
         }
         ++i;
     }
-    CreateDATETIME(&D,DD,MM,YY,H,M,S);
+    CreateDATETIME(&D, DD, MM, YY, H, M, S);
     return D;
 }
 
@@ -105,7 +116,7 @@ void BacaDATETIME(DATETIME *D)
 {
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    CreateDATETIME(D, tm.tm_mday, tm.tm_mon + 1,tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    CreateDATETIME(D, tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, tm.tm_sec);
 }
 
 void TulisDATETIME(DATETIME D)
@@ -159,10 +170,10 @@ boolean DLT(DATETIME D1, DATETIME D2)
                         {
                             return true;
                         }
-                    } 
+                    }
                 }
             }
-        }        
+        }
     }
     return false;
 }
@@ -203,10 +214,10 @@ boolean DGT(DATETIME D1, DATETIME D2)
                         {
                             return true;
                         }
-                    } 
+                    }
                 }
             }
-        }        
+        }
     }
     return false;
 }
@@ -228,7 +239,7 @@ DATETIME DATETIMENextNDetik(DATETIME D, int N)
                 Month(D) = 1;
                 Year(D)++;
             }
-        } 
+        }
     }
     TIME NewT = DetikToTIME(s % 86400);
     CreateDATETIME(&Dt, Day(D), Month(D), Year(D), Hour(NewT), Minute(NewT), Second(NewT));
@@ -261,7 +272,7 @@ DATETIME DATETIMEPrevNDetik(DATETIME D, int N)
         sisa = TIMEToDetik(Time(D)) - sisa;
         NewT = DetikToTIME(sisa);
     }
-    
+
     if (N / 86400 > 0)
     {
         int minusday = N / 86400;
@@ -302,13 +313,13 @@ long int DATETIMEDurasi(DATETIME DAw, DATETIME DAkh)
     {
         d2 = d2 + GetMaxDay(i, Year(DAkh));
     }
-    
+
     int selisihd = 0;
     if (Year(DAkh) == Year(DAw))
     {
         selisihd = d2 - d1;
     }
-    
+
     while (Year(DAw) < Year(DAkh))
     {
         if (Year(DAw) % 400 == 0 && Year(DAw) % 4 == 0)
