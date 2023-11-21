@@ -51,11 +51,11 @@ DATETIME WordToDT(Word w){
         }
         count+=1;
         if(count==1){
-            DD = atoi(temp.TabWord);
+            DD = wordToInteger(temp);
         } else if (count==2){
-            MM = atoi(temp.TabWord);
+            MM = wordToInteger(temp);
         } else {
-            YY = atoi(temp.TabWord);
+            YY = wordToInteger(temp);
         }
         if(w.TabWord[i]!=BLANK){
             ++i;
@@ -75,15 +75,15 @@ DATETIME WordToDT(Word w){
         }
         count+=1;
         if(count==1){
-            H = atoi(temp.TabWord);
+            H = wordToInteger(temp);
             // printf("s");
             // printf("%d",H);
         } else if (count==2){
             // printWord(temp);
-            M = atoi(temp.TabWord);
+            M = wordToInteger(temp);
         } else {
             // printWord(temp);
-            S = atoi(temp.TabWord);
+            S = wordToInteger(temp);
         }
         ++i;
     }

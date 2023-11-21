@@ -51,7 +51,8 @@ int main()
   createMatrix(0, 3, &matrixPermintaan);
 
   init();
-  //   loadfirst(); nanti mau dibuat di muat
+  loadfirst();
+  
   Word cmd;
   while (!isClosed)
   {
