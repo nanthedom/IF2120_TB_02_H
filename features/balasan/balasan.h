@@ -111,6 +111,8 @@ void insertLastBalasan(ElTypeReply Reply);
 
 void createEmptyBalasan(Balasan *reply);
 
+void createEmptyBalasanFile(Kicauan tweet, Balasan *reply);
+
 boolean idKicauValid(int idKicau);
 /* Mengirim True jika idKicau valid */
 

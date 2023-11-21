@@ -31,6 +31,7 @@ extern ListKicauan ListTweet;
 extern StackDraf SDraf;
 
 // Balasan
+extern int currentIdReply;
 extern ListBalasan ListReply;
 
 void StoreDataPengguna(int n)
@@ -162,6 +163,7 @@ void StoreDataKicau(int n)
 
     for (i = 0; i < n; i++)
     {
+        currentIdTweet++;
         ReadLine(1);
         id = wordToInteger(currentWord);
         ReadLine(1);
@@ -174,7 +176,14 @@ void StoreDataKicau(int n)
         dt = WordToDT(currentWord);
         CreateKicauFile(&tweet, id, text, like, author, dt);
         insertLastKicauan(tweet);
-        inisialisasiBalasan();
+
+        // inisialisasi ListBalasan
+        Balasan Reply;
+        createEmptyBalasanFile(tweet, &Reply);
+        TreeNode *root = createNode(Reply);
+        ElTypeReply elmt;
+        createBuffer(&elmt, *root);
+        insertLastBalasan(elmt);
     }
 }
 
@@ -227,7 +236,7 @@ void StoreDataBalasan(int idKicau, int n)
         ReadLine(1);
         textBalas(reply) = currentWord;
         ReadLine(1);
-        authorBalas(reply) = Nama(*currentUser);
+        authorBalas(reply) = currentWord;
         ReadLine(1);
         DATETIME dt;
         dt = WordToDT(currentWord);
@@ -237,6 +246,14 @@ void StoreDataBalasan(int idKicau, int n)
         TreeNode *foundNode = searchTree(&content(ELMTBalas(ListReply, idKicau - 1)), idparentInt);
         TreeNode *child = createNode(reply);
         addChild(foundNode, child);
+
+        // load currentIdReply
+        if (currentIdReply < idbalasInt)
+        {
+            currentIdReply = idbalasInt;
+        }
+        currentIdReply++;
+        
     }
 }
 
@@ -268,7 +285,7 @@ void load(Word dir)
     // Word fileutas;
 
     strToWord("/pengguna.config", &filepengguna);
-    strToWord("/kicau.config", &filekicauan);
+    strToWord("/kicauan.config", &filekicauan);
     strToWord("/balasan.config", &filebalasan);
     // strToWord("/draf.config", &filedraf);
     // strToWord("/utas.config", &fileutas);

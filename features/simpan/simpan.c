@@ -53,7 +53,7 @@ void Simpan()
     }
     SimpanPengguna(completePath);
     simpanKicauan(completePath);
-    // simpanBalasan(completePath);
+    simpanBalasan(completePath);
     simpanDraf(completePath);
 }
 
@@ -114,10 +114,13 @@ void SimpanPengguna(Word path)
     }
 
     // SIMPAN MATRIKS PERTEMANAN DAN PERMINTAAN PERTEMANAN
-    for (i = 0; i < length(ListUser); i++) {
-        for (j = 0; j < length(ListUser); j++) {
+    for (i = 0; i < length(ListUser); i++)
+    {
+        for (j = 0; j < length(ListUser); j++)
+        {
             fprintf(userconfig, "%d", ELMTADJMAT(matrixPertemanan, i, j));
-            if (j < length(ListUser) - 1) {
+            if (j < length(ListUser) - 1)
+            {
                 fprintf(userconfig, " ");
             }
         }
@@ -125,10 +128,13 @@ void SimpanPengguna(Word path)
     }
 
     fprintf(userconfig, "%d\n", ROW_EFF(matrixPermintaan));
-    for (i = 0; i < ROW_EFF(matrixPermintaan); i++) {
-        for (j = 0; j < COL_EFF(matrixPermintaan); j++) {
+    for (i = 0; i < ROW_EFF(matrixPermintaan); i++)
+    {
+        for (j = 0; j < COL_EFF(matrixPermintaan); j++)
+        {
             fprintf(userconfig, "%d", ELMTMAT(matrixPermintaan, i, j));
-            if (j < COL_EFF(matrixPermintaan) - 1) {
+            if (j < COL_EFF(matrixPermintaan) - 1)
+            {
                 fprintf(userconfig, " ");
             }
         }
@@ -198,51 +204,53 @@ void writeTree(FILE *filename, TreeNode *node, int depth)
     writeTree(filename, nextSibling(node), depth);    // print nextnya
 }
 
-// void simpanBalasan(Word path)
-// /* Menyimpan data balasan ke file balasan.config sesuai dengan spesifikasi*/
-// {
-//     Word balasanConfig, configPath;
-//     char *fconfPath;
-//     FILE *fconfbalasan;
-//     strToWord("/balasan.config", &balasanConfig);
-//     configPath = concatWord(path, balasanConfig);
-//     wordToString(configPath, &fconfPath);
-//     fconfbalasan = fopen(fconfPath, "w");
-
-//     int count;
-//     count = countKicauBalasan(ListReply);
-//     fprintf(fconfbalasan, "%d\n", count);
-
-//     int i;
-//     for (i = 0; i < NEFFBalas(ListReply); i++)
-//     {
-//         if (count(ELMT(ListReply, i)) > 0)
-//         {
-//             // write id kicau
-//             fprintf(fconfbalasan, "%d\n", i + 1);
-//             // write jumlah balasan
-//             fprintf(fconfbalasan, "%d\n", count(ELMT(ListReply, i)));
-//             // write balasan in tree
-//             writeTree(fconfbalasan, &content(ELMT(ListReply, i)), 0);
-//         }
-//     }
-
-//     fclose(fconfbalasan);
-// }
-
-void simpanDraf(Word path){
-    Word drafConfig, configPath;
+void simpanBalasan(Word path)
+/* Menyimpan data balasan ke file balasan.config sesuai dengan spesifikasi*/
+{
+    Word balasanConfig, configPath;
     char *fconfPath;
-    FILE *fconfdraf;
-    strToWord("/draf.config", &drafConfig);
-    configPath = concatWord(path, drafConfig);
+    FILE *fconfbalasan;
+    strToWord("/balasan.config", &balasanConfig);
+    configPath = concatWord(path, balasanConfig);
     wordToString(configPath, &fconfPath);
-    fconfdraf = fopen(fconfPath, "w");
+    fconfbalasan = fopen(fconfPath, "w");
 
-    int countDraf = 0;
-    for(int i=0; i<ListUser.length;++i ){
-        printWord(Nama(ELMT(ListUser,i)));
-        countDraf += CountDraftUser(SDraf,Nama(ELMT(ListUser,i)));
+    int count;
+    count = countKicauBalasan(ListReply);
+    fprintf(fconfbalasan, "%d\n", count);
+
+    int i;
+    for (i = 0; i < NEFFBalas(ListReply); i++)
+    {
+        if (count(ELMT(ListReply, i)) > 0)
+        {
+            // write id kicau
+            fprintf(fconfbalasan, "%d\n", i + 1);
+            // write jumlah balasan
+            fprintf(fconfbalasan, "%d\n", count(ELMT(ListReply, i)));
+            // write balasan in tree
+            writeTree(fconfbalasan, &content(ELMT(ListReply, i)), 0);
+        }
     }
-    printf("%d", countDraf);
+
+    fclose(fconfbalasan);
+}
+
+void simpanDraf(Word path)
+{
+    // Word drafConfig, configPath;
+    // char *fconfPath;
+    // FILE *fconfdraf;
+    // strToWord("/draf.config", &drafConfig);
+    // configPath = concatWord(path, drafConfig);
+    // wordToString(configPath, &fconfPath);
+    // fconfdraf = fopen(fconfPath, "w");
+
+    // int countDraf = 0;
+    // for (int i = 0; i < ListUser.length; ++i)
+    // {
+    //     printWord(Nama(ELMT(ListUser, i)));
+    //     countDraf += CountDraftUser(SDraf, Nama(ELMT(ListUser, i)));
+    // }
+    // printf("%d", countDraf);
 }

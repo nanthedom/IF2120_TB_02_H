@@ -40,6 +40,19 @@ void createEmptyBalasan(Balasan *reply)
     datetimeBalas(*reply) = dt;
 }
 
+void createEmptyBalasanFile(Kicauan kicau, Balasan *reply)
+{
+    Word tweet;
+    strToWord("root-kicau", &tweet);
+    idBalas(*reply) = -1;
+    idParentBalas(*reply) = -1;
+    textBalas(*reply) = tweet;
+    authorBalas(*reply) = authorKicau(kicau);
+    DATETIME dt;
+    BacaDATETIME(&dt);
+    datetimeBalas(*reply) = dt;
+}
+
 TreeNode *createNode(Balasan reply)
 /* Fungsi untuk membuat node baru dengan data tertentu */
 {
