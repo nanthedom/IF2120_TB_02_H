@@ -17,7 +17,8 @@ void CreateDraf(Draf *D)
   authorDraf(*D) = Nama(*currentUser);
 }
 
-void CreateDrafFile(Draf *D, Word nama, Word text, DATETIME dt){
+void CreateDrafFile(Draf *D, Word nama, Word text, DATETIME dt)
+{
   datetimeDraf(*D) = dt;
   textDraf(*D) = text;
   authorDraf(*D) = nama;
@@ -233,4 +234,19 @@ int CountDraftUser(StackDraf SDraf, Word nama)
     PushDraft(&SDraf, top);
   }
   return countDraf;
+}
+
+void inverseStack()
+{
+  StackDraf tmp;
+  CreateEmptyDraft(&tmp);
+  Draf D;
+
+  // printf("%s",(s->T)->textDraf.TabWord);
+  while (!IsDraftEmpty(SDraf))
+  {
+    PopDraft(&SDraf, &D);
+    PushDraft(&tmp, D);
+  }
+  SDraf = tmp;
 }
