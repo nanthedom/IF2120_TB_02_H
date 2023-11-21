@@ -95,10 +95,10 @@ void PrintPrioQueue (PrioQueue Q){
     if(!IsEmpty(Q)){
         int i = Head(Q);
         while(i != Tail(Q)){
-            printf("%d %c\n", Prio(ElmtPQ(Q,i)), Info(ElmtPQ(Q,i)));
+            printf("%d %d\n", Prio(ElmtPQ(Q,i)), Info(ElmtPQ(Q,i)));
             i = (i + 1) % MaxElPQ(Q);
         }
-        printf("%d %c\n", Prio(ElmtPQ(Q,i)), Info(ElmtPQ(Q,i)));
+        printf("%d %d\n", Prio(ElmtPQ(Q,i)), Info(ElmtPQ(Q,i)));
     }
     printf("#\n");
 }

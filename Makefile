@@ -73,7 +73,7 @@ run :
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f main_program mword mqueue test_dt test_stack test_queue test_statik mchar $(OBJ_MAIN) $(OBJ_WORD) $(OBJ_TEST) $(TEST_RESULTS) $(STDOUT)
+	rm -f main_program mword mqueue test_dt test_stack test_queue test_statik mchar *.o */*/*.o
 
 # UNIT TESTS
 
@@ -209,7 +209,7 @@ $(TEST_RESULTS_Q): $(TESTS_DIR_Q)/%.result: $(TESTS_DIR_Q)/%.in $(TESTS_DIR_Q)/%
 	fi > $@
 
 # PRIOQUEUE
-SRC_TEST_PQ = ADT/prioqueue/tests/mqueue.c
+SRC_TEST_PQ = ADT/prioqueue/tests/mprioqueue.c
 OBJ_TEST_PQ = $(SRC_TEST_PQ:.c=.o)
 
 TESTS_DIR_PQ = ADT/prioqueue/tests
@@ -254,6 +254,51 @@ $(TEST_RESULTS_PC): $(TESTS_DIR_PC)/%.result: $(TESTS_DIR_PC)/%.in $(TESTS_DIR_P
 		echo "$< $(word 2,$^): WRONG"; \
 	fi > $@
 
+# MATRIX
+SRC_TEST_MAT = ADT/matrix/tests/mmatrix.c
+OBJ_TEST_MAT = $(SRC_TEST_MAT:.c=.o)
+
+TESTS_DIR_MAT = ADT/matrix/tests
+TEST_CASES_MAT = $(wildcard $(TESTS_DIR_MAT)/*.in)
+TEST_OUTPUTS_MAT = $(TEST_CASES_MAT:.in=.out)
+TEST_RESULTS_MAT = $(TEST_CASES_MAT:.in=.result)
+
+testMatrix: $(OBJ_MATRIX) $(OBJ_TEST_MAT) 
+	$(CC) $(CFLAGS) -o $@ $^
+
+
+test_matrix: testMatrix $(TEST_RESULTS_MAT)
+	@cat $(TEST_RESULTS_MAT)
+
+$(TEST_RESULTS_MAT): $(TESTS_DIR_MAT)/%.result: $(TESTS_DIR_MAT)/%.in $(TESTS_DIR_MAT)/%.out testMatrix
+	@if ./testMatrix < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
+
+# GRAF
+SRC_TEST_GRAF = ADT/graf/tests/mgraf.c
+OBJ_TEST_GRAF = $(SRC_TEST_GRAF:.c=.o)
+
+TESTS_DIR_GRAF = ADT/graf/tests
+TEST_CASES_GRAF = $(wildcard $(TESTS_DIR_GRAF)/*.in)
+TEST_OUTPUTS_GRAF = $(TEST_CASES_GRAF:.in=.out)
+TEST_RESULTS_GRAF = $(TEST_CASES_GRAF:.in=.result)
+
+testGraf: $(OBJ_GRAF) $(OBJ_TEST_GRAF) 
+	$(CC) $(CFLAGS) -o $@ $^
+
+
+test_graf: testGraf $(TEST_RESULTS_GRAF)
+	@cat $(TEST_RESULTS_GRAF)
+
+$(TEST_RESULTS_GRAF): $(TESTS_DIR_GRAF)/%.result: $(TESTS_DIR_GRAF)/%.in $(TESTS_DIR_GRAF)/%.out testGraf
+	@if ./testGraf < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
 
 
 
