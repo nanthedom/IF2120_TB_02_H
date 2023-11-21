@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/stat.h>
 #include "../../ADT/wordmachine/wordmachine.h"
 #include "../pengguna/pengguna.h"
@@ -27,6 +28,7 @@ extern Matrix matrixPermintaan;
 // Kicau
 extern int currentIdTweet;
 extern ListKicauan ListTweet;
+extern StackDraf SDraf;
 
 // Balasan
 extern ListBalasan ListReply;
@@ -276,6 +278,9 @@ void load(Word dir)
     loadPengguna(penggunacfg.TabWord);
     loadKicauan(kicauancfg.TabWord);
     loadBalasan(balasancfg.TabWord);
+    loadDraf(drafcfg.TabWord);
+    loadUtas(utascfg.TabWord);
+
 }
 
 boolean isDirectoryExists(char *path)

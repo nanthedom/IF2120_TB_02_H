@@ -5,6 +5,7 @@
 #include "features/teman/teman.h"
 #include "features/simpan/simpan.h"
 #include "features/permintaan/permintaan.h"
+#include "features/draf/draf.h"
 #include "ADT/wordmachine/wordmachine.h"
 #include "ADT/charmachine/charmachine.h"
 #include "ADT/prioqueue/prioqueue.h"
@@ -27,7 +28,15 @@ PrioQueue daftarPermintaan;
 int currentIdTweet;
 ListKicauan ListTweet;
 
+// Balasan
+ListBalasan ListReply;
+
+// draf
+StackDraf SDraf;
+Draf draf;
+
 int main(){
+    loadDraf("data/save1/draf.config");
     loadPengguna("data/save1/pengguna.config");
     printList(ListUser);
     DisplayAdjMatrix(matrixPertemanan);
@@ -39,4 +48,8 @@ int main(){
     //     printf("\n");
     // }
     // printDaftarTeman();
+<<<<<<<<< Temporary merge branch 1
+
+=========
+>>>>>>>>> Temporary merge branch 2
 }

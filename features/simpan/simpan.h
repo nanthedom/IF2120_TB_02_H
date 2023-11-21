@@ -5,6 +5,8 @@
 #include "../balasan/balasan.h"
 #include "../../ADT/matrix/matrix.h"
 #include "../../ADT/graf/graf.h"
+#include "../draf/draf.h"
+
 
 #ifndef SIMPAN_H
 #define SIMPAN_H
