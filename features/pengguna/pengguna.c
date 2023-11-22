@@ -141,39 +141,46 @@ void Daftar()
 
 void Masuk()
 {
-    if (!isLogin)
+    if (!isEmpty(ListUser))
     {
-        Word Nama, Password;
-        printf("\nMasukkan nama:\n");
-        ReadWord();
-        Nama = currentWord;
-        while (indexOf(ListUser, Nama) == IDX_UNDEF)
+        if (!isLogin)
         {
-            printf("\nWah, nama yang Anda cari tidak ada. Masukkan nama lain!\n");
+            Word Nama, Password;
             printf("\nMasukkan nama:\n");
             ReadWord();
             Nama = currentWord;
-        }
-        printf("\nMasukkan kata sandi:\n");
-        ReadWord();
-        Password = currentWord;
-        while (!isKataEqual(Password(ELMT(ListUser, indexOf(ListUser, Nama))), Password))
-        {
-            printf("\nWah, kata sandi yang Anda masukkan belum tepat. Periksa kembali kata sandi Anda!\n");
+            while (indexOf(ListUser, Nama) == IDX_UNDEF)
+            {
+                printf("\nWah, nama yang Anda cari tidak ada. Masukkan nama lain!\n");
+                printf("\nMasukkan nama:\n");
+                ReadWord();
+                Nama = currentWord;
+            }
             printf("\nMasukkan kata sandi:\n");
             ReadWord();
             Password = currentWord;
+            while (!isKataEqual(Password(ELMT(ListUser, indexOf(ListUser, Nama))), Password))
+            {
+                printf("\nWah, kata sandi yang Anda masukkan belum tepat. Periksa kembali kata sandi Anda!\n");
+                printf("\nMasukkan kata sandi:\n");
+                ReadWord();
+                Password = currentWord;
+            }
+            currentUser = &ELMT(ListUser, indexOf(ListUser, Nama));
+            printf("\nAnda telah berhasil masuk dengan nama pengguna ");
+            printWord(Nama(*currentUser));
+            isLogin = true;
+            LoadDaftarPermintaan();
+            printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n\n");
         }
-        currentUser = &ELMT(ListUser, indexOf(ListUser, Nama));
-        printf("\nAnda telah berhasil masuk dengan nama pengguna ");
-        printWord(Nama(*currentUser));
-        isLogin = true;
-        LoadDaftarPermintaan();
-        printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n\n");
+        else
+        {
+            printf("\nWah Anda sudah masuk. Keluar dulu yuk!\n\n");
+        }
     }
     else
     {
-        printf("\nWah Anda sudah masuk. Keluar dulu yuk!\n\n");
+        printf("Belum terdapat pengguna yang terdaftar. Daftar dulu yuk!\n\n");
     }
 }
 
