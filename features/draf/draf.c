@@ -59,7 +59,7 @@ void PopDraft(StackDraf *S, infotype *D)
 
 void DisplayDraf(StackDraf *S)
 {
-  printf("Ini draf terakhir anda:");
+  printf("\nIni draf terakhir anda:");
   printf("\n| ");
   TulisDATETIME(datetimeDraf(InfoTop(*S)));
   printf("\n| ");
@@ -86,7 +86,7 @@ void TerbitDraf()
   currentIdTweet++;
   DrafToKicau(InfoTop(SDraf), &Kicau);
   insertByTime(Kicau);
-  printf("Selamat! Draf kicauan telah berhasil diterbitkan!\n");
+  printf("\nSelamat! Draf kicauan telah berhasil diterbitkan!\n");
   printf("| ID = %d", idKicau(Kicau));
   printf("\n| ");
   printWord(authorKicau(Kicau));
@@ -95,7 +95,7 @@ void TerbitDraf()
   printf("\n| ");
   printWord(textKicau(Kicau));
   printf("\n| Disukai: %d\n", likeKicau(Kicau));
-  printf("\n");
+  printf("\n\n");
 }
 
 void DrafToKicau(Draf D, Kicauan *Kicau)
@@ -115,10 +115,10 @@ void BuatDraf()
   strToWord("SIMPAN", &simpan);
   strToWord("TERBIT", &terbit);
 
-  printf("Masukkan draf:\n");
+  printf("\nMasukkan draf:\n");
   ReadWord();
   currentText = currentWord;
-  printf("Apakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n>> ");
+  printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
   ReadWord();
   if (isKataEqual(currentWord, hapus))
   {
@@ -142,7 +142,7 @@ void LihatDraf()
 {
   if (IsDraftEmpty(SDraf))
   {
-    printf("\nYah, anda belum memiliki draf apapun! Buat dulu ya :D\n");
+    printf("\nYah, anda belum memiliki draf apapun! Buat dulu ya :D\n\n");
   }
   else
   {
@@ -168,7 +168,7 @@ void LihatDraf()
       if (isKataEqual(currentWord, hapus))
       {
         HapusDraf();
-        printf("\nDraf telah berhasil dihapus!\n");
+        printf("\nDraf telah berhasil dihapus!\n\n");
       }
       else if (isKataEqual(currentWord, ubah))
       {
@@ -177,28 +177,20 @@ void LihatDraf()
         printf("\nMasukkan draf yang baru:\n");
         ReadWord();
         currentText = currentWord;
-        printf("Apakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n>> ");
+        printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
         ReadWord();
         if (isKataEqual(currentWord, hapus))
         {
           HapusDraf();
-          printf("\nDraf telah berhasil dihapus!\n");
+          printf("\nDraf telah berhasil dihapus!\n\n");
         }
         else if (isKataEqual(currentWord, simpan))
         {
-          // Draf topDraf;
-          // PopDraft(&SDraf, &topDraf);
-          // textDraf(topDraf) = currentText;
-          // PushDraft(&SDraf, topDraf);
           SimpanDraf(currentText);
-          printf("\nDraf telah berhasil disimpan!\n");
+          printf("\nDraf telah berhasil disimpan!\n\n");
         }
         else if (isKataEqual(currentWord, terbit))
         {
-          // Draf topDraf, tempDraf;
-          // PopDraft(&SDraf, &topDraf);
-          // textDraf(topDraf) = currentText;
-          // PushDraft(&SDraf, topDraf);
           SimpanDraf(currentText);
           TerbitDraf();
           Draf tempDraf;
@@ -244,7 +236,6 @@ void inverseStack()
   CreateEmptyDraft(&tmp);
   Draf D;
 
-  // printf("%s",(s->T)->textDraf.TabWord);
   while (!IsDraftEmpty(SDraf))
   {
     PopDraft(&SDraf, &D);

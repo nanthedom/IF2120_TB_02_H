@@ -15,6 +15,7 @@ void CreatePengguna(Pengguna *p, Word Nama, Word Password)
     Password(*p) = Password;
     CreateProfil(&Profil(*p));
 }
+
 void CreatePenggunaFile(Pengguna *p, Word Nama, Word Password, Word bio, Word noHP, Word weton, boolean isPub, MatrixFoto M)
 {
     Nama(*p) = Nama;
@@ -31,10 +32,12 @@ boolean isEmpty(ListPengguna l)
 {
     return length(l) == 0;
 }
+
 boolean isFull(ListPengguna l)
 {
     return length(l) == USERMAX;
 }
+
 void printList(ListPengguna l)
 {
     int i;
@@ -85,35 +88,36 @@ boolean isPasswordValid(Word Password)
 {
     return (Password.Length <= 20 && Password.Length > 0);
 }
+
 void Daftar()
 {
     if (!isLogin)
     {
         Word Nama, Password;
-        printf("Masukkan nama:\n");
+        printf("\nMasukkan nama:\n");
         ReadWord();
         Nama = currentWord;
         while (!isNamaValid(Nama))
         {
             if (indexOf(ListUser, Nama) != IDX_UNDEF)
             {
-                printf("Wah, sayang sekali nama tersebut telah diambil.\n");
+                printf("\nWah, sayang sekali nama tersebut telah diambil.\n");
             }
             else
             {
-                printf("Nama tidak boleh melebihi 20 karakter atau berupa string kosong.\n");
+                printf("\nNama tidak boleh melebihi 20 karakter atau berupa string kosong.\n");
             }
-            printf("Masukkan nama:\n");
+            printf("\nMasukkan nama:\n");
             ReadWord();
             Nama = currentWord;
         }
-        printf("Masukkan kata sandi:\n");
+        printf("\nMasukkan kata sandi:\n");
         ReadWord();
         Password = currentWord;
         while (!isPasswordValid(Password))
         {
-            printf("Password tidak boleh melebihi 20 karakter atau berupa string kosong.\n");
-            printf("Masukkan kata sandi:\n");
+            printf("\nPassword tidak boleh melebihi 20 karakter atau berupa string kosong.\n");
+            printf("\nMasukkan kata sandi:\n");
             ReadWord();
             Password = currentWord;
         }
@@ -125,13 +129,13 @@ void Daftar()
         }
         else
         {
-            printf("Sayang sekali jumlah pengguna tidak dapat melebihi 20 orang.\n");
+            printf("\nSayang sekali jumlah pengguna tidak dapat melebihi 20 orang.\n\n");
         }
-        printf("Pengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n");
+        printf("\nPengguna telah berhasil terdaftar. Masuk untuk menikmati fitur-fitur BurBir.\n\n");
     }
     else
     {
-        printf("Anda sudah masuk. Keluar terlebih dahulu untuk melakukan daftar.\n");
+        printf("\nAnda sudah masuk. Keluar terlebih dahulu untuk melakukan daftar.\n\n");
     }
 }
 
@@ -140,36 +144,36 @@ void Masuk()
     if (!isLogin)
     {
         Word Nama, Password;
-        printf("Masukkan nama:\n");
+        printf("\nMasukkan nama:\n");
         ReadWord();
         Nama = currentWord;
         while (indexOf(ListUser, Nama) == IDX_UNDEF)
         {
-            printf("Wah, nama yang Anda cari tidak ada. Masukkan nama lain!\n");
-            printf("Masukkan nama:\n");
+            printf("\nWah, nama yang Anda cari tidak ada. Masukkan nama lain!\n");
+            printf("\nMasukkan nama:\n");
             ReadWord();
             Nama = currentWord;
         }
-        printf("Masukkan kata sandi:\n");
+        printf("\nMasukkan kata sandi:\n");
         ReadWord();
         Password = currentWord;
         while (!isKataEqual(Password(ELMT(ListUser, indexOf(ListUser, Nama))), Password))
         {
-            printf("Wah, kata sandi yang Anda masukkan belum tepat. Periksa kembali kata sandi Anda!\n");
-            printf("Masukkan kata sandi:\n");
+            printf("\nWah, kata sandi yang Anda masukkan belum tepat. Periksa kembali kata sandi Anda!\n");
+            printf("\nMasukkan kata sandi:\n");
             ReadWord();
             Password = currentWord;
         }
         currentUser = &ELMT(ListUser, indexOf(ListUser, Nama));
-        printf("Anda telah berhasil masuk dengan nama pengguna ");
+        printf("\nAnda telah berhasil masuk dengan nama pengguna ");
         printWord(Nama(*currentUser));
         isLogin = true;
         LoadDaftarPermintaan();
-        printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n");
+        printf(". Mari menjelajahi BurBir bersama Ande-Ande Lumut!\n\n");
     }
     else
     {
-        printf("Wah Anda sudah masuk. Keluar dulu yuk!\n");
+        printf("\nWah Anda sudah masuk. Keluar dulu yuk!\n\n");
     }
 }
 
@@ -179,16 +183,16 @@ void Keluar()
     {
         isLogin = false;
         ClearDaftarPermintaan();
-        printf("Anda berhasil logout. Sampai jumpa di pertemuan berikutnya!\n");
+        printf("\nAnda berhasil logout. Sampai jumpa di pertemuan berikutnya!\n\n");
     }
     else
     {
-        printf("Anda belum login! Masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+        printf("\nAnda belum login! Masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
     }
 }
 
 void TutupProgram()
 {
     isClosed = true;
-    printf("Anda telah keluar dari program BurBir. Sampai jumpa di penjelajahan berikutnya.\n");
+    printf("\nAnda telah keluar dari program BurBir. Sampai jumpa di penjelajahan berikutnya.\n\n");
 }

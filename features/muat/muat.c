@@ -430,6 +430,8 @@ void load(Word dir)
     loadBalasan(pathBalasan);
     loadDraf(pathDraf);
     // loadUtas(utascfg.TabWord);
+
+    printf("File konfigurasi berhasil dimuat! Selamat berkicau!\n\n");
 }
 
 void loadfirst()
@@ -463,18 +465,26 @@ void loadfirst()
     }
 }
 
-// void Muat()
-// {
-//     Word directory;
-//     printf("Masukkan nama folder yang hendak dimuat.");
-//     ReadWord();
-//     directory = currentWord;
-//     if (isDirectoryExists(directory.TabWord))
-//     { // udah ada
-//         load(directory);
-//     }
-//     else
-//     {
-//         printf("Tidak ada folder yang dimaksud!");
-//     }
-// }
+void Muat()
+{
+    printf("Masukkan nama folder yang hendak dimuat.\n");
+    ReadWord();
+    Word parentPath;
+    strToWord("data/", &parentPath);
+    Word relativePath = currentWord;
+    Word completePath = concatWord(parentPath, relativePath);
+    char *path;
+    wordToString(completePath, &path);
+    struct stat st = {0};
+    if (stat(path, &st) == -1)
+    {
+        printf("\n");
+        printf("Tidak ada folder yang dimaksud!\n");
+        printf("\n");
+    }
+    else
+    {
+        load(completePath);
+        printf("Mohon tunggu...\n1...\n2...\n3...\n\nPemuatan selesai!\n\n");
+    }
+}
