@@ -62,6 +62,7 @@ void Simpan()
     simpanKicauan(completePath);
     simpanBalasan(completePath);
     simpanDraf(completePath);
+    simpanUtas(completePath);
     printf("\nPenyimpanan telah berhasil dilakukan!\n\n");
 }
 
@@ -276,7 +277,6 @@ void simpanDraf(Word path)
                 PopDraft(&tmpSDraf, &tmpDraf);
                 if (isKataEqual(authorDraf(tmpDraf), Nama(ELMT(ListUser, i))))
                 {
-                    // printf("s");
                     fprintf(fconfdraf, "%s\n", textDraf(tmpDraf).TabWord);
                     int day = Day(datetimeDraf(tmpDraf));
                     int month = Month(datetimeDraf(tmpDraf));
@@ -302,7 +302,6 @@ void simpanUtas(Word path)
     wordToString(configPath, &fconfPath);
     fconfutas = fopen(fconfPath, "w");
 
-    fprintf(fconfutas, "%d\n", 10);
     int countUtasKicauan = 0;
     for (int i = 0; i < NEFFKicau(ListTweet); i++)
     {
@@ -318,7 +317,7 @@ void simpanUtas(Word path)
         if (utasUtama(ELMTKicau(ListTweet, j)) != NULL)
         {
             fprintf(fconfutas, "%d\n", idKicau(ELMTKicau(ListTweet, j)));
-            fprintf(fconfutas, "%d\n", lengthUtas(utasUtama(ELMTKicau(ListTweet, j))));
+            fprintf(fconfutas, "%d\n", lengthUtas(utasUtama(ELMTKicau(ListTweet, j))) - 1);
             Address p = NEXT(utasUtama(ELMTKicau(ListTweet, j)));
             while (p != NULL)
             {
@@ -335,4 +334,5 @@ void simpanUtas(Word path)
             }
         }
     }
+    fclose(fconfutas);
 }

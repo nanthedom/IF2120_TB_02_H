@@ -335,11 +335,8 @@ void StoreDataDraf()
 
 void loadDraf(char *path)
 {
-    // printf("%s",path);
     ReadFromFile(path);
-    // printWord(currentWord);
     int N = wordToInteger(currentWord);
-    // printf("%d", N);
     for (int i = 0; i < N; i++)
     {
         StoreDataDraf();
@@ -366,9 +363,8 @@ void StoreDataUtas(int idKicau, int n)
         dt = WordToDT(currentWord);
         datetimeUtas(utas) = dt;
         indexUtas(utas) = idx++;
-        // idUtas taunya gimana yak
         q = newNodeUtas(utas);
-        NEXT(p) = q;
+        p = q;
         p = NEXT(p);
 
         currentIdUtas++;
@@ -377,7 +373,6 @@ void StoreDataUtas(int idKicau, int n)
 
 void loadUtas(char *path)
 {
-    // printf("%s",path);
     ReadFromFile(path);
     int nElmt = wordToInteger(currentWord);
     for (int i = 0; i < nElmt; i++)
@@ -388,7 +383,6 @@ void loadUtas(char *path)
         int len;
         ReadLine(1);
         len = wordToInteger(currentWord);
-        lengthUtas(ELMTKicau(ListTweet, idKicau - 1)) = len;
         StoreDataUtas(idKicau, len);
     }
 }
@@ -399,37 +393,38 @@ void load(Word dir)
     Word filekicauan;
     Word filebalasan;
     Word filedraf;
-    // Word fileutas;
+    Word fileutas;
 
     strToWord("/pengguna.config", &filepengguna);
     strToWord("/kicauan.config", &filekicauan);
     strToWord("/balasan.config", &filebalasan);
     strToWord("/draf.config", &filedraf);
-    // strToWord("/utas.config", &fileutas);
+    strToWord("/utas.config", &fileutas);
 
     Word WpathPengguna = concatWord(dir, filepengguna);
     Word wpathKicauan = concatWord(dir, filekicauan);
     Word wpathBalasan = concatWord(dir, filebalasan);
     Word wpathDraf = concatWord(dir, filedraf);
-    // Word wpathUtas = concatWord(dir, fileutas);
+    Word wpathUtas = concatWord(dir, fileutas);
 
     char *pathPengguna;
     char *pathKicauan;
     char *pathBalasan;
     char *pathDraf;
-    // char *pathUtas;
+    char *pathUtas;
 
     wordToString(WpathPengguna, &pathPengguna);
     wordToString(wpathKicauan, &pathKicauan);
     wordToString(wpathBalasan, &pathBalasan);
     wordToString(wpathDraf, &pathDraf);
-    // wordToString(wpathUtas, &pathUtas);
+    wordToString(wpathUtas, &pathUtas);
 
     loadPengguna(pathPengguna);
     loadKicauan(pathKicauan);
     loadBalasan(pathBalasan);
     loadDraf(pathDraf);
-    // loadUtas(utascfg.TabWord);
+    printf("Load Draf\n");
+    loadUtas(pathUtas);
 
     printf("File konfigurasi berhasil dimuat! Selamat berkicau!\n\n");
 }
