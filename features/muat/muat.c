@@ -253,7 +253,6 @@ void StoreDataBalasan(int idKicau, int n)
             currentIdReply = idbalasInt;
         }
         currentIdReply++;
-        
     }
 }
 
@@ -276,42 +275,116 @@ void loadBalasan(char *path)
     }
 }
 
+void StoreDataDraf()
+{
+    int i = 0, nDraft, nBlank = 0;
+    Word nama;
+    CreateWord(&nama);
+
+    ReadLine(1);
+    while (i < currentWord.Length)
+    { 
+        // hitung blank
+        if (currentWord.TabWord[i] == BLANK)
+        {
+            nBlank += 1;
+        }
+        ++i;
+    }
+    i = 0;
+    while (i < currentWord.Length)
+    { 
+        // masukin nama sama jumlah ndraf
+        if (currentWord.TabWord[i] == BLANK)
+        {
+            nBlank -= 1;
+        }
+        if (nBlank > 0)
+        {
+            nama.TabWord[i] = currentWord.TabWord[i];
+            nama.Length += 1;
+        }
+        else
+        {
+            i++;
+            nDraft = currentWord.TabWord[i] - '0';
+        }
+        i++;
+    }
+
+    // masukin draft
+    while (nDraft > 0)
+    {
+        Draf D;
+        Word text;
+        CreateWord(&text);
+
+        ReadLine(1);
+        text = currentWord;
+        ReadLine(1);
+        DATETIME dt;
+        dt = WordToDT(currentWord);
+        CreateDrafFile(&D, nama, text, dt);
+        PushDraft(&SDraf, D);
+        nDraft--;
+    }
+}
+
+void loadDraf(char *path)
+{
+    // printf("%s",path);
+    ReadFromFile(path);
+    // printWord(currentWord);
+    int N = wordToInteger(currentWord);
+    // printf("%d", N);
+    for (int i = 0; i < N; i++)
+    {
+        StoreDataDraf();
+    }
+    inverseStack();
+}
+
+void loadUtas(char *path)
+{
+    // printf("%s",path);
+}
+
 void load(Word dir)
 {
     Word filepengguna;
     Word filekicauan;
     Word filebalasan;
-    // Word filedraf;
+    Word filedraf;
     // Word fileutas;
 
     strToWord("/pengguna.config", &filepengguna);
     strToWord("/kicauan.config", &filekicauan);
     strToWord("/balasan.config", &filebalasan);
-    // strToWord("/draf.config", &filedraf);
+    strToWord("/draf.config", &filedraf);
     // strToWord("/utas.config", &fileutas);
 
     Word WpathPengguna = concatWord(dir, filepengguna);
     Word wpathKicauan = concatWord(dir, filekicauan);
     Word wpathBalasan = concatWord(dir, filebalasan);
-    // Word wpathDraf = concatWord(dir, filedraf);
+    Word wpathDraf = concatWord(dir, filedraf);
     // Word wpathUtas = concatWord(dir, fileutas);
 
     char *pathPengguna;
     char *pathKicauan;
     char *pathBalasan;
-    // char *pathDraf;
+    char *pathDraf;
     // char *pathUtas;
 
     wordToString(WpathPengguna, &pathPengguna);
     wordToString(wpathKicauan, &pathKicauan);
     wordToString(wpathBalasan, &pathBalasan);
-    // wordToString(completePath, &pathDraf);
-    // wordToString(completePath, &pathUtas);
+    wordToString(wpathDraf, &pathDraf);
+    // wordToString(wpathUtas, &pathUtas);
 
     loadPengguna(pathPengguna);
     loadKicauan(pathKicauan);
     loadBalasan(pathBalasan);
-    // loadDraf(drafcfg.TabWord);
+    loadDraf(pathDraf);
     // loadUtas(utascfg.TabWord);
 }
 

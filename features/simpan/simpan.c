@@ -38,7 +38,6 @@ void Simpan()
         printf(" terlebih dahulu.\n");
         if (mkdir(path, 0777) == 0)
         {
-            printf("Directory created: %s\n", path);
             printf("Mohon tunggu... \n");
             printf("1...\n");
             printf("2...\n");
@@ -51,6 +50,13 @@ void Simpan()
             perror("mkdir");
         }
     }
+    printf("Anda akan melakukan penyimpanan di ");
+    printWord(relativePath);
+    printf(".\n\n");
+    printf("Mohon tunggu... \n");
+    printf("1...\n");
+    printf("2...\n");
+    printf("3...\n");
     SimpanPengguna(completePath);
     simpanKicauan(completePath);
     simpanBalasan(completePath);
@@ -238,19 +244,49 @@ void simpanBalasan(Word path)
 
 void simpanDraf(Word path)
 {
-    // Word drafConfig, configPath;
-    // char *fconfPath;
-    // FILE *fconfdraf;
-    // strToWord("/draf.config", &drafConfig);
-    // configPath = concatWord(path, drafConfig);
-    // wordToString(configPath, &fconfPath);
-    // fconfdraf = fopen(fconfPath, "w");
+    Word drafConfig, configPath;
+    char *fconfPath;
+    FILE *fconfdraf;
+    strToWord("/draf.config", &drafConfig);
+    configPath = concatWord(path, drafConfig);
+    wordToString(configPath, &fconfPath);
+    fconfdraf = fopen(fconfPath, "w");
 
-    // int countDraf = 0;
-    // for (int i = 0; i < ListUser.length; ++i)
-    // {
-    //     printWord(Nama(ELMT(ListUser, i)));
-    //     countDraf += CountDraftUser(SDraf, Nama(ELMT(ListUser, i)));
-    // }
-    // printf("%d", countDraf);
+    int countUserHaveDraf = 0;
+    for (int i = 0; i < ListUser.length; ++i)
+    {
+        // printWord(Nama(ELMT(ListUser,i)));
+        if (CountDraftUser(SDraf, Nama(ELMT(ListUser, i))) > 0)
+        {
+            countUserHaveDraf += 1;
+        }
+    }
+    fprintf(fconfdraf, "%d\n", countUserHaveDraf);
+    for (int i = 0; i < ListUser.length; ++i)
+    {
+        StackDraf tmpSDraf = SDraf;
+        int n = CountDraftUser(tmpSDraf, Nama(ELMT(ListUser, i)));
+        if (n > 0)
+        {
+            fprintf(fconfdraf, "%s %d\n", Nama(ELMT(ListUser, i)).TabWord, n);
+            while (!IsDraftEmpty(tmpSDraf))
+            {
+                Draf tmpDraf;
+                PopDraft(&tmpSDraf, &tmpDraf);
+                if (isKataEqual(authorDraf(tmpDraf), Nama(ELMT(ListUser, i))))
+                {
+                    // printf("s");
+                    fprintf(fconfdraf, "%s\n", textDraf(tmpDraf).TabWord);
+                    int day = Day(datetimeDraf(tmpDraf));
+                    int month = Month(datetimeDraf(tmpDraf));
+                    int year = Year(datetimeDraf(tmpDraf));
+                    int hour = Hour(Time(datetimeDraf(tmpDraf)));
+                    int minute = Minute(Time(datetimeDraf(tmpDraf)));
+                    int second = Second(Time(datetimeDraf(tmpDraf)));
+                    fprintf(fconfdraf, "%02d/%02d/%d %02d:%02d:%02d\n", day, month, year, hour, minute, second);
+                }
+            }
+        }
+    }
+    fclose(fconfdraf);
 }
