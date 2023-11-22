@@ -50,13 +50,13 @@ void ReadBio(Profil *P)
 {
     Word bio;
     int MaxChar = 135;
-    printf("Masukkan Bio Akun:\n");
+    printf("\nMasukkan Bio Akun:\n");
     ReadWord();
     bio = currentWord;
     while (bio.Length > MaxChar)
     {
-        printf("Bio tidak dapat melebihi 135 karakter\n");
-        printf("Masukkan Bio Akun:\n");
+        printf("\nBio tidak dapat melebihi 135 karakter\n");
+        printf("\nMasukkan Bio Akun:\n");
         ReadWord();
         bio = currentWord;
     }
@@ -68,13 +68,13 @@ boolean isValidNoHP(Word w){
 void ReadNoHP(Profil *P)
 {
     Word noHP;
-    printf("Masukkan No HP:\n");
+    printf("\nMasukkan No HP:\n");
     ReadWord();
     noHP = currentWord;
     while (!isValidNoHP(noHP))
     {
-        printf("No HP tidak valid. Masukkan lagi yuk!\n");
-        printf("Masukkan No HP:\n");
+        printf("\nNo HP tidak valid. Masukkan lagi yuk!\n");
+        printf("\nMasukkan No HP:\n");
         ReadWord();
         noHP = currentWord;
     }
@@ -328,13 +328,13 @@ boolean isWetonValid(Word weton)
 void ReadWeton(Profil *P)
 {
     Word weton;
-    printf("Masukkan weton:\n");
+    printf("\nMasukkan weton:\n");
     ReadWord();
     weton = currentWord;
     while (!isWetonValid(weton))
     {
-        printf("Weton anda tidak valid.\n");
-        printf("Masukkan weton:\n");
+        printf("\nWeton anda tidak valid.\n");
+        printf("\nMasukkan weton:\n");
         ReadWord();
         weton = currentWord;
     }
@@ -357,7 +357,7 @@ void ReadFoto(Profil *P)
     Word format;
     MatrixFoto M;
     Foto F;
-    printf("Masukkan foto profil yang baru:\n");
+    printf("\nMasukkan foto profil yang baru:\n");
     ReadWord();
     format = currentWord;
     int i = 0, j = 0, k = 0;
@@ -454,6 +454,7 @@ void displayProfil(Pengguna p)
 {
     if (isLogin)
     {
+        printf("\n");
         printf("| Nama : ");
         printWord(Nama(p));
         printf("\n");
@@ -465,7 +466,7 @@ void displayProfil(Pengguna p)
         printf("\n");
         printf("| Weton: ");
         printWord(Weton(Profil(p)));
-        printf("\n");
+        printf("\n\n");
     }
 }
 
@@ -475,7 +476,7 @@ void GantiProfil()
     ReadBio(&(Profil(*currentUser)));
     ReadNoHP(&(Profil(*currentUser)));
     ReadWeton(&(Profil(*currentUser)));
-    printf("Profil Anda sudah berhasil diperbarui!\n");
+    printf("\nProfil Anda sudah berhasil diperbarui!\n\n");
 }
 
 void LihatProfil(Word Nama)
@@ -486,7 +487,7 @@ void LihatProfil(Word Nama)
         if (isPublic(Profil(ELMT(ListUser, id))))
         {
             displayProfil(ELMT(ListUser, id));
-            printf("Foto profil: \n");
+            printf("\nFoto profil: \n");
             PrintFoto(Profil(ELMT(ListUser, id)));
         }
         else
@@ -494,30 +495,30 @@ void LihatProfil(Word Nama)
             if(isKataEqual(Nama,Nama(*currentUser)))
             {
                 displayProfil(ELMT(ListUser, id));
-                printf("Foto profil: \n");
+                printf("\nFoto profil: \n");
                 PrintFoto(Profil(ELMT(ListUser, id)));
             } 
             else if (isFriendsWith(Nama))
             {
                 displayProfil(ELMT(ListUser, id));
-                printf("Foto profil: \n");
+                printf("\nFoto profil: \n");
                 PrintFoto(Profil(ELMT(ListUser, id)));
             } 
             else
             {
-                printf("Wah akun ");
+                printf("\nWah akun ");
                 printWord(Nama);
                 printf(" diprivat nih. Ikuti dulu yuk untuk bisa melihat profil ");
                 printWord(Nama);
-                printf("!\n");
+                printf("!\n\n");
             }
         }
     }
     else
     {
-        printf("Akun ");
+        printf("\nAkun ");
         printWord(Nama);
-        printf("tidak ditemukan\n");
+        printf(" tidak ditemukan\n\n");
     }
 }
 
@@ -526,34 +527,34 @@ void AturJenisAkun()
     Word confirm, temp;
     if (isPublic(Profil(*currentUser)))
     {
-        printf("Saat ini, akun Anda adalah akun Publik. Ingin mengubah ke akun Privat? (YA/TIDAK) ");
+        printf("\nSaat ini, akun Anda adalah akun Publik. Ingin mengubah ke akun Privat? (YA/TIDAK) ");
         ReadWord();
         confirm = currentWord;
         strToWord("YA", &temp);
         if (isKataEqual(confirm, temp))
         {
             isPublic(Profil(*currentUser)) = false;
-            printf("Akun anda sudah diubah menjadi akun Privat.\n");
+            printf("\nAkun anda sudah diubah menjadi akun Privat.\n\n");
         }
     }
     else
     {
-        printf("Saat ini, akun Anda adalah akun Privat. Ingin mengubah ke akun Publik? (YA/TIDAK) ");
+        printf("\nSaat ini, akun Anda adalah akun Privat. Ingin mengubah ke akun Publik? (YA/TIDAK) ");
         ReadWord();
         confirm = currentWord;
         strToWord("YA", &temp);
         if (isKataEqual(confirm, temp))
         {
             isPublic(Profil(*currentUser)) = true;
-            printf("Akun anda sudah diubah menjadi akun Publik.\n");
+            printf("\nAkun anda sudah diubah menjadi akun Publik.\n\n");
         }
     }
 }
 
 void UbahFotoProfil()
 {
-    printf("Foto profil Anda saat ini adalah: \n");
+    printf("\nFoto profil Anda saat ini adalah: \n");
     PrintFoto(Profil(*currentUser));
     ReadFoto(&(Profil(*currentUser)));
-    printf("Foto profil Anda sudah berhasil diganti! \n");
+    printf("\nFoto profil Anda sudah berhasil diganti!\n\n");
 }

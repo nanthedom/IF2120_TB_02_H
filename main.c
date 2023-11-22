@@ -43,6 +43,9 @@ int currentIdUtas;
 
 int main()
 {
+  currentIdTweet = 0;
+  currentIdReply = 0;
+  currentIdUtas = 0;
   CreateListKicauan(&ListTweet);
   createListBalasan(&ListReply);
   CreateList(&ListUser);

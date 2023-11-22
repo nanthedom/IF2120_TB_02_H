@@ -21,36 +21,37 @@ void Simpan()
 {
     Word parentPath;
     strToWord("data/", &parentPath);
-    printf("Masukkan nama folder penyimpanan: ");
+    printf("\nMasukkan nama folder penyimpanan: ");
     ReadWord();
     Word relativePath = currentWord;
     Word completePath = concatWord(parentPath, relativePath);
     char *path;
-    // printWord(completePath);
+
     wordToString(completePath, &path);
     struct stat st = {0};
     if (stat(path, &st) == -1)
     {
-        printf("Belum terdapat ");
+        printf("\nBelum terdapat folder ");
         printWord(relativePath);
-        printf(". Akan dilakukan pembuatan ");
+        printf(". Akan dilakukan pembuatan folder ");
         printWord(relativePath);
         printf(" terlebih dahulu.\n");
         if (mkdir(path, 0777) == 0)
         {
-            printf("Mohon tunggu... \n");
+            printf("\nMohon tunggu... \n");
             printf("1...\n");
             printf("2...\n");
             printf("3...\n");
+            printf("\nfolder ");
             printWord(relativePath);
-            printf(" telah berhasil dibuat\n");
+            printf(" telah berhasil dibuat.\n");
         }
         else
         {
             perror("mkdir");
         }
     }
-    printf("Anda akan melakukan penyimpanan di ");
+    printf("\nAnda akan melakukan penyimpanan di folder ");
     printWord(relativePath);
     printf(".\n\n");
     printf("Mohon tunggu... \n");
@@ -61,6 +62,7 @@ void Simpan()
     simpanKicauan(completePath);
     simpanBalasan(completePath);
     simpanDraf(completePath);
+    printf("\nPenyimpanan telah berhasil dilakukan!\n\n");
 }
 
 void printWordToFile(Word w, FILE *filename)
@@ -255,7 +257,6 @@ void simpanDraf(Word path)
     int countUserHaveDraf = 0;
     for (int i = 0; i < ListUser.length; ++i)
     {
-        // printWord(Nama(ELMT(ListUser,i)));
         if (CountDraftUser(SDraf, Nama(ELMT(ListUser, i))) > 0)
         {
             countUserHaveDraf += 1;

@@ -110,11 +110,11 @@ void prosesCmd(Word w)
     {
         if (isLogin)
         {
-            printf("Anda harus keluar terlebih dahulu untuk melakukan pemuatan.\n");
+            printf("\nAnda harus keluar terlebih dahulu untuk melakukan pemuatan.\n\n");
         }
         else
         {
-            // Muat();
+            Muat();
         }
     }
     else if (isKataEqual(w, simpan))
@@ -129,7 +129,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, atur_jenis_akun))
@@ -140,7 +140,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, ubah_foto_profil))
@@ -151,7 +151,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, kicau))
@@ -163,7 +163,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, kicauan))
@@ -174,7 +174,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, daftar_teman))
@@ -185,7 +185,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, hapus_teman))
@@ -196,7 +196,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, buat_draf))
@@ -207,7 +207,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, lihat_draf))
@@ -218,7 +218,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, tambah_teman))
@@ -229,7 +229,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, daftar_permintaan_pertemanan))
@@ -240,7 +240,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (isKataEqual(w, setujui_pertemanan))
@@ -251,7 +251,7 @@ void prosesCmd(Word w)
         }
         else
         {
-            printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+            printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
         }
     }
     else if (containBlanks(w))
@@ -266,7 +266,7 @@ void prosesCmd(Word w)
             }
             else
             {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+                printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
             }
         }
         else if (isKataEqual(newCmd, suka_kicauan))
@@ -278,7 +278,7 @@ void prosesCmd(Word w)
             }
             else
             {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+                printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
             }
         }
         else if (isKataEqual(newCmd, ubah_kicauan))
@@ -290,7 +290,7 @@ void prosesCmd(Word w)
             }
             else
             {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+                printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
             }
         }
         else if (isKataEqual(newCmd, balas))
@@ -303,7 +303,7 @@ void prosesCmd(Word w)
             }
             else
             {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+                printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
             }
         }
         else if (isKataEqual(newCmd, balasan))
@@ -315,7 +315,7 @@ void prosesCmd(Word w)
             }
             else
             {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+                printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
             }
         }
         else if (isKataEqual(newCmd, hapus_balasan))
@@ -328,7 +328,7 @@ void prosesCmd(Word w)
             }
             else
             {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+                printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
             }
         }
         else if (isKataEqual(newCmd, cmdUtas))
@@ -340,7 +340,7 @@ void prosesCmd(Word w)
             }
             else
             {
-                printf("Anda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n");
+                printf("\nAnda belum login! masuk terlebih dahulu untuk menikmati layanan BurBir.\n\n");
             }
         }
     }
