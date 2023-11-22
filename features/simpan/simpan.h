@@ -6,7 +6,7 @@
 #include "../../ADT/matrix/matrix.h"
 #include "../../ADT/graf/graf.h"
 #include "../draf/draf.h"
-
+#include "../utas/utas.h"
 
 #ifndef SIMPAN_H
 #define SIMPAN_H
@@ -14,7 +14,7 @@
 void Simpan();
 /* Melakukan prosedur simpan sesuai dengan spesifikasi */
 
-void printWordToFile(Word w, FILE* filename); 
+void printWordToFile(Word w, FILE *filename);
 /* Menulis w ke dalam file diakhiri dengan \n */
 
 void SimpanPengguna(Word path);

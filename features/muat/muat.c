@@ -34,6 +34,9 @@ extern StackDraf SDraf;
 extern int currentIdReply;
 extern ListBalasan ListReply;
 
+// Utas
+extern int currentIdUtas;
+
 void StoreDataPengguna(int n)
 {
     Word nama, password, bio, no, weton, isPub, pic, publik;
@@ -283,7 +286,7 @@ void StoreDataDraf()
 
     ReadLine(1);
     while (i < currentWord.Length)
-    { 
+    {
         // hitung blank
         if (currentWord.TabWord[i] == BLANK)
         {
@@ -293,7 +296,7 @@ void StoreDataDraf()
     }
     i = 0;
     while (i < currentWord.Length)
-    { 
+    {
         // masukin nama sama jumlah ndraf
         if (currentWord.TabWord[i] == BLANK)
         {
@@ -344,9 +347,50 @@ void loadDraf(char *path)
     inverseStack();
 }
 
+void StoreDataUtas(int idKicau, int n)
+{
+    int i, idx = 0;
+    Address p, q;
+    p = FIRST(utasUtama(ELMT(ListTweet, idKicau - 1)));
+    for (i = 0; i < n; i++)
+    {
+        Utas utas;
+
+        idParent(utas) = idKicau;
+        ReadLine(1);
+        textUtas(utas) = currentWord;
+        ReadLine(1);
+        authorUtas(utas) = currentWord;
+        ReadLine(1);
+        DATETIME dt;
+        dt = WordToDT(currentWord);
+        datetimeUtas(utas) = dt;
+        indexUtas(utas) = idx++;
+        // idUtas taunya gimana yak
+        q = newNodeUtas(utas);
+        NEXT(p) = q;
+        p = NEXT(p);
+
+        currentIdUtas++;
+    }
+}
+
 void loadUtas(char *path)
 {
     // printf("%s",path);
+    ReadFromFile(path);
+    int nElmt = wordToInteger(currentWord);
+    for (int i = 0; i < nElmt; i++)
+    {
+        int idKicau;
+        ReadLine(1);
+        idKicau = wordToInteger(currentWord);
+        int len;
+        ReadLine(1);
+        len = wordToInteger(currentWord);
+        lengthUtas(ELMTKicau(ListTweet, idKicau - 1)) = len;
+        StoreDataUtas(idKicau, len);
+    }
 }
 
 void load(Word dir)

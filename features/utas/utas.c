@@ -287,13 +287,22 @@ void sambungUtas(int id, int index)
         ReadWord();
         currentText = currentWord;
         CreateUtas(&utas, currentText, id, indexUtas(INFO(p)) + 1);
-        insertAtUtas(&p, utas, index);
-        printf("\n");
-        // while (NEXT(p) != NULL)
-        // {
-        //   indexUtas(INFO(p)) += 1;
-        //   p = NEXT(p);
-        // }
+        if (NEXT(p) == NULL)
+        {
+          insertLastUtas(&p, utas);
+        }
+        else
+        {
+          Address q = newNodeUtas(utas);
+          NEXT(q) = NEXT(p);
+          NEXT(p) = q;
+          q = NEXT(q);
+          while (q != NULL)
+          {
+            indexUtas(INFO(q)) += 1;
+            q = NEXT(q);
+          }
+        }
       }
       else
       {

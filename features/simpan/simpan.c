@@ -61,6 +61,7 @@ void Simpan()
     simpanKicauan(completePath);
     simpanBalasan(completePath);
     simpanDraf(completePath);
+    simpanUtas(completePath);
 }
 
 void printWordToFile(Word w, FILE *filename)
@@ -289,4 +290,49 @@ void simpanDraf(Word path)
         }
     }
     fclose(fconfdraf);
+}
+
+void simpanUtas(Word path)
+{
+    Word utasConfig, configPath;
+    char *fconfPath;
+    FILE *fconfutas;
+    strToWord("/utas.config", &utasConfig);
+    configPath = concatWord(path, utasConfig);
+    wordToString(configPath, &fconfPath);
+    fconfutas = fopen(fconfPath, "w");
+
+    fprintf(fconfutas, "%d\n", 10);
+    int countUtasKicauan = 0;
+    for (int i = 0; i < NEFFKicau(ListTweet); i++)
+    {
+        if (utasUtama(ELMTKicau(ListTweet, i)) != NULL)
+        {
+            countUtasKicauan++;
+        }
+    }
+    fprintf(fconfutas, "%d\n", countUtasKicauan);
+
+    for (int j = 0; j < NEFFKicau(ListTweet); j++)
+    {
+        if (utasUtama(ELMTKicau(ListTweet, j)) != NULL)
+        {
+            fprintf(fconfutas, "%d\n", idKicau(ELMTKicau(ListTweet, j)));
+            fprintf(fconfutas, "%d\n", lengthUtas(utasUtama(ELMTKicau(ListTweet, j))));
+            Address p = NEXT(utasUtama(ELMTKicau(ListTweet, j)));
+            while (p != NULL)
+            {
+                printWordToFile(textUtas(INFO(p)), fconfutas);
+                printWordToFile(authorUtas(INFO(p)), fconfutas);
+                int day = Day(datetimeUtas(INFO(p)));
+                int month = Month(datetimeUtas(INFO(p)));
+                int year = Year(datetimeUtas(INFO(p)));
+                int hour = Hour(Time(datetimeUtas(INFO(p))));
+                int minute = Minute(Time(datetimeUtas(INFO(p))));
+                int second = Second(Time(datetimeUtas(INFO(p))));
+                fprintf(fconfutas, "%02d/%02d/%d %02d:%02d:%02d\n", day, month, year, hour, minute, second);
+                p = NEXT(p);
+            }
+        }
+    }
 }
