@@ -123,4 +123,6 @@ void displayUtas(int id);
 
 int searchByIdUtas(int id);
 
+void deleteListUtas(Address *utasUtama);
+
 #endif

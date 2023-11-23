@@ -158,8 +158,11 @@ void insertAtUtas(List *l, ElTypeUtas val, int idx)
 
 void deleteFirstUtas(List *l, ElTypeUtas *val)
 {
+  Address p;
+  p = *l;
   *val = INFO(*l);
-  *l = NEXT(*l);
+  *l = NEXT(p);
+  free(p);
 }
 
 void deleteLastUtas(List *l, ElTypeUtas *val)
@@ -222,42 +225,49 @@ void utas(int id)
   if (idValid(id))
   {
     int idxtweet = searchByIdKicau(id);
-    if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
+    if (utasUtama(ELMTKicau(ListTweet, idxtweet)) == NULL)
     {
-      Word lanjutUtas;
-      strToWord("TIDAK", &lanjutUtas);
-      Word currentText;
-      Utas utas;
-      int index = 0;
-      currentIdUtas++;
-      idUtasKicau(ELMTKicau(ListTweet, idxtweet)) = currentIdUtas;
-      printf("\nUtas berhasil dibuat!\n");
-      printf("\nMasukkan kicauan:\n");
-      ReadWord();
-      currentText = currentWord;
-      CreateUtas(&utas, currentText, id, index + 1);
-      Address P = newNodeUtas(utas);
-      FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet))) = P;
-      Address L = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
-      printf("\nApakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
-      ReadWord();
-      while (!isKataEqual(currentWord, lanjutUtas))
+      if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
       {
+        Word lanjutUtas;
+        strToWord("TIDAK", &lanjutUtas);
+        Word currentText;
+        Utas utas;
+        int index = 0;
+        currentIdUtas++;
+        idUtasKicau(ELMTKicau(ListTweet, idxtweet)) = currentIdUtas;
+        printf("\nUtas berhasil dibuat!\n");
         printf("\nMasukkan kicauan:\n");
         ReadWord();
         currentText = currentWord;
-        CreateUtas(&utas, currentText, id, indexUtas(INFO(L)) + 1);
-        Address Q = newNodeUtas(utas);
-        NEXT(L) = Q;
+        CreateUtas(&utas, currentText, id, index + 1);
+        Address P = newNodeUtas(utas);
+        FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet))) = P;
+        Address L = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
         printf("\nApakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
         ReadWord();
-        L = NEXT(L);
+        while (!isKataEqual(currentWord, lanjutUtas))
+        {
+          printf("\nMasukkan kicauan:\n");
+          ReadWord();
+          currentText = currentWord;
+          CreateUtas(&utas, currentText, id, indexUtas(INFO(L)) + 1);
+          Address Q = newNodeUtas(utas);
+          NEXT(L) = Q;
+          printf("\nApakah Anda ingin melanjutkan utas ini? (YA/TIDAK) ");
+          ReadWord();
+          L = NEXT(L);
+        }
+        printf("\nUtas selesai!\n");
       }
-      printf("\nUtas selesai!\n");
+      else
+      {
+        printf("\nUtas ini bukan milik anda!\n");
+      }
     }
     else
     {
-      printf("\nUtas ini bukan milik anda!\n");
+      printf("\nKicauan sudah memiliki utas!\n\n");
     }
   }
   else
@@ -323,28 +333,28 @@ void sambungUtas(int id, int index)
 
 void hapusUtas(int id, int index)
 {
-  int idxtweet = searchByIdUtas(id);
-  Address p = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
-  if (index != 0)
+  if (idUtasValid(id))
   {
-    if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
+    int idxtweet = searchByIdUtas(id);
+    Address p = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
+    if (index != 0)
     {
-      if (idUtasValid(id))
+      if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
       {
         if (indexUtas(INFO(p)) <= index)
         {
           ElTypeUtas utas;
           deleteAtUtas(&utasUtama(ELMTKicau(ListTweet, idxtweet)), index - 1, &utas);
           printf("\nKicauan sambungan berhasil dihapus!\n");
-          while (NEXT(p) != NULL)
+          Address q = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
+          while (q != NULL)
           {
-            if (indexUtas(INFO(p)) > index)
+            if (indexUtas(INFO(q)) > index)
             {
-              indexUtas(INFO(p)) -= 1;
+              indexUtas(INFO(q)) -= 1;
             }
-            p = NEXT(p);
+            q = NEXT(q);
           }
-          indexUtas(INFO(p)) -= 1;
         }
         else
         {
@@ -353,28 +363,28 @@ void hapusUtas(int id, int index)
       }
       else
       {
-        printf("\nUtas tidak ditemukan!\n");
+        printf("\nAnda tidak bisa menghapus kicauan dalam utas ini!\n");
       }
     }
     else
     {
-      printf("\nAnda tidak bisa menghapus kicauan dalam utas ini!\n");
+      printf("\nAnda tidak bisa menghapus kicauan utama!\n");
     }
   }
   else
   {
-    printf("\nAnda tidak bisa menghapus kicauan utama!\n");
+    printf("\nUtas tidak ditemukan!\n");
   }
   printf("\n");
 }
 
 void displayUtas(int id)
 {
-  Kicauan kicau = searchByIdUtasKicau(id);
-  int idxtweet = searchByIdKicau(idKicau(kicau));
-  int idxuser = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, idxtweet)));
   if (idUtasValid(id))
   {
+    Kicauan kicau = searchByIdUtasKicau(id);
+    int idxtweet = searchByIdKicau(idKicau(kicau));
+    int idxuser = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, idxtweet)));
     if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, idxtweet))) || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
     {
       Address p = utasUtama(kicau);
@@ -398,7 +408,6 @@ void displayUtas(int id)
         printf("\n");
         p = NEXT(p);
       }
-      printf("\n");
     }
     else
     {
@@ -428,4 +437,16 @@ int searchByIdUtas(int id)
     }
   }
   return i;
+}
+
+void deleteListUtas(Address *utasUtama)
+{
+  Address p = *utasUtama;
+  while (p != NULL)
+  {
+    Address addrNext = NEXT(p);
+    free(p);
+    p = addrNext;
+  }
+  *utasUtama = NULL;
 }

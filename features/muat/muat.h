@@ -7,7 +7,6 @@
 #include "..//draf/draf.h"
 #include "..//balasan/balasan.h"
 
-
 void StoreDataPengguna(Word data);
 void StoreDataPertemanan(int n);
 void StoreDataPermintaan(int n);
@@ -23,10 +22,10 @@ void loadBalasan(char *path);
 void StoreDataDraf();
 void loadDraf(char *path);
 
+void StoreDataUtas(int idKicau, int n, int idtweet, List *LUtas);
 void loadUtas(char *path);
 
 void loadfirst();
 void load(Word dir);
 
 void Muat();
-

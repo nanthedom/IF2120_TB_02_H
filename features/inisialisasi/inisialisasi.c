@@ -62,6 +62,8 @@ void parseMultiCmd(Word w, Word *cmd, Word *param0, Word *param1)
     }
 }
 
+extern ListKicauan ListTweet;
+
 void prosesCmd(Word w)
 {
     Word daftar, muat, simpan, masuk, keluar, tutup_program, ganti_profil, lihat_profil, atur_jenis_akun, ubah_foto_profil, kicau, kicauan, suka_kicauan, ubah_kicauan, balas, balasan, hapus_balasan, daftar_teman, hapus_teman, buat_draf, lihat_draf, tambah_teman, setujui_pertemanan, daftar_permintaan_pertemanan, cmdUtas, sambung_utas, hapus_utas, cetak_utas;

@@ -10,6 +10,7 @@
 #include "../draf/draf.h"
 #include "../balasan/balasan.h"
 #include "../permintaan/permintaan.h"
+#include "../utas/utas.h"
 
 // Log
 extern boolean isLogin;
@@ -344,15 +345,19 @@ void loadDraf(char *path)
     inverseStack();
 }
 
-void StoreDataUtas(int idKicau, int n)
+void StoreDataUtas(int idKicau, int n, int idtweet, List *LUtas)
 {
-    int i, idx = 0;
-    Address p, q;
-    p = FIRST(utasUtama(ELMT(ListTweet, idKicau - 1)));
+    idUtasKicau(ELMTKicau(ListTweet, idtweet)) = currentIdUtas;
+    int i, idx = 1;
+    List l;
+    Address p;
+    p = utasUtama(ELMT(ListTweet, idtweet));
+    FIRST(l) = p;
     for (i = 0; i < n; i++)
     {
         Utas utas;
 
+        idUtas(utas) = currentIdUtas;
         idParent(utas) = idKicau;
         ReadLine(1);
         textUtas(utas) = currentWord;
@@ -362,13 +367,11 @@ void StoreDataUtas(int idKicau, int n)
         DATETIME dt;
         dt = WordToDT(currentWord);
         datetimeUtas(utas) = dt;
-        indexUtas(utas) = idx++;
-        q = newNodeUtas(utas);
-        p = q;
-        p = NEXT(p);
-
-        currentIdUtas++;
+        indexUtas(utas) = idx;
+        idx++;
+        insertLastUtas(&l, utas);
     }
+    *LUtas = l;
 }
 
 void loadUtas(char *path)
@@ -383,7 +386,11 @@ void loadUtas(char *path)
         int len;
         ReadLine(1);
         len = wordToInteger(currentWord);
-        StoreDataUtas(idKicau, len);
+        currentIdUtas++;
+        int idtweet = searchByIdKicau(idKicau);
+        List l;
+        StoreDataUtas(idKicau, len, idtweet, &l);
+        utasUtama(ELMT(ListTweet, idtweet)) = FIRST(l);
     }
 }
 
@@ -423,7 +430,6 @@ void load(Word dir)
     loadKicauan(pathKicauan);
     loadBalasan(pathBalasan);
     loadDraf(pathDraf);
-    printf("Load Draf\n");
     loadUtas(pathUtas);
 
     printf("File konfigurasi berhasil dimuat! Selamat berkicau!\n\n");

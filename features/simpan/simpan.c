@@ -277,7 +277,7 @@ void simpanDraf(Word path)
                 PopDraft(&tmpSDraf, &tmpDraf);
                 if (isKataEqual(authorDraf(tmpDraf), Nama(ELMT(ListUser, i))))
                 {
-                    fprintf(fconfdraf, "%s\n", textDraf(tmpDraf).TabWord);
+                    printWordToFile(textDraf(tmpDraf), fconfdraf);
                     int day = Day(datetimeDraf(tmpDraf));
                     int month = Month(datetimeDraf(tmpDraf));
                     int year = Year(datetimeDraf(tmpDraf));
@@ -317,8 +317,8 @@ void simpanUtas(Word path)
         if (utasUtama(ELMTKicau(ListTweet, j)) != NULL)
         {
             fprintf(fconfutas, "%d\n", idKicau(ELMTKicau(ListTweet, j)));
-            fprintf(fconfutas, "%d\n", lengthUtas(utasUtama(ELMTKicau(ListTweet, j))) - 1);
-            Address p = NEXT(utasUtama(ELMTKicau(ListTweet, j)));
+            fprintf(fconfutas, "%d\n", lengthUtas(utasUtama(ELMTKicau(ListTweet, j))));
+            Address p = FIRST(utasUtama(ELMTKicau(ListTweet, j)));
             while (p != NULL)
             {
                 printWordToFile(textUtas(INFO(p)), fconfutas);

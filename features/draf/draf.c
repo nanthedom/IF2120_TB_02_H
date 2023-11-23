@@ -57,13 +57,13 @@ void PopDraft(StackDraf *S, infotype *D)
   }
 }
 
-void DisplayDraf(StackDraf *S)
+void DisplayDraf(StackDraf S)
 {
   printf("\nIni draf terakhir anda:");
   printf("\n| ");
-  TulisDATETIME(datetimeDraf(InfoTop(*S)));
+  TulisDATETIME(datetimeDraf(InfoTop(S)));
   printf("\n| ");
-  printWord(textDraf(InfoTop(*S)));
+  printWord(textDraf(InfoTop(S)));
   printf("\n");
 }
 
@@ -140,7 +140,8 @@ void BuatDraf()
 
 void LihatDraf()
 {
-  if (IsDraftEmpty(SDraf))
+  swapToTop(&SDraf);
+  if (IsDraftEmpty(SDraf) || !isKataEqual(authorDraf(InfoTop(SDraf)), Nama(*currentUser)))
   {
     printf("\nYah, anda belum memiliki draf apapun! Buat dulu ya :D\n\n");
   }
@@ -153,12 +154,7 @@ void LihatDraf()
     strToWord("KEMBALI", &kembali);
     strToWord("UBAH", &ubah);
 
-    printf("\nIni draf terakhir anda:");
-    printf("\n| ");
-    TulisDATETIME(datetimeDraf(InfoTop(SDraf)));
-    printf("\n| ");
-    printWord(textDraf(InfoTop(SDraf)));
-    printf("\n");
+    DisplayDraf(SDraf);
 
     printf("\nApakah anda ingin mengubah, menghapus, atau menerbitkan draf ini? (KEMBALI jika ingin kembali)\n");
     ReadWord();
@@ -186,7 +182,10 @@ void LihatDraf()
         }
         else if (isKataEqual(currentWord, simpan))
         {
-          SimpanDraf(currentText);
+          Draf draf;
+          PopDraft(&SDraf, &draf);
+          textDraf(draf) = currentText;
+          PushDraft(&SDraf, draf);
           printf("\nDraf telah berhasil disimpan!\n\n");
         }
         else if (isKataEqual(currentWord, terbit))
@@ -242,4 +241,32 @@ void inverseStack()
     PushDraft(&tmp, D);
   }
   SDraf = tmp;
+}
+
+void swapToTop(StackDraf *S)
+{
+  StackDraf temp;
+  Draf draf;
+  boolean found = false;
+  while (!IsDraftEmpty(*S) && !found)
+  {
+    PopDraft(S, &draf);
+    if (isKataEqual(authorDraf(draf), Nama(*currentUser)))
+    {
+      found = true;
+    }
+    else
+    {
+      PushDraft(&temp, draf);
+    }
+  }
+
+  Draf tempDraf;
+  while (!IsDraftEmpty(temp))
+  {
+    PopDraft(&temp, &tempDraf);
+    PushDraft(S, tempDraf);
+  }
+
+  PushDraft(S, draf);
 }

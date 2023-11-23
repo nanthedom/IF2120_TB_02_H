@@ -78,7 +78,7 @@ void PopDraft(StackDraf *S, infotype *D);
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
 /* ************ Menampilkan sebuah elemen Stack ************ */
-void DisplayDraf(StackDraf *S);
+void DisplayDraf(StackDraf S);
 /* Menampilkan draf terakhir */
 /* I.S. S terdefinisi */
 /* F.S. Menampilkan InfoTop dari Stack Draf / draf terakhir */
@@ -99,5 +99,7 @@ void LihatDraf();
 int CountDraftUser(StackDraf SDraf, Word nama);
 
 void inverseStack();
+
+void swapToTop(StackDraf *S);
 
 #endif
