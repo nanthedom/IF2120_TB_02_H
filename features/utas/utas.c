@@ -373,6 +373,10 @@ void hapusUtas(int id, int index)
         printf("\nAnda tidak bisa menghapus kicauan dalam utas ini!\n");
       }
     }
+    else if (index <= lengthUtas(utasUtama(ELMTKicau(ListTweet, idxtweet))))
+    {
+      printf("\nIndex terlalu tinggi!\n");
+    }
     else
     {
       printf("\nAnda tidak bisa menghapus kicauan utama!\n");
