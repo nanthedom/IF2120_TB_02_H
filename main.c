@@ -35,7 +35,7 @@ Matrix matrixPermintaan;
 PrioQueue daftarPermintaan;
 
 /* Draf */
-StackDraf SDraf;
+ListDraf ListStackDraf;
 Draf draf;
 
 /* Utas */
@@ -49,7 +49,7 @@ int main()
   CreateListKicauan(&ListTweet);
   createListBalasan(&ListReply);
   CreateList(&ListUser);
-  CreateEmptyDraft(&SDraf);
+  CreateListDraf(&ListStackDraf);
   CreateAdjMatrix(20, &matrixPertemanan);
   createMatrix(0, 3, &matrixPermintaan);
 

@@ -8,6 +8,7 @@ extern Draf draf;
 extern ListKicauan ListTweet;
 extern int currentIdTweet;
 extern Pengguna *currentUser;
+extern ListPengguna ListUser;
 
 void CreateListDraf(ListDraf *l)
 {
@@ -16,7 +17,7 @@ void CreateListDraf(ListDraf *l)
   {
     StackDraf S;
     CreateEmptyDraft(&S);
-    ELMT(*l, i) = S;
+    ELMTDraf(*l, i) = S;
   }
 }
 
@@ -79,24 +80,24 @@ void DisplayDraf(StackDraf S)
   printf("\n");
 }
 
-void HapusDraf()
+void HapusDraf(StackDraf *S)
 {
   Draf topDraf;
-  PopDraft(&SDraf, &topDraf);
+  PopDraft(S, &topDraf);
 }
 
-void SimpanDraf(Word teks)
+void SimpanDraf(StackDraf *S, Word teks)
 {
   CreateDraf(&draf);
   textDraf(draf) = teks;
-  PushDraft(&SDraf, draf);
+  PushDraft(S, draf);
 }
 
-void TerbitDraf()
+void TerbitDraf(StackDraf *S)
 {
   Kicauan Kicau;
   currentIdTweet++;
-  DrafToKicau(InfoTop(SDraf), &Kicau);
+  DrafToKicau(InfoTop(*S), &Kicau);
   insertByTime(Kicau);
   printf("\nSelamat! Draf kicauan telah berhasil diterbitkan!\n");
   printf("| ID = %d", idKicau(Kicau));
@@ -127,33 +128,40 @@ void BuatDraf()
   strToWord("SIMPAN", &simpan);
   strToWord("TERBIT", &terbit);
 
+  int index = searchIdxStackPengguna(Nama(*currentUser));
+  StackDraf S = ELMTDraf(ListStackDraf, index);
+
   printf("\nMasukkan draf:\n");
   ReadWord();
   currentText = currentWord;
   printf("\nApakah anda ingin menghapus, menyimpan, atau menerbitkan draf ini?\n");
   ReadWord();
+
   if (isKataEqual(currentWord, hapus))
   {
     printf("\nDraf telah berhasil dihapus!\n");
   }
   else if (isKataEqual(currentWord, simpan))
   {
-    SimpanDraf(currentText);
+    SimpanDraf(&S, currentText);
     printf("\nDraf telah berhasil disimpan!\n");
   }
   else if (isKataEqual(currentWord, terbit))
   {
-    SimpanDraf(currentText);
-    TerbitDraf();
+    SimpanDraf(&S, currentText);
+    TerbitDraf(&S);
     Draf tempDraf;
-    PopDraft(&SDraf, &tempDraf);
+    PopDraft(&S, &tempDraf);
   }
 }
 
 void LihatDraf()
 {
-  swapToTop(&SDraf);
-  if (IsDraftEmpty(SDraf) || !isKataEqual(authorDraf(InfoTop(SDraf)), Nama(*currentUser)))
+  // swapToTop(&SDraf);
+  int index = searchIdxStackPengguna(Nama(*currentUser));
+  StackDraf S = ELMTDraf(ListStackDraf, index);
+
+  if (IsDraftEmpty(S) || !isKataEqual(authorDraf(InfoTop(S)), Nama(*currentUser)))
   {
     printf("\nYah, anda belum memiliki draf apapun! Buat dulu ya :D\n\n");
   }
@@ -166,7 +174,7 @@ void LihatDraf()
     strToWord("KEMBALI", &kembali);
     strToWord("UBAH", &ubah);
 
-    DisplayDraf(SDraf);
+    DisplayDraf(S);
 
     printf("\nApakah anda ingin mengubah, menghapus, atau menerbitkan draf ini? (KEMBALI jika ingin kembali)\n");
     ReadWord();
@@ -175,7 +183,7 @@ void LihatDraf()
     {
       if (isKataEqual(currentWord, hapus))
       {
-        HapusDraf();
+        HapusDraf(&S);
         printf("\nDraf telah berhasil dihapus!\n\n");
       }
       else if (isKataEqual(currentWord, ubah))
@@ -189,70 +197,75 @@ void LihatDraf()
         ReadWord();
         if (isKataEqual(currentWord, hapus))
         {
-          HapusDraf();
+          HapusDraf(&S);
           printf("\nDraf telah berhasil dihapus!\n\n");
         }
         else if (isKataEqual(currentWord, simpan))
         {
           Draf draf;
-          PopDraft(&SDraf, &draf);
+          PopDraft(&S, &draf);
           textDraf(draf) = currentText;
-          PushDraft(&SDraf, draf);
+          PushDraft(&S, draf);
           printf("\nDraf telah berhasil disimpan!\n\n");
         }
         else if (isKataEqual(currentWord, terbit))
         {
-          SimpanDraf(currentText);
-          TerbitDraf();
+          SimpanDraf(&S, currentText);
+          TerbitDraf(&S);
           Draf tempDraf;
-          PopDraft(&SDraf, &tempDraf);
+          PopDraft(&S, &tempDraf);
         }
       }
       else if (isKataEqual(currentWord, terbit))
       {
-        TerbitDraf();
+        TerbitDraf(&S);
         Draf tempDraf;
-        PopDraft(&SDraf, &tempDraf);
+        PopDraft(&S, &tempDraf);
       }
     }
   }
 }
 
-int CountDraftUser(StackDraf SDraf, Word nama)
+int CountDraftUser(Word nama)
 {
+  int index = searchIdxStackPengguna(nama);
+  StackDraf S = ELMTDraf(ListStackDraf, index);
   int countDraf = 0;
-  Draf top;
   StackDraf temp;
+  Draf draf;
   CreateEmptyDraft(&temp);
-  while (!IsDraftEmpty(SDraf))
+  while (!IsDraftEmpty(S))
   {
-    PopDraft(&SDraf, &top);
-    if (isKataEqual(authorDraf(top), nama))
-    {
-      countDraf++;
-    }
-    PushDraft(&temp, top);
+    PopDraft(&S, &draf);
+    countDraf++;
+    PushDraft(&temp, draf);
   }
+
   while (!IsDraftEmpty(temp))
   {
-    PopDraft(&temp, &top);
-    PushDraft(&SDraf, top);
+    PopDraft(&temp, &draf);
+    PushDraft(&S, draf);
   }
   return countDraf;
 }
 
-void inverseStack()
+void PushLoad(StackDraf *SDraf, Draf draf)
 {
-  StackDraf tmp;
-  CreateEmptyDraft(&tmp);
-  Draf D;
+  StackDraf temp;
+  CreateEmptyDraft(&temp);
+  Draf tempDraf;
 
-  while (!IsDraftEmpty(SDraf))
+  while (!IsDraftEmpty(*SDraf))
   {
-    PopDraft(&SDraf, &D);
-    PushDraft(&tmp, D);
+    PopDraft(SDraf, &tempDraf);
+    PushDraft(&temp, tempDraf);
   }
-  SDraf = tmp;
+  PushDraft(SDraf, draf);
+  while (!IsDraftEmpty(temp))
+  {
+    PopDraft(&temp, &tempDraf);
+    PushDraft(SDraf, tempDraf);
+  }
 }
 
 void swapToTop(StackDraf *S)
@@ -281,4 +294,23 @@ void swapToTop(StackDraf *S)
   }
 
   PushDraft(S, draf);
+}
+
+int searchIdxStackPengguna(Word nama)
+{
+  boolean found = false;
+  int idx = 0;
+  while (idx < length(ListUser) && !found)
+  {
+    if (isKataEqual(Nama(ELMT(ListUser, idx)), nama))
+    {
+      found = true;
+    }
+    else
+    {
+      idx++;
+    }
+  }
+
+  return idx;
 }

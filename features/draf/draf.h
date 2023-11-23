@@ -5,6 +5,7 @@
 #include "../../ADT/wordmachine/wordmachine.h"
 #include "../../ADT/datetime/datetime.h"
 #include "../kicau/kicau.h"
+#include "../pengguna/pengguna.h"
 
 #define Nil -1
 #define MaxEl 1000
@@ -49,11 +50,9 @@ typedef int IdxTypeDraf;
 typedef struct
 {
   ElTypeDraf contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
-  int lengthListDraf;
 } ListDraf;
 
-#define ELMT(l, i) (l).contents[(i)]
-#define lengthListDraf(l) (l).lengthListDraf
+#define ELMTDraf(l, i) (l).contents[(i)]
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
@@ -110,9 +109,11 @@ void BuatDraf();
 
 void LihatDraf();
 
-int CountDraftUser(StackDraf SDraf, Word nama);
+int CountDraftUser(Word nama);
 
-void inverseStack();
+void PushLoad(StackDraf *S, infotype D);
+
+int searchIdxStackPengguna(Word nama);
 
 void swapToTop(StackDraf *S);
 

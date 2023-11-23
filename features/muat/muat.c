@@ -29,7 +29,9 @@ extern Matrix matrixPermintaan;
 // Kicau
 extern int currentIdTweet;
 extern ListKicauan ListTweet;
-extern StackDraf SDraf;
+
+// Draf
+extern ListDraf ListStackDraf;
 
 // Balasan
 extern int currentIdReply;
@@ -316,6 +318,7 @@ void StoreDataDraf()
         i++;
     }
 
+    int index = searchIdxStackPengguna(nama);
     // masukin draft
     while (nDraft > 0)
     {
@@ -329,9 +332,18 @@ void StoreDataDraf()
         DATETIME dt;
         dt = WordToDT(currentWord);
         CreateDrafFile(&D, nama, text, dt);
-        PushDraft(&SDraf, D);
+        printf("\n");
+        PushLoad(&ELMTDraf(ListStackDraf, index), D);
+        printf("\n");
+        printWord(textDraf(InfoTop(ELMTDraf(ListStackDraf, index))));
+        printf("\n");
+        TulisDATETIME(datetimeDraf(InfoTop(ELMTDraf(ListStackDraf, index))));
+        printf("\n");
+        printWord(authorDraf(InfoTop(ELMTDraf(ListStackDraf, index))));
+        printf("\n");
         nDraft--;
     }
+    // inverseStack(&ELMTDraf(ListStackDraf, index));
 }
 
 void loadDraf(char *path)
@@ -342,7 +354,6 @@ void loadDraf(char *path)
     {
         StoreDataDraf();
     }
-    inverseStack();
 }
 
 void StoreDataUtas(int idKicau, int n, int idtweet, List *LUtas)
