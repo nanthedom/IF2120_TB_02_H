@@ -10,7 +10,6 @@ SRC_DATETIME = ADT/datetime/datetime.c
 SRC_CHAR = ADT/charmachine/charmachine.c
 SRC_WORD = ADT/wordmachine/wordmachine.c
 SRC_STACK = ADT/stack/stack.c
-SRC_QUEUE = ADT/queue/queue.c
 SRC_PRIO = ADT/prioqueue/prioqueue.c
 SRC_PCOLOR = ADT/pcolor/pcolor.c
 SRC_MATRIX = ADT/matrix/matrix.c
@@ -38,7 +37,6 @@ OBJ_DATETIME = $(SRC_DATETIME:.c=.o)
 OBJ_CHAR = $(SRC_CHAR:.c=.o)
 OBJ_WORD = $(SRC_WORD:.c=.o)
 OBJ_STACK = $(SRC_STACK:.c=.o)
-OBJ_QUEUE = $(SRC_QUEUE:.c=.o)
 OBJ_PRIO = $(SRC_PRIO:.c=.o)
 OBJ_PCOLOR = $(SRC_PCOLOR:.c=.o)
 OBJ_MATRIX = $(SRC_MATRIX:.c=.o)
@@ -75,7 +73,7 @@ run :
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f main_program mword mqueue test_dt test_stack test_queue test_statik mchar *.o */*/*.o
+	rm -f main_program mword testdt teststack mstatik mchar testStack testprioQueue testpcolor testMatrix testGraf testTime testLD testLL mtree *.o */*/*.o
 
 # UNIT TESTS
 
@@ -182,29 +180,6 @@ test_stack: testStack $(TEST_RESULTS_ST)
 
 $(TEST_RESULTS_ST): $(TESTS_DIR_ST)/%.result: $(TESTS_DIR_ST)/%.in $(TESTS_DIR_ST)/%.out testStack
 	@if ./testStack < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
-		echo "$< $(word 2,$^): TRUE"; \
-	else \
-		echo "$< $(word 2,$^): WRONG"; \
-	fi > $@
-
-# QUEUE
-SRC_TEST_Q = ADT/queue/tests/mqueue.c
-OBJ_TEST_Q = $(SRC_TEST_Q:.c=.o)
-
-TESTS_DIR_Q = ADT/queue/tests
-TEST_CASES_Q = $(wildcard $(TESTS_DIR_Q)/*.in)
-TEST_OUTPUTS_Q = $(TEST_CASES_Q:.in=.out)
-TEST_RESULTS_Q = $(TEST_CASES_Q:.in=.result)
-
-testQueue: $(OBJ_QUEUE) $(OBJ_TEST_Q) 
-	$(CC) $(CFLAGS) -o $@ $^
-
-
-test_queue: testQueue $(TEST_RESULTS_Q)
-	@cat $(TEST_RESULTS_Q)
-
-$(TEST_RESULTS_Q): $(TESTS_DIR_Q)/%.result: $(TESTS_DIR_Q)/%.in $(TESTS_DIR_Q)/%.out testQueue
-	@if ./testQueue < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
 		echo "$< $(word 2,$^): TRUE"; \
 	else \
 		echo "$< $(word 2,$^): WRONG"; \
