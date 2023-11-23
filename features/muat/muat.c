@@ -492,20 +492,8 @@ void clearAllBalasan()
 
 void Muat()
 {
-    clearAllKicau();   // hapus kicau dan utas di dalamnya
-    clearAllBalasan(); // hapus balasan seluruhnya
 
-    currentIdTweet = 0;
-    currentIdReply = 0;
-    currentIdUtas = 0;
-    CreateListKicauan(&ListTweet);
-    createListBalasan(&ListReply);
-    CreateList(&ListUser);
-    CreateListDraf(&ListStackDraf);
-    CreateAdjMatrix(20, &matrixPertemanan);
-    createMatrix(0, 3, &matrixPermintaan);
-
-    printf("Masukkan nama folder yang hendak dimuat.\n");
+    printf("\nMasukkan nama folder yang hendak dimuat.\n");
     ReadWord();
     Word parentPath;
     strToWord("data/", &parentPath);
@@ -517,11 +505,24 @@ void Muat()
     if (stat(path, &st) == -1)
     {
         printf("\n");
-        printf("Tidak ada folder yang dimaksud!\n");
+        printf("Tidak ada folder yang dimaksud!\n\n");
         printf("\n");
     }
     else
     {
+        clearAllKicau();   // hapus kicau dan utas di dalamnya
+        clearAllBalasan(); // hapus balasan seluruhnya
+
+        currentIdTweet = 0;
+        currentIdReply = 0;
+        currentIdUtas = 0;
+        CreateListKicauan(&ListTweet);
+        createListBalasan(&ListReply);
+        CreateList(&ListUser);
+        CreateListDraf(&ListStackDraf);
+        CreateAdjMatrix(20, &matrixPertemanan);
+        createMatrix(0, 3, &matrixPermintaan);
+
         load(completePath);
         printf("Mohon tunggu...\n1...\n2...\n3...\n\nPemuatan selesai!\n\n");
     }
