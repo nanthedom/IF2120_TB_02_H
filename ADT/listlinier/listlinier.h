@@ -10,8 +10,9 @@
 
 /* Definisi Node : */
 typedef int ElType;
-typedef struct node* Address;
-typedef struct node {
+typedef struct node *Address;
+typedef struct node
+{
     ElType info;
     Address next;
 } Node;
@@ -64,7 +65,7 @@ void insertFirst(List *l, ElType val);
 /* menambahkan elemen pertama dengan nilai val jika alokasi berhasil. */
 /* Jika alokasi gagal: I.S.= F.S. */
 
-void insertLastLinierLinier(List *l, ElType val);
+void insertLastLinier(List *l, ElType val);
 /* I.S. l mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
@@ -91,7 +92,6 @@ void deleteAt(List *l, int idx, ElType *val);
 /* F.S. val diset dengan elemen l pada indeks ke-idx. */
 /*      Elemen l pada indeks ke-idx dihapus dari l */
 
-
 /****************** PROSES SEMUA ELEMEN LIST ******************/
 void displayList(List l);
 // void printInfo(List l);
@@ -105,7 +105,7 @@ int length(List l);
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 
 /****************** PROSES TERHADAP LIST ******************/
-List concat(List l1, List l2) ;
+List concat(List l1, List l2);
 /* I.S. l1 dan l2 sembarang */
 /* F.S. l1 dan l2 kosong, l3 adalah hasil konkatenasi l1 & l2 */
 /* Konkatenasi dua buah list : l1 dan l2    */

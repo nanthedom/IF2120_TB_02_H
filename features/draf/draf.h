@@ -43,8 +43,22 @@ typedef struct
 #define Top(S) (S).TOP
 #define InfoTop(S) (S).T[(S).TOP]
 
+#define CAPACITY 20
+typedef StackDraf ElTypeDraf; /* type elemen List */
+typedef int IdxTypeDraf;
+typedef struct
+{
+  ElTypeDraf contents[CAPACITY]; /* memori tempat penyimpan elemen (container) */
+  int lengthListDraf;
+} ListDraf;
+
+#define ELMT(l, i) (l).contents[(i)]
+#define lengthListDraf(l) (l).lengthListDraf
+
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
+void CreateListDraf(ListDraf *l);
+
 void CreateDraf(Draf *D);
 /* I.S. Sembarang */
 /* F.S. Membuat sebuah draf D */

@@ -346,6 +346,30 @@ $(TEST_RESULTS_LD): $(TESTS_DIR_LD)/%.result: $(TESTS_DIR_LD)/%.in $(TESTS_DIR_L
 		echo "$< $(word 2,$^): WRONG"; \
 	fi > $@
 
+# LISTLINIER
+SRC_TEST_LL = ADT/listlinier/tests/mlistlinier.c
+OBJ_TEST_LL = $(SRC_TEST_LL:.c=.o)
+
+TESTS_DIR_LL = ADT/listlinier/tests
+TEST_CASES_LL = $(wildcard $(TESTS_DIR_LL)/*.in)
+TEST_OUTPUTS_LL = $(TEST_CASES_LL:.in=.out)
+TEST_RESULTS_LL = $(TEST_CASES_LL:.in=.result)
+
+testLL: $(OBJ_LISTLIN) $(OBJ_TEST_LL)
+	$(CC) $(CFLAGS) -o $@ $^
+
+
+test_ll: testLL $(TEST_RESULTS_LL)
+	@cat $(TEST_RESULTS_LL)
+
+$(TEST_RESULTS_LL): $(TESTS_DIR_LL)/%.result: $(TESTS_DIR_LL)/%.in $(TESTS_DIR_LL)/%.out testLL
+	@if ./testLL < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
+
+
 STDOUT = $(addprefix stdout_,$(notdir $(TEST_CASES_LD:.in=.txt)))
 
 

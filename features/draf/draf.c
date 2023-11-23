@@ -2,11 +2,23 @@
 #include "draf.h"
 #include "../../ADT/datetime/datetime.h"
 
+extern ListDraf ListStackDraf;
 extern StackDraf SDraf;
 extern Draf draf;
 extern ListKicauan ListTweet;
 extern int currentIdTweet;
 extern Pengguna *currentUser;
+
+void CreateListDraf(ListDraf *l)
+{
+  int i;
+  for (i = 0; i < CAPACITY; i++)
+  {
+    StackDraf S;
+    CreateEmptyDraft(&S);
+    ELMT(*l, i) = S;
+  }
+}
 
 void CreateDraf(Draf *D)
 {
