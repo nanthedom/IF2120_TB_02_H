@@ -62,7 +62,7 @@ void CreateListKicauan(ListKicauan *l)
     CAPACITYKicau(*l) = capacity;
 }
 
-void dealocateList()
+void dealocateListKicau()
 /* I.S. l terdefinisi; */
 /* F.S. (l) dikembalikan ke system, CAPACITY(l)=0; NEFFKicau(l)=0 */
 {

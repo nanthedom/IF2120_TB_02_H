@@ -332,18 +332,9 @@ void StoreDataDraf()
         DATETIME dt;
         dt = WordToDT(currentWord);
         CreateDrafFile(&D, nama, text, dt);
-        printf("\n");
         PushLoad(&ELMTDraf(ListStackDraf, index), D);
-        printf("\n");
-        printWord(textDraf(InfoTop(ELMTDraf(ListStackDraf, index))));
-        printf("\n");
-        TulisDATETIME(datetimeDraf(InfoTop(ELMTDraf(ListStackDraf, index))));
-        printf("\n");
-        printWord(authorDraf(InfoTop(ELMTDraf(ListStackDraf, index))));
-        printf("\n");
         nDraft--;
     }
-    // inverseStack(&ELMTDraf(ListStackDraf, index));
 }
 
 void loadDraf(char *path)
@@ -477,8 +468,43 @@ void loadfirst()
     }
 }
 
+void clearAllKicau()
+{
+    int i;
+    for (i = 0; i < countKicauan(ListTweet); i++)
+    {
+        // Hapus semua utas pada sebuah kicauan
+        deleteListUtas(&utasUtama(ELMTKicau(ListTweet, i)));
+    }
+    dealocateListKicau();
+}
+
+void clearAllBalasan()
+{
+    int i;
+    for (i = 0; i < countKicauBalasan(ListReply); i++)
+    {
+        // Hapus semua balasan pada setiap kicauan yang memiliki balasan
+        deleteTree(&content(ELMTBalas(ListReply, i)), -1, i);
+    }
+    dealocateListBalasan();
+}
+
 void Muat()
 {
+    clearAllKicau();   // hapus kicau dan utas di dalamnya
+    clearAllBalasan(); // hapus balasan seluruhnya
+
+    currentIdTweet = 0;
+    currentIdReply = 0;
+    currentIdUtas = 0;
+    CreateListKicauan(&ListTweet);
+    createListBalasan(&ListReply);
+    CreateList(&ListUser);
+    CreateListDraf(&ListStackDraf);
+    CreateAdjMatrix(20, &matrixPertemanan);
+    createMatrix(0, 3, &matrixPermintaan);
+
     printf("Masukkan nama folder yang hendak dimuat.\n");
     ReadWord();
     Word parentPath;

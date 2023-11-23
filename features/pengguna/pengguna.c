@@ -180,7 +180,7 @@ void Masuk()
     }
     else
     {
-        printf("Belum terdapat pengguna yang terdaftar. Daftar dulu yuk!\n\n");
+        printf("\nBelum terdapat pengguna yang terdaftar. Daftar dulu yuk!\n\n");
     }
 }
 

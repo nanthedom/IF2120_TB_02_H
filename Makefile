@@ -18,6 +18,7 @@ SRC_LISTSTAT = ADT/liststatik/liststatik.c
 SRC_LISTLIN = ADT/listlinier/listlinier.c
 SRC_LISTDIN = ADT/listdin/listdin.c
 SRC_GRAF = ADT/graf/graf.c
+SRC_TREE = ADT/tree/tree.c
 
 
 SRC_KICAU = features/kicau/kicau.c
@@ -45,6 +46,7 @@ OBJ_LISTST = $(SRC_LISTSTAT:.c=.o)
 OBJ_LISTLIN = $(SRC_LISTLIN:.c=.o)
 OBJ_LISTDIN = $(SRC_LISTDIN:.c=.o)
 OBJ_GRAF = $(SRC_GRAF:.c=.o)
+OBJ_TREE = $(SRC_TREE:.c=.o)
 
 OBJ_KICAU = $(SRC_KICAU:.c=.o)
 OBJ_PENGGUNA = $(SRC_PENGGUNA:.c=.o)
@@ -369,6 +371,28 @@ $(TEST_RESULTS_LL): $(TESTS_DIR_LL)/%.result: $(TESTS_DIR_LL)/%.in $(TESTS_DIR_L
 		echo "$< $(word 2,$^): WRONG"; \
 	fi > $@
 
+# TREE
+SRC_TEST_TREE = ADT/tree/tests/mtree.c
+OBJ_TEST_TREE = $(SRC_TEST_TREE:.c=.o)
+
+TESTS_DIR_TREE = ADT/tree/tests
+TEST_CASES_TREE = $(wildcard $(TESTS_DIR_TREE)/*.in)
+TEST_OUTPUTS_TREE = $(TEST_CASES_TREE:.in=.out)
+TEST_RESULTS_TREE = $(TEST_CASES_TREE:.in=.result)
+
+mtree: $(OBJ_TREE) $(OBJ_TEST_TREE) 
+	$(CC) $(CFLAGS) -o $@ $^
+
+
+test_tree: mtree $(TEST_RESULTS_TREE)
+	@cat $(TEST_RESULTS_TREE)
+
+$(TEST_RESULTS_TREE): $(TESTS_DIR_TREE)/%.result: $(TESTS_DIR_TREE)/%.in $(TESTS_DIR_TREE)/%.out mtree
+	@if ./mtree < $< | diff -Z -B - $(word 2,$^) > /dev/null; then \
+		echo "$< $(word 2,$^): TRUE"; \
+	else \
+		echo "$< $(word 2,$^): WRONG"; \
+	fi > $@
 
 STDOUT = $(addprefix stdout_,$(notdir $(TEST_CASES_LD:.in=.txt)))
 

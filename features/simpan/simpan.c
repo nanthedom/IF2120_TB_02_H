@@ -87,7 +87,6 @@ void SimpanPengguna(Word path)
     strToWord("/pengguna.config", &penggunaConfig);
     Word configPath = concatWord(path, penggunaConfig);
     wordToString(configPath, &confPath);
-    // printWord(configPath);
     userconfig = fopen(confPath, "w");
     n = length(ListUser);
     fprintf(userconfig, "%d\n", n);

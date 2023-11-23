@@ -63,6 +63,8 @@ typedef struct
 void createBalasan(Balasan *reply, int idprnt);
 /* Terbentuk balasan dengan id, text, author, dan waktu yang valid */
 
+void createEmptyBalasan(Balasan *reply);
+
 TreeNode *createNode(Balasan reply);
 /* Fungsi untuk membuat node baru dengan data tertentu */
 
@@ -129,8 +131,10 @@ void buatBalasan(int idKicau, int idBalas);
 
 void printBalasan(int idKicau);
 
-void deleteTree(TreeNode *reply, int id);
+void deleteTree(TreeNode *reply, int id, int idxtweet);
 
 void hapusBalasan(int idKicau, int idBalas);
+
+void dealocateListBalasan();
 
 #endif

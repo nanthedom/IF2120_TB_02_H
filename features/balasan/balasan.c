@@ -23,10 +23,6 @@ void CreateBalasan(Balasan *reply, int idprnt)
     datetimeBalas(*reply) = dt;
 }
 
-void CreateBalasanFile()
-{
-}
-
 void createEmptyBalasan(Balasan *reply)
 {
     Word tweet;
@@ -407,7 +403,7 @@ void printBalasan(int idKicau)
     }
 }
 
-void deleteTree(TreeNode *reply, int id)
+void deleteTree(TreeNode *reply, int id, int idxtweet)
 {
     if (reply == NULL)
     {
@@ -419,6 +415,7 @@ void deleteTree(TreeNode *reply, int id)
     TreeNode *prevChild = NULL;
     while (child != NULL)
     {
+        count(ELMTBalas(ListReply, idxtweet))--;
         TreeNode *nextChild = nextSibling(child);
         if (idBalas(ROOT(*child)) == id)
         {
@@ -436,7 +433,7 @@ void deleteTree(TreeNode *reply, int id)
         }
         else
         {
-            deleteTree(child, id);
+            deleteTree(child, id, idxtweet);
         }
         prevChild = child;
         child = nextChild;
@@ -455,8 +452,7 @@ void hapusBalasan(int idKicau, int idBalas)
             {
                 if (isKataEqual(Nama(*currentUser), authorBalas(ROOT(*found))))
                 {
-                    deleteTree(&content(ELMTBalas(ListReply, idxtweet)), idBalas);
-                    count(ELMTBalas(ListReply, idxtweet))--;
+                    deleteTree(&content(ELMTBalas(ListReply, idxtweet)), idBalas, idxtweet);
                     printf("\n");
                     printf("Balasan berhasil dihapus\n");
                     printf("\n");
@@ -488,4 +484,11 @@ void hapusBalasan(int idKicau, int idBalas)
         printf("Tidak ditemukan kicauan dengan ID = %d!\n", idKicau);
         printf("\n");
     }
+}
+
+void dealocateListBalasan()
+{
+    free(BUFFERBalas(ListReply));
+    CAPACITYBalas(ListReply) = 0;
+    NEFFBalas(ListReply) = 0;
 }

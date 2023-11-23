@@ -28,4 +28,7 @@ void loadUtas(char *path);
 void loadfirst();
 void load(Word dir);
 
+void clearAllKicau();
+void clearAllBalasan();
+
 void Muat();

@@ -9,18 +9,16 @@
 #include "../boolean/boolean.h"
 
 typedef int ElType;
-/* Tipe tree */
-typedef struct TreeNode
-{
-   ElType info;
-   struct TreeNode *child;     // Pointer ke anak pertama
-   struct TreeNode *nextchild; // Pointer ke saudara berikutnya
+typedef struct TreeNode {
+    int data;
+    struct TreeNode *firstChild;  // Pointer ke anak pertama
+    struct TreeNode *nextSibling; // Pointer ke saudara berikutnya
 } TreeNode;
 
 /* Selektor */
-#define root(p) (p).info
-#define child(p) (p).child
-#define nextchild(p) (p).nextchild
+#define root(p) (p)->data
+#define child(p) (p)->firstChild
+#define nextchild(p) (p)->nextSibling
 
 TreeNode *createNode(ElType val);
 /* Fungsi untuk membuat node baru dengan data tertentu */
@@ -30,7 +28,7 @@ TreeNode *createNode(ElType val);
    menghasilkan p, maka p↑.info=val, p↑.child=NULL, p↑.nextchild=NULL
    Jika alokasi gagal, mengirimkan NULL */
 
-boolean isTreeEmpty(TreeNode p);
+boolean isTreeEmpty(TreeNode *p);
 /* Fungsi untuk mengecek apakah pohon kosong
    Mengirimkan true jika p adalah pohon biner yang kosong */
 
@@ -41,7 +39,7 @@ boolean isOneElmt(TreeNode *p);
 void addChild(TreeNode *parent, TreeNode *child);
 /* I.S. p terdefinisi
    F.S. child menjadi cabang atau daun baru dari parent
-/* proses: menambahkan anak ke sebuah node */
+    proses: menambahkan anak ke sebuah node */
 
 void deleteTree(TreeNode *tree, ElType val);
 /* I.S. p terdefinisi

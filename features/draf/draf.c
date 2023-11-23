@@ -4,7 +4,6 @@
 
 extern ListDraf ListStackDraf;
 extern StackDraf SDraf;
-extern Draf draf;
 extern ListKicauan ListTweet;
 extern int currentIdTweet;
 extern Pengguna *currentUser;
@@ -88,6 +87,7 @@ void HapusDraf(StackDraf *S)
 
 void SimpanDraf(StackDraf *S, Word teks)
 {
+  Draf draf;
   CreateDraf(&draf);
   textDraf(draf) = teks;
   PushDraft(S, draf);
@@ -129,7 +129,6 @@ void BuatDraf()
   strToWord("TERBIT", &terbit);
 
   int index = searchIdxStackPengguna(Nama(*currentUser));
-  StackDraf S = ELMTDraf(ListStackDraf, index);
 
   printf("\nMasukkan draf:\n");
   ReadWord();
@@ -143,25 +142,24 @@ void BuatDraf()
   }
   else if (isKataEqual(currentWord, simpan))
   {
-    SimpanDraf(&S, currentText);
+    SimpanDraf(&ELMTDraf(ListStackDraf, index), currentText);
     printf("\nDraf telah berhasil disimpan!\n");
   }
   else if (isKataEqual(currentWord, terbit))
   {
-    SimpanDraf(&S, currentText);
-    TerbitDraf(&S);
+    SimpanDraf(&ELMTDraf(ListStackDraf, index), currentText);
+    TerbitDraf(&ELMTDraf(ListStackDraf, index));
     Draf tempDraf;
-    PopDraft(&S, &tempDraf);
+    PopDraft(&ELMTDraf(ListStackDraf, index), &tempDraf);
   }
 }
 
 void LihatDraf()
 {
-  // swapToTop(&SDraf);
   int index = searchIdxStackPengguna(Nama(*currentUser));
   StackDraf S = ELMTDraf(ListStackDraf, index);
 
-  if (IsDraftEmpty(S) || !isKataEqual(authorDraf(InfoTop(S)), Nama(*currentUser)))
+  if (IsDraftEmpty(S))
   {
     printf("\nYah, anda belum memiliki draf apapun! Buat dulu ya :D\n\n");
   }
@@ -183,7 +181,7 @@ void LihatDraf()
     {
       if (isKataEqual(currentWord, hapus))
       {
-        HapusDraf(&S);
+        HapusDraf(&ELMTDraf(ListStackDraf, index));
         printf("\nDraf telah berhasil dihapus!\n\n");
       }
       else if (isKataEqual(currentWord, ubah))
@@ -197,30 +195,30 @@ void LihatDraf()
         ReadWord();
         if (isKataEqual(currentWord, hapus))
         {
-          HapusDraf(&S);
+          HapusDraf(&ELMTDraf(ListStackDraf, index));
           printf("\nDraf telah berhasil dihapus!\n\n");
         }
         else if (isKataEqual(currentWord, simpan))
         {
           Draf draf;
-          PopDraft(&S, &draf);
+          PopDraft(&ELMTDraf(ListStackDraf, index), &draf);
           textDraf(draf) = currentText;
-          PushDraft(&S, draf);
+          PushDraft(&ELMTDraf(ListStackDraf, index), draf);
           printf("\nDraf telah berhasil disimpan!\n\n");
         }
         else if (isKataEqual(currentWord, terbit))
         {
-          SimpanDraf(&S, currentText);
-          TerbitDraf(&S);
+          SimpanDraf(&ELMTDraf(ListStackDraf, index), currentText);
+          TerbitDraf(&ELMTDraf(ListStackDraf, index));
           Draf tempDraf;
-          PopDraft(&S, &tempDraf);
+          PopDraft(&ELMTDraf(ListStackDraf, index), &tempDraf);
         }
       }
       else if (isKataEqual(currentWord, terbit))
       {
-        TerbitDraf(&S);
+        TerbitDraf(&ELMTDraf(ListStackDraf, index));
         Draf tempDraf;
-        PopDraft(&S, &tempDraf);
+        PopDraft(&ELMTDraf(ListStackDraf, index), &tempDraf);
       }
     }
   }
