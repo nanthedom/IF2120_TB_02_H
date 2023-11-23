@@ -254,11 +254,11 @@ void StoreDataBalasan(int idKicau, int n)
         addChild(foundNode, child);
 
         // load currentIdReply
+        currentIdReply++;
         if (currentIdReply < idbalasInt)
         {
             currentIdReply = idbalasInt;
         }
-        currentIdReply++;
     }
 }
 

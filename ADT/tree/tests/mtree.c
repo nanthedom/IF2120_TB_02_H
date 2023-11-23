@@ -38,6 +38,16 @@ int main()
             printf("not found");
         }
         break;
+    case 3:
+        if (isOneElmt(first))
+        {
+            printf("satu elemen");
+        }
+        else
+        {
+            printf("bukan satu elemen");
+        }
+        
     }
     return 0;
 }

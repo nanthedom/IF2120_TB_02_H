@@ -294,9 +294,9 @@ void buatBalasan(int idKicau, int idBalas)
         int idxuser = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, idxtweet)));
         if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, idxtweet))) || idBalas != -1 || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
         {
-            if (idbalasValid(idBalas) || idBalas == -1)
+            TreeNode *foundNode = searchTree(&content(ELMTBalas(ListReply, idKicau - 1)), idBalas);
+            if (foundNode != NULL || idBalas == -1)
             {
-                TreeNode *foundNode = searchTree(&content(ELMTBalas(ListReply, idKicau - 1)), idBalas);
                 idxuser = indexOf(ListUser, authorBalas(ROOT(*foundNode)));
                 if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorBalas(ROOT(*foundNode))) || isKataEqual(Nama(*currentUser), authorBalas(ROOT(*foundNode))))
                 {

@@ -203,6 +203,9 @@ void LihatDraf()
           Draf draf;
           PopDraft(&ELMTDraf(ListStackDraf, index), &draf);
           textDraf(draf) = currentText;
+          DATETIME dt;
+          BacaDATETIME(&dt);
+          datetimeDraf(draf) = dt;
           PushDraft(&ELMTDraf(ListStackDraf, index), draf);
           printf("\nDraf telah berhasil disimpan!\n\n");
         }

@@ -3,6 +3,7 @@
 
 int main()
 {
+  ElType val;
   int type;
   List l, l1, l2;
   scanf("%d", &type);
@@ -11,22 +12,22 @@ int main()
   {
   case 1:
     CreateListLinier(&l);
-    Address first = FIRST(l);
-    for (int i = 0; i < 3; i++)
+    if (isEmptyLinier(l))
     {
-      Address p = newNode(i);
-      NEXT(first) = p;
-      first = NEXT(first);
+      displayList(l);
     }
-    displayList(l);
+    else
+    {
+      printf("berisi");
+    }
     break;
 
   case 2:
-    ElType val;
     CreateListLinier(&l);
     insertFirst(&l, 5);
     insertFirst(&l, 2);
     deleteFirst(&l, &val);
+    displayList(l);
     break;
 
   case 3:
@@ -36,12 +37,10 @@ int main()
     insertLastLinier(&l1, 3);
     insertLastLinier(&l1, 2);
     insertLastLinier(&l1, 7);
-    displayList(l1);
 
     insertLastLinier(&l1, 5);
     insertLastLinier(&l1, 1);
     insertLastLinier(&l1, 4);
-    displayList(l2);
 
     CreateListLinier(&l);
     l = concat(l1, l2);
