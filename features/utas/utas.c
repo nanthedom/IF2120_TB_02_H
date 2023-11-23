@@ -282,46 +282,53 @@ void sambungUtas(int id, int index)
   if (idUtasValid(id))
   {
     int idxtweet = searchByIdUtas(id);
-    if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
+    if (index <= lengthUtas(utasUtama(ELMTKicau(ListTweet, idxtweet))))
     {
-      Address p = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
-      while (indexUtas(INFO(p)) != index)
+      if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
       {
-        p = NEXT(p);
-      }
-      Word currentText;
-      Utas utas;
-      if (indexUtas(INFO(p)) <= index)
-      {
-        printf("\nMasukkan kicauan:\n");
-        ReadWord();
-        currentText = currentWord;
-        CreateUtas(&utas, currentText, id, indexUtas(INFO(p)) + 1);
-        if (NEXT(p) == NULL)
+        Address p = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
+        while (indexUtas(INFO(p)) != index)
         {
-          insertLastUtas(&p, utas);
+          p = NEXT(p);
+        }
+        Word currentText;
+        Utas utas;
+        if (indexUtas(INFO(p)) <= index)
+        {
+          printf("\nMasukkan kicauan:\n");
+          ReadWord();
+          currentText = currentWord;
+          CreateUtas(&utas, currentText, id, indexUtas(INFO(p)) + 1);
+          if (NEXT(p) == NULL)
+          {
+            insertLastUtas(&p, utas);
+          }
+          else
+          {
+            Address q = newNodeUtas(utas);
+            NEXT(q) = NEXT(p);
+            NEXT(p) = q;
+            q = NEXT(q);
+            while (q != NULL)
+            {
+              indexUtas(INFO(q)) += 1;
+              q = NEXT(q);
+            }
+          }
         }
         else
         {
-          Address q = newNodeUtas(utas);
-          NEXT(q) = NEXT(p);
-          NEXT(p) = q;
-          q = NEXT(q);
-          while (q != NULL)
-          {
-            indexUtas(INFO(q)) += 1;
-            q = NEXT(q);
-          }
+          printf("\nIndex terlalu tinggi!\n");
         }
       }
       else
       {
-        printf("\nIndex terlalu tinggi!\n");
+        printf("\nAnda tidak bisa menyambung utas ini!\n");
       }
     }
     else
     {
-      printf("\nAnda tidak bisa menyambung utas ini!\n");
+      printf("\nIndex terlalu tinggi!\n");
     }
   }
   else
