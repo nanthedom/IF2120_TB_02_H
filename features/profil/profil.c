@@ -60,10 +60,11 @@ void ReadBio(Profil *P)
         ReadWord();
         bio = currentWord;
     }
-    Bio(*P) = bio;
+    if(bio.Length > 0)
+        Bio(*P) = bio;
 }
 boolean isValidNoHP(Word w){
-    return w.Length <= 15 && isNumber(w);
+    return (w.Length > 0 && w.Length <= 15 && isNumber(w)) ;
 }
 void ReadNoHP(Profil *P)
 {
@@ -71,14 +72,15 @@ void ReadNoHP(Profil *P)
     printf("\nMasukkan No HP:\n");
     ReadWord();
     noHP = currentWord;
-    while (!isValidNoHP(noHP))
+    while (noHP.Length != 0 && !isValidNoHP(noHP))
     {
         printf("\nNo HP tidak valid. Masukkan lagi yuk!\n");
         printf("\nMasukkan No HP:\n");
         ReadWord();
         noHP = currentWord;
     }
-    NoHP(*P) = noHP;
+    if(noHP.Length > 0)
+        NoHP(*P) = noHP;
 }
 
 boolean isPahing(Word weton)
@@ -346,10 +348,11 @@ void ReadWeton(Profil *P)
         strToWord("Legi", &weton);
     } else if (isKliwon(weton)){
         strToWord("Kliwon", &weton);
-    } else{
+    } else if (isWage(weton)){
         strToWord("Wage", &weton);
     }
-    Weton(*P) = weton;
+    if(weton.Length > 0)
+        Weton(*P) = weton;
 }
 
 void ReadFoto(Profil *P)

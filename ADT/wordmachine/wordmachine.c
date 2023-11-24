@@ -91,8 +91,8 @@ void ReadWord()
     else
     {
         EndWord = false;
-        CopyWord();
     }
+    CopyWord();
 }
 /* I.S. : currentChar sembarang
    F.S. : EndWord = true, dan currentChar = MARK;
