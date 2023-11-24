@@ -414,10 +414,10 @@ void hapusUtas(int id, int index)
 
 void displayUtas(int id)
 {
-  if (idUtasValid(id))
+  Kicauan kicau = searchByIdUtasKicau(id);
+  int idxtweet = searchByIdKicau(idKicau(kicau));
+  if (utasUtama(ELMTKicau(ListTweet, idxtweet)) != NULL)
   {
-    Kicauan kicau = searchByIdUtasKicau(id);
-    int idxtweet = searchByIdKicau(idKicau(kicau));
     int idxuser = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, idxtweet)));
     if (isPublic(Profil(ELMT(ListUser, idxuser))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, idxtweet))) || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
     {
