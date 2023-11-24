@@ -219,8 +219,7 @@ void printKicauan()
     int i;
     for (i = NEFFKicau(ListTweet) - 1; i >= 0; i--)
     {
-        int idx = indexOf(ListUser, authorKicau(ELMTKicau(ListTweet, i)));
-        if (isPublic(Profil(ELMT(ListUser, idx))) || isFriendsWith(authorKicau(ELMTKicau(ListTweet, i))) || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, i))))
+        if (isFriendsWith(authorKicau(ELMTKicau(ListTweet, i))) || isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, i))))
         {
             printf("| ID = %d", idKicau(ELMTKicau(ListTweet, i)));
             printf("\n| ");

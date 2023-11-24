@@ -282,27 +282,19 @@ void sambungUtas(int id, int index)
   if (idUtasValid(id))
   {
     int idxtweet = searchByIdUtas(id);
-    if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
+    if (index <= lengthUtas(utasUtama(ELMTKicau(ListTweet, idxtweet))))
     {
-      Address p = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
-      while (indexUtas(INFO(p)) != index)
+      if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
       {
-        p = NEXT(p);
-      }
-      Word currentText;
-      Utas utas;
-      if (indexUtas(INFO(p)) <= index)
-      {
-        printf("\nMasukkan kicauan:\n");
-        ReadWord();
-        currentText = currentWord;
-        CreateUtas(&utas, currentText, id, indexUtas(INFO(p)) + 1);
-        if (NEXT(p) == NULL)
+        Word currentText;
+        Utas utas;
+        Address p = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
+        if (index == 0)
         {
-          insertLastUtas(&p, utas);
-        }
-        else
-        {
+          printf("\nMasukkan kicauan:\n");
+          ReadWord();
+          currentText = currentWord;
+          CreateUtas(&utas, currentText, id, indexUtas(INFO(p)) + 1);
           Address q = newNodeUtas(utas);
           NEXT(q) = NEXT(p);
           NEXT(p) = q;
@@ -313,15 +305,50 @@ void sambungUtas(int id, int index)
             q = NEXT(q);
           }
         }
+        else
+        {
+
+          while (indexUtas(INFO(p)) != index)
+          {
+            p = NEXT(p);
+          }
+          if (indexUtas(INFO(p)) <= index)
+          {
+            printf("\nMasukkan kicauan:\n");
+            ReadWord();
+            currentText = currentWord;
+            CreateUtas(&utas, currentText, id, indexUtas(INFO(p)) + 1);
+            if (NEXT(p) == NULL)
+            {
+              insertLastUtas(&p, utas);
+            }
+            else
+            {
+              Address q = newNodeUtas(utas);
+              NEXT(q) = NEXT(p);
+              NEXT(p) = q;
+              q = NEXT(q);
+              while (q != NULL)
+              {
+                indexUtas(INFO(q)) += 1;
+                q = NEXT(q);
+              }
+            }
+          }
+          else
+          {
+            printf("\nIndex terlalu tinggi!\n");
+          }
+        }
       }
       else
       {
-        printf("\nIndex terlalu tinggi!\n");
+        printf("\nAnda tidak bisa menyambung utas ini!\n");
       }
     }
     else
     {
-      printf("\nAnda tidak bisa menyambung utas ini!\n");
+      printf("\nIndex terlalu tinggi!\n");
     }
   }
   else
@@ -337,38 +364,45 @@ void hapusUtas(int id, int index)
   {
     int idxtweet = searchByIdUtas(id);
     Address p = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
-    if (index != 0)
+    if (index <= lengthUtas(utasUtama(ELMTKicau(ListTweet, idxtweet))))
     {
-      if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
+      if (index != 0)
       {
-        if (indexUtas(INFO(p)) <= index)
+        if (isKataEqual(Nama(*currentUser), authorKicau(ELMTKicau(ListTweet, idxtweet))))
         {
-          ElTypeUtas utas;
-          deleteAtUtas(&utasUtama(ELMTKicau(ListTweet, idxtweet)), index - 1, &utas);
-          printf("\nKicauan sambungan berhasil dihapus!\n");
-          Address q = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
-          while (q != NULL)
+          if (indexUtas(INFO(p)) <= index)
           {
-            if (indexUtas(INFO(q)) > index)
+            ElTypeUtas utas;
+            deleteAtUtas(&utasUtama(ELMTKicau(ListTweet, idxtweet)), index - 1, &utas);
+            printf("\nKicauan sambungan berhasil dihapus!\n");
+            Address q = FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet)));
+            while (q != NULL)
             {
-              indexUtas(INFO(q)) -= 1;
+              if (indexUtas(INFO(q)) > index)
+              {
+                indexUtas(INFO(q)) -= 1;
+              }
+              q = NEXT(q);
             }
-            q = NEXT(q);
+          }
+          else
+          {
+            printf("\nKicauan sambungan dengan index %d tidak ditemukan pada utas!\n", index);
           }
         }
         else
         {
-          printf("\nKicauan sambungan dengan index %d tidak ditemukan pada utas!\n", index);
+          printf("\nAnda tidak bisa menghapus kicauan dalam utas ini!\n");
         }
       }
       else
       {
-        printf("\nAnda tidak bisa menghapus kicauan dalam utas ini!\n");
+        printf("\nAnda tidak bisa menghapus kicauan utama!\n");
       }
     }
     else
     {
-      printf("\nAnda tidak bisa menghapus kicauan utama!\n");
+      printf("\nIndex terlalu tinggi!\n");
     }
   }
   else
