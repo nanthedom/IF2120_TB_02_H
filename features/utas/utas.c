@@ -294,10 +294,10 @@ void sambungUtas(int id, int index)
           printf("\nMasukkan kicauan:\n");
           ReadWord();
           currentText = currentWord;
-          CreateUtas(&utas, currentText, id, indexUtas(INFO(p)) + 1);
+          CreateUtas(&utas, currentText, id, indexUtas(INFO(p)));
           Address q = newNodeUtas(utas);
-          NEXT(q) = NEXT(p);
-          NEXT(p) = q;
+          NEXT(q) = p;
+          FIRST(utasUtama(ELMTKicau(ListTweet, idxtweet))) = q;
           q = NEXT(q);
           while (q != NULL)
           {
