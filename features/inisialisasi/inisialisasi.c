@@ -52,7 +52,7 @@ void parseMultiCmd(Word w, Word *cmd, Word *param0, Word *param1)
         i++;
         j++;
         k = 0;
-        while (i < w.Length && w.TabWord[i] != BLANK)
+        while (i < w.Length && w.TabWord[i] != MARK)
         {
             (*param1).TabWord[k] = w.TabWord[i];
             i++;
@@ -267,7 +267,9 @@ void prosesCmd(Word w)
         {
             if (isLogin)
             {
-                LihatProfil(param0);
+                Word param0s; Word blank; strToWord(" ", &blank);
+                param0s = concatWord(param0,blank);
+                LihatProfil(concatWord(param0s,param1));
             }
             else
             {
